@@ -1,0 +1,12 @@
+{
+    "name": "huy/watch-daily-tv",
+    "license": "Mit",
+    "authors": [
+        {
+            "name": "Dao Van Huy",
+            "email": "dvhuy160795@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
