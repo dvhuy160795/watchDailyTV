@@ -1,12 +1,14 @@
 {
-    "name": "huy/watch-daily-tv",
-    "license": "Mit",
+    "name": "pc/wdt",
+    "license": "MIT",
     "authors": [
         {
-            "name": "Dao Van Huy",
+            "name": "dvhuy160795",
             "email": "dvhuy160795@gmail.com"
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "zendframework/zendframework1": "^1.12@dev"
+    }
 }
