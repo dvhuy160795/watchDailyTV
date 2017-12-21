@@ -1,3 +1,43 @@
-<?php $this->inlineScript()->prependFile($this->baseUrl('client/lib-js/jquery-3.2.1.min.js')); ?>
-<?php echo $this->layout()->content; ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <?php echo $this->headLink() ?>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <?php $this->headScript()->prependFile($this->baseUrl('client/lib-js/jquery-3.2.1.min.js')); ?>
+    <?php $this->inlineScript()->appendFile($this->baseUrl('client/lib-js/jquery-3.2.1.min.js')); ?>
+    <?php $this->headLink()->appendStylesheet($this->baseUrl('assets/font/font-awesome.min.css')); ?>
+    <?php $this->headLink()->appendStylesheet($this->baseUrl('assets/font/font.css')); ?>
+    <?php $this->headLink()->appendStylesheet($this->baseUrl('assets/css/responsive.css')); ?>
+    <?php $this->headLink()->appendStylesheet($this->baseUrl('assets/css/jquery.bxslider.css')); ?>
+    <?php $this->headLink()->appendStylesheet($this->baseUrl('assets/css/style.css')); ?>
+    <?php echo $this->headTitle('home') ?>
+    <?php echo $this->headScript() ?>
+    <?php echo $this->headLink()->appendStylesheet($this->baseUrl('css/layoutPage.css')); ?>
+</head>
+<body>
+<div class="body_wrapper">
+  <div class="center">
+    <div class="header_area">
+      <?php echo $this->render('header.phtml') ?>
+    </div>
+    <div class="main_menu_area">
+      
+    </div>
+    <div class="content_area">
+      <?php echo $this->layout()->content; ?>
+      <div class="sidebar floatright">
+        
+      </div>
+    </div>
+    <div class="footer_top_area">
+      
+    </div>
+    <div class="footer_bottom_area">
+      
+    </div>
+  </div>
+</div>
+
 <?php echo $this->inlineScript(); ?>
+</body>
+</html>
