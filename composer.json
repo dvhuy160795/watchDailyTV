@@ -9,6 +9,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "zendframework/zendframework1": "^1.12@dev"
+        "zendframework/zendframework1": "^1.12@dev",
+        "robmorgan/phinx": "dev-master"
     }
 }
