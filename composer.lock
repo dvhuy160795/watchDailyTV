@@ -60,12 +60,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/phinx.git",
-                "reference": "f0864db58662ea870651c992ebe77aff997519e1"
+                "reference": "b8c4fc088c0c354eab4b21791a0dcf4379ac9ae3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/phinx/zipball/f0864db58662ea870651c992ebe77aff997519e1",
-                "reference": "f0864db58662ea870651c992ebe77aff997519e1",
+                "url": "https://api.github.com/repos/cakephp/phinx/zipball/b8c4fc088c0c354eab4b21791a0dcf4379ac9ae3",
+                "reference": "b8c4fc088c0c354eab4b21791a0dcf4379ac9ae3",
                 "shasum": ""
             },
             "require": {
@@ -123,7 +123,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2017-12-20 08:27:40"
+            "time": "2017-12-23 16:53:46"
         },
         {
             "name": "symfony/config",

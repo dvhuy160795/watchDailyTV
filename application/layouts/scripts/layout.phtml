@@ -1,43 +1,277 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <?php echo $this->headLink() ?>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <?php $this->headScript()->prependFile($this->baseUrl('client/lib-js/jquery-3.2.1.min.js')); ?>
-    <?php $this->inlineScript()->appendFile($this->baseUrl('client/lib-js/jquery-3.2.1.min.js')); ?>
-    <?php $this->headLink()->appendStylesheet($this->baseUrl('assets/font/font-awesome.min.css')); ?>
-    <?php $this->headLink()->appendStylesheet($this->baseUrl('assets/font/font.css')); ?>
-    <?php $this->headLink()->appendStylesheet($this->baseUrl('assets/css/responsive.css')); ?>
-    <?php $this->headLink()->appendStylesheet($this->baseUrl('assets/css/jquery.bxslider.css')); ?>
-    <?php $this->headLink()->appendStylesheet($this->baseUrl('assets/css/style.css')); ?>
-    <?php echo $this->headTitle('home') ?>
-    <?php echo $this->headScript() ?>
-    <?php echo $this->headLink()->appendStylesheet($this->baseUrl('css/layoutPage.css')); ?>
-</head>
-<body>
-<div class="body_wrapper">
-  <div class="center">
-    <div class="header_area">
-      <?php echo $this->render('header.phtml') ?>
-    </div>
-    <div class="main_menu_area">
-      
-    </div>
-    <div class="content_area">
-      <?php echo $this->layout()->content; ?>
-      <div class="sidebar floatright">
-        
-      </div>
-    </div>
-    <div class="footer_top_area">
-      
-    </div>
-    <div class="footer_bottom_area">
-      
-    </div>
-  </div>
-</div>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Valet &mdash; Free HTML5 Bootstrap Template by FREEHTML5.co</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	<meta name="author" content="FREEHTML5.CO" />
 
-<?php echo $this->inlineScript(); ?>
-</body>
+  	<!-- 
+	//////////////////////////////////////////////////////
+
+	FREE HTML5 TEMPLATE 
+	DESIGNED & DEVELOPED by FREEHTML5.CO
+	
+	Website: 		http://freehtml5.co/
+	Email: 			info@freehtml5.co
+	Twitter: 		http://twitter.com/fh5co
+	Facebook: 	https://www.facebook.com/fh5co
+
+	//////////////////////////////////////////////////////
+	 -->
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+  	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  	<link rel="shortcut icon" href="favicon.ico">
+
+  	<!-- Google Webfont -->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css'> -->
+	<!-- Themify Icons -->
+	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/themify-icons.css'); ?>">
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/bootstrap.css') ?>">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/owl.carousel.min.css') ?>">
+	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/owl.theme.default.min.css')?>">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/magnific-popup.css')?>">
+	<!-- Superfish -->
+	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/superfish.css')?>">
+	<!-- Easy Responsive Tabs -->
+	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/easy-responsive-tabs.css') ?>">
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/animate.css') ?>">
+	<!-- Theme Style -->
+	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/style.css') ?>">
+
+	<!-- Modernizr JS -->
+	<script src="<?php echo $this->baseUrl('template/js/modernizr-2.6.2.min.js') ?>"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body>
+
+		<!-- START #fh5co-header -->
+		<header id="fh5co-header-section" role="header" class="" >
+			<?php  echo $this->render('header.phtml');?>
+		</header>
+		
+		
+		<div id="fh5co-hero" style="background-image: url(<?php echo $this->baseUrl('template/images/slide_2.jpg')?>);">
+			<div class="overlay"></div>
+			<a href="#fh5co-main" class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i class="ti-angle-down"></i></a>
+			<!-- End fh5co-arrow -->
+			<div class="container">
+				<div class="col-md-12">
+					<div class="fh5co-hero-wrap">
+						<div class="fh5co-hero-intro">
+							<h1 class="to-animate hero-animate-1">Valet Multi-Purpose Free HTML5 Bootstrap Template</h1>
+							<h2 class="to-animate hero-animate-2">Created by <a href="http://freehtml5.co" target="_blank">FREEHTML5.co</a></h2>
+							<p class="to-animate hero-animate-3"><a href="#" class="btn btn-outline btn-md">Sign up</a></p>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+
+		<div id="fh5co-main">
+			<?php
+		echo $this->layout()->content; 
+	?>
+			<div class="fh5co-cards">
+				<div class="container-fluid">
+					<div class="row animate-box">
+						<div class="col-md-12 heading text-center"><h2>Outstanding Products</h2></div>
+					</div>
+					<div class="row">
+						<div class="col-lg-3 col-md-6 col-sm-6 animate-box">
+							<a class="fh5co-card" href="#">
+								<img src="<?php echo $this->baseUrl('template/images/img_large_1.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
+								<div class="fh5co-card-body">
+									<h3>Web Developer</h3>
+									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-6 animate-box">
+							<a class="fh5co-card" href="#">
+								<img src="<?php echo $this->baseUrl('template/images/img_large_2.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
+								<div class="fh5co-card-body">
+									<h3>User Experience</h3>
+									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-6 animate-box">
+							<a class="fh5co-card" href="#">
+								<img src="<?php echo $this->baseUrl('template/images/img_large_2.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
+								<div class="fh5co-card-body">
+									<h3>Web Designer</h3>
+									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-6 animate-box">
+							<a class="fh5co-card" href="#">
+								<img src="<?php echo $this->baseUrl('template/images/img_large_3.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
+								<div class="fh5co-card-body">
+									<h3>Web Analyst</h3>
+									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				
+				<div class="row text-center" id="fh5co-features">
+					<div class="col-md-12 heading animate-box"><h2>Awesome Features</h2></div>
+					<div class="col-md-4 col-sm-6 text-center fh5co-feature feature-box">
+						<div class="fh5co-feature-icon">
+							<i class="ti-mobile"></i>
+						</div>
+						<h3 class="heading">Mobile</h3>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
+					</div>
+					<div class="col-md-4 col-sm-6 text-center fh5co-feature feature-box"> 
+						<div class="fh5co-feature-icon">
+							<i class="ti-lock"></i>
+						</div>
+						<h3 class="heading">Lock</h3>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam. </p>
+					</div>
+
+					<div class="clearfix visible-sm-block"></div>
+
+					<div class="col-md-4 col-sm-6 text-center fh5co-feature feature-box"> 
+						<div class="fh5co-feature-icon">
+							<i class="ti-video-camera"></i>
+						</div>
+						<h3 class="heading">Video</h3>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
+					</div>
+
+					<div class="clearfix visible-md-block visible-lg-block"></div>
+
+					<div class="col-md-4 col-sm-6 text-center fh5co-feature feature-box">
+						<div class="fh5co-feature-icon">
+							<i class="ti-shopping-cart"></i>
+						</div>
+						<h3 class="heading">Shop</h3>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam. </p>
+					</div>
+
+					<div class="clearfix visible-sm-block"></div>
+
+					<div class="col-md-4 col-sm-6 text-center fh5co-feature feature-box"> 
+						<div class="fh5co-feature-icon">
+							<i class="ti-palette"></i>
+						</div>
+						<h3 class="heading">Pallete</h3>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
+					</div>
+					<div class="col-md-4 col-sm-6 text-center fh5co-feature feature-box"> 
+						<div class="fh5co-feature-icon">
+							<i class="ti-truck"></i>
+						</div>
+						<h3 class="heading">Deliver</h3>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
+					</div>
+				</div>
+				<!-- END row -->
+				
+			</div>
+			<!-- END container -->
+
+			<div class="animate-box fh5co-product-2">
+				<div class="fh5co-half img" style="background-image: url(<?php echo $this->baseUrl('template/images/img_large_6.jpg')?>);">
+					
+				</div>
+				<div class="fh5co-half">
+					<h3>This is Symbol</h3>
+					<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. </p>
+					<p><a href="#" class="btn btn-outline btn-md">Get Started</a></p>
+				</div>
+			</div>
+
+			<div id="fh5co-testimonial">
+
+					<div class="container">
+				<div class="row">
+					<!-- Start Slider Testimonial -->
+	            <h2 class="fh5co-uppercase-heading-sm text-center animate-box">Customer Says...</h2>
+	            <div class="fh5co-spacer fh5co-spacer-xs"></div>
+	            <div class="owl-carousel-fullwidth animate-box">
+	            <div class="item">
+	              <p class="text-center quote">&ldquo;Design must be functional and functionality must be translated into visual aesthetics, without any reliance on gimmicks that have to be explained. &rdquo; <cite class="author">&mdash; Ferdinand A. Porsche</cite></p>
+	            </div>
+	            <div class="item">
+	              <p class="text-center quote">&ldquo;Creativity is just connecting things. When you ask creative people how they did something, they feel a little guilty because they didn’t really do it, they just saw something. It seemed obvious to them after a while. &rdquo;<cite class="author">&mdash; Steve Jobs</cite></p>
+	            </div>
+	            <div class="item">
+	              <p class="text-center quote">&ldquo;I think design would be better if designers were much more skeptical about its applications. If you believe in the potency of your craft, where you choose to dole it out is not something to take lightly. &rdquo;<cite class="author">&mdash; Frank Chimero</cite></p>
+	            </div>
+	          </div>
+	           <!-- End Slider Testimonial -->
+
+				</div>
+				<!-- END row -->
+				</div>
+			</div>
+
+		
+		</div>
+		<!-- END fhtco-main -->
+
+
+		<footer role="contentinfo" id="fh5co-footer">
+			<?php echo $this->render('footer.phtml'); ?>
+		</footer>
+			
+			
+		<!-- jQuery -->
+		<script src="<?php echo $this->baseUrl('template/js/jquery-1.10.2.min.js')?>"></script>
+		<!-- jQuery Easing -->
+		<script src="<?php echo $this->baseUrl('template/js/jquery.easing.1.3.js')?>"></script>
+		<!-- Bootstrap -->
+		<script src="<?php echo $this->baseUrl('template/js/bootstrap.js')?>"></script>
+		<!-- Owl carousel -->
+		<script src="<?php echo $this->baseUrl('template/js/owl.carousel.min.js')?>"></script>
+		<!-- Magnific Popup -->
+		<script src="<?php echo $this->baseUrl('template/js/jquery.magnific-popup.min.js')?>"></script>
+		<!-- Superfish -->
+		<script src="<?php echo $this->baseUrl('template/js/hoverIntent.js')?>"></script>
+		<script src="<?php echo $this->baseUrl('template/js/superfish.js')?>"></script>
+		<!-- Easy Responsive Tabs -->
+		<script src="<?php echo $this->baseUrl('template/js/easyResponsiveTabs.js')?>"></script>
+		<!-- FastClick for Mobile/Tablets -->
+		<script src="<?php echo $this->baseUrl('template/js/fastclick.js')?>"></script>
+		<!-- Waypoints -->
+		<script src="<?php echo $this->baseUrl('template/js/jquery.waypoints.min.js')?>"></script>
+		<!-- Main JS -->
+		<script src="<?php echo $this->baseUrl('template/js/main.js')?>"></script>
+
+	</body>
 </html>
+
