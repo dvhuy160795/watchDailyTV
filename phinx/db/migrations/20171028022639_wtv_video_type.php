@@ -33,6 +33,7 @@ class WtvVideoType extends AbstractMigration
                 ->addColumn('video_type_id','integer')
                 ->addColumn('video_type_code','string',['limit'=>100,'null' => false])
                 ->addColumn('video_type_title','string',['limit'=>1000,'null' => false])
+                ->addColumn('video_is_deleted','boolean',['default'=>0,'null' => false])
                 ->addColumn('created','date')
                 ->save();
     }

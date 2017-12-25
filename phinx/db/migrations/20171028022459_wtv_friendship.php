@@ -35,6 +35,7 @@ class WtvFriendship extends AbstractMigration
                 ->addColumn('friendship_user_apply_code','string',['limit'=>100,'null' => false])
                 ->addColumn('friendship_message','string',['limit'=>300,'null' => false])
                 ->addColumn('friendship_status','boolean',['default' => 0,'null' => false])
+                ->addColumn('friendship_is_deleted','boolean',['default'=>0,'null' => false])
                 ->addColumn('created','date')
                 ->save();
     }

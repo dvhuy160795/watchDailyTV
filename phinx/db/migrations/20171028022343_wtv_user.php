@@ -47,6 +47,7 @@ class WtvUser extends AbstractMigration
                 ->addColumn('user_url_background','string',['limit'=>300,'null' => false])
                 ->addColumn('user_jog_present','string',['limit'=>300,'null' => false])
                 ->addColumn('user_type_account','integer',['default'=>0,'null' => false])
+                ->addColumn('user_is_deleted','boolean',['default'=>0,'null' => false])
                 ->addColumn('created','date')
                 ->save();
     }

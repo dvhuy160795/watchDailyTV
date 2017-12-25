@@ -3,7 +3,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class WtvVideoGroup extends AbstractMigration
+class WdtPermissionUser extends AbstractMigration
 {
     /**
      * Change Method.
@@ -28,14 +28,13 @@ class WtvVideoGroup extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_video_group',['id' => false, 'primary_key' => ['video_group_id']]);
+        $tableAdmin=$this-> table('wtv_permission',['id' => false, 'primary_key' => ['permission_id']]);
         $tableAdmin
-                ->addColumn('video_group_id','integer')
-                ->addColumn('video_group_video_code','string',['limit'=>100,'null' => false])
-                ->addColumn('video_group_group_code','string',['limit'=>100,'null' => false])
-                ->addColumn('video_group_status','boolean',['default'=>0,'null' => false])
-                ->addColumn('video_is_deleted','boolean',['default'=>0,'null' => false])
+                ->addColumn('permission_id','integer')
+                ->addColumn('permission_code','string',['limit'=>100,'null' => false])
+                ->addColumn('permission_list_permission','string',['limit'=>1000,'null' => false])
                 ->addColumn('created','date')
+                ->addColumn('update','date')
                 ->save();
     }
 }

@@ -34,6 +34,7 @@ class WtvKeyword extends AbstractMigration
                 ->addColumn('keyword_code','string',['limit'=>100,'null' => false])
                 ->addColumn('keyword_video_code','string',['limit'=>100,'null' => false])
                 ->addColumn('keyword_list_keyword','string',['limit'=>10000,'null' => false])
+                ->addColumn('keyword_is_deleted','boolean',['default'=>0,'null' => false])
                 ->addColumn('created','date')
                 ->save();
     }

@@ -35,6 +35,7 @@ class WtvMessage extends AbstractMigration
                 ->addColumn('message_group_chat_code','string',['limit'=>100,'null' => false])
                 ->addColumn('message_user_code','string',['limit'=>100,'null' => false])
                 ->addColumn('message_content','string',['limit'=>1000,'null' => false])
+                ->addColumn('message_is_deleted','boolean',['default'=>0,'null' => false])
                 ->addColumn('created','date')
                 ->addColumn('update','date')
                 ->addColumn('delete','date')

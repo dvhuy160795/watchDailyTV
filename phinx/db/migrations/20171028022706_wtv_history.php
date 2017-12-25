@@ -34,6 +34,7 @@ class WtvHistory extends AbstractMigration
                 ->addColumn('history_code','string',['limit'=>100,'null' => false])
                 ->addColumn('history_user_code','string',['limit'=>100,'null' => false])
                 ->addColumn('history_param','string',['limit'=>10000,'null' => false])
+                ->addColumn('history_is_deleted','boolean',['default'=>0,'null' => false])
                 ->addColumn('created','date')
                 ->save();
     }

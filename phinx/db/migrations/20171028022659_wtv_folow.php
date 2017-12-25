@@ -34,6 +34,7 @@ class WtvFolow extends AbstractMigration
                 ->addColumn('follow_code','string',['limit'=>100,'null' => false])
                 ->addColumn('follow_send_user_code','string',['limit'=>100,'null' => false])
                 ->addColumn('follow_apply_user_code','string',['limit'=>100,'null' => false])
+                ->addColumn('follow_is_deleted','boolean',['default'=>0,'null' => false])
                 ->addColumn('delete','date')
                 ->addColumn('created','date')
                 ->save();

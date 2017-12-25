@@ -35,6 +35,7 @@ class WtvListManagerPeople extends AbstractMigration
                 ->addColumn('manager_group_group_code','string',['limit'=>100,'null' => false])
                 ->addColumn('manager_group_user_code','string',['limit'=>100,'null' => false])
                 ->addColumn('manager_group_type','string',['limit'=>10000,'null' => false])
+                ->addColumn('manager_is_deleted','boolean',['default'=>0,'null' => false])
                 ->addColumn('created','date')
                 ->save();
     }

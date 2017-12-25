@@ -35,6 +35,7 @@ class WtvHistoryActionToVideo extends AbstractMigration
                 ->addColumn('action_on_video_video_code','string',['limit'=>100,'null' => false])
                 ->addColumn('action_on_video_user_code','string',['limit'=>100,'null' => false])
                 ->addColumn('action_on_video_action_type','integer',['default'=>0,'null' => false])
+                ->addColumn('action_is_deleted','boolean',['default'=>0,'null' => false])
                 ->addColumn('created','date')
                 ->save();
     }

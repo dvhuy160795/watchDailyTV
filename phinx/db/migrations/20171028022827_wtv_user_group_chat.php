@@ -35,6 +35,7 @@ class WtvUserGroupChat extends AbstractMigration
                 ->addColumn('user_group_chat_group_chat_code','string',['limit'=>100,'null' => false])
                 ->addColumn('user_group_chat_user_code','string',['limit'=>100,'null' => false])
                 ->addColumn('user_group_chat_type_join','integer',['null' => false])
+                ->addColumn('group_is_deleted','boolean',['default'=>0,'null' => false])
                 ->addColumn('created','date')
                 ->save();
     }

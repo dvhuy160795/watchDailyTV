@@ -35,6 +35,7 @@ class WtvGroup extends AbstractMigration
                 ->addColumn('group_creater_user_code','string',['limit'=>100,'null' => false])
                 ->addColumn('group_title','string',['limit'=>300,'null' => false])
                 ->addColumn('group_status','boolean',['default'=>0,'null' => false])
+                ->addColumn('group_is_deleted','boolean',['default'=>0,'null' => false])
                 ->addColumn('created','date')
                 ->save();
     }
