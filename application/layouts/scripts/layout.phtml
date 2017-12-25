@@ -59,7 +59,8 @@
 	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/animate.css') ?>">
 	<!-- Theme Style -->
 	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/style.css') ?>">
-
+        <!-- js for page -->
+        <link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/style.css') ?>">
 	<!-- Modernizr JS -->
 	<script src="<?php echo $this->baseUrl('template/js/modernizr-2.6.2.min.js') ?>"></script>
 	<!-- FOR IE9 below -->
@@ -69,7 +70,6 @@
 
 	</head>
 	<body>
-
 		<!-- START #fh5co-header -->
 		<header id="fh5co-header-section" role="header" class="" >
 			<?php  echo $this->render('header.phtml');?>
@@ -81,10 +81,7 @@
 			<a href="#fh5co-main" class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i class="ti-angle-down"></i></a>
 			<!-- End fh5co-arrow -->
 			<div class="container-fluid">
-                            <div class="row animate-box">
-                                <div class="col-md-12 heading text-center"><h2>Outstanding Products</h2></div>
-                            </div>
-                            <div class="row">
+                            <div class="row" style="margin-top:200px">
                                 <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
                                     <a class="fh5co-card" href="#">
                                         <img src="<?php echo $this->baseUrl('template/images/img_large_1.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
@@ -321,7 +318,7 @@
 		<script src="<?php echo $this->baseUrl('template/js/jquery.waypoints.min.js')?>"></script>
 		<!-- Main JS -->
 		<script src="<?php echo $this->baseUrl('template/js/main.js')?>"></script>
-
+                <!-- js for page -->
 	</body>
 </html>
 
