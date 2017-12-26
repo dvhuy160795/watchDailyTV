@@ -60,7 +60,7 @@
 	<!-- Theme Style -->
 	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/style.css') ?>">
         <!-- js for page -->
-        <link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/style.css') ?>">
+        <link rel="stylesheet" href="<?php echo $this->baseUrl() .'/client/'.$_SESSION["paramUrl"]["module"].'/'.$_SESSION["paramUrl"]["controller"].'/'.$_SESSION["paramUrl"]["action"].'/style.css' ?>">
 	<!-- Modernizr JS -->
 	<script src="<?php echo $this->baseUrl('template/js/modernizr-2.6.2.min.js') ?>"></script>
 	<!-- FOR IE9 below -->
