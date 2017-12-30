@@ -16,7 +16,8 @@ class UserController extends Zend_Controller_Action
     
     public function loginAction() {
         //$this->_helper->layout->disableLayout();
-        echo "adsa";
+        //var_dump($this->view->_response);die;
+        $this->getResponse()->appendBody(Zend_Json::encode("1111"));
     }
 }
 
