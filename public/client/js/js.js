@@ -1,16 +1,96 @@
-var ROOT_URL = "http://localhost/watchDailyTV/public/";
+var Default = {
+    closePopup : function () {
+        $("#box-popup").html('');
+        $("#box-popup").css('display','none');
+    }
+}
 var User = {
+    fileType :"",
+    fileSize : 0,
+    fileName : "",
     showPopupLogin : function () {
-        var url = ROOT_URL + "User/login";
+        var url = ROOT_URL + "/User/login";
         var data = {};
         $.ajax({
             url:url,
             data:data,
-            success: function(data){alert(data)},
-            errror: function() {alert(2)}
+            success: function(data){
+                $('#box-popup').html(data);
+                $('#box-popup').css('display','block');
+            },
+            errror: function() {
+                alert('error')
+            }
         });
-        document.getElementById('id01').style.display='block'
     },
+    showPopupRegister : function () {
+        var url = ROOT_URL + "/User/register";
+        var data = {};
+        $.ajax({
+            url:url,
+            data:data,
+            success: function(data){
+                $('#box-popup').html("");
+                $('#box-popup').html(data);
+                $('#box-popup').css('display','block');
+            },
+            errror: function() {
+                alert('error')
+            }
+        });
+    },
+    loadImg : function (input){
+        var $avatarUser = $('#avatarUser');
+        var reader = new FileReader();
+
+        User.fileSize = input.files[0].size;
+        User.fileType = input.files[0].type;
+
+        reader.onload = function (e) {
+            $avatarUser.attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    },
+    checkRegisterAction : function () {
+        var frm = $('#formRegister');
+        var $arrTypeFileCondition = [
+                "image/png",
+                "image/gif",
+                "image/jpg",
+                "image/jpeg"
+            ];
+        var fileTypeInArr = jQuery.inArray(User.fileType,$arrTypeFileCondition);
+        var url = ROOT_URL + "/User/checkexistuser";
+
+        frm.submit(function (e) {
+            e.preventDefault();
+            if (User.fileSize > 2000) {
+                alert("file size need <= 2000kb!");
+                return;
+            }
+            if (fileTypeInArr == -1) {
+                alert(" file type is wrong!!");
+                return;
+            }
+            $.ajax({
+                type: frm.attr('method'),
+                url: url,
+                data: frm.serialize(),
+                success: function (data) {
+                    console.log('Submission was successful.');
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                    console.log(data);
+                },
+            });
+        });
+    },
+    checkLoginAction :function () {
+        var url = ROOT_URL + ""
+    },
+
 };
 
 

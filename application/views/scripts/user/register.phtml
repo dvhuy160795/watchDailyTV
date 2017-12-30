@@ -1,0 +1,42 @@
+<form id="formRegister" class="modal-content-register animate" action="/action_page.php">
+  <div class="imgcontainer">
+  	<img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" alt="Avatar" class="avatar" id="avatarUser">
+    <span onclick="Default.closePopup('formLogin')" class="close" title="Close Modal">&times;</span>
+    <input style="margin-left: 44%" type="file" id="inputAvatarUpload" name="avatarUser" onchange="User.loadImg(this)">
+  </div>
+  <div class="container-model-50p fleft">
+    <label><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="userName" required>
+
+    <label><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+    <label><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="userName" required>
+
+    <label><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+  </div>
+  <div class="container-model-50p fleft">
+    <label><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="userName" required>
+
+    <label><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+    <label><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="userName" required>
+
+    <label><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+  </div>
+  <div class="container-model" style="background-color:#f1f1f1">
+    <button type="submit" onclick="User.checkRegisterAction()">Register</button>
+    <input type="checkbox" checked="checked"> Remember me
+  </div>
+  <div id="list_message_error">
+    
+  </div>
+  <div class="container-model" style="background-color:#f1f1f1">
+    <button type="button" onclick="Default.closePopup('formLogin')" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  </div>
+</form>
