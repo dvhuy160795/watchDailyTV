@@ -59,8 +59,10 @@
 	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/animate.css') ?>">
 	<!-- Theme Style -->
 	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/style.css') ?>">
-        <!-- js for page -->
-        <link rel="stylesheet" href="<?php echo $this->baseUrl() .'/client/'.$_SESSION["paramUrl"]["module"].'/'.$_SESSION["paramUrl"]["controller"].'/'.$_SESSION["paramUrl"]["action"].'/style.css' ?>">
+    <!-- css ui -->
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('client/lib-css/jquery-ui.css') ?>">
+    <!-- js for page -->
+    <link rel="stylesheet" href="<?php echo $this->baseUrl() .'/client/'.$_SESSION["paramUrl"]["module"].'/'.$_SESSION["paramUrl"]["controller"].'/'.$_SESSION["paramUrl"]["action"].'/style.css' ?>">
     <!-- set base url js-->
     <script type="text/javascript">
     	var ROOT_URL = "<?php echo $this->baseUrl(); ?>";
@@ -306,6 +308,11 @@
 			
 		<!-- jQuery -->
 		<script src="<?php echo $this->baseUrl('template/js/jquery-1.10.2.min.js')?>"></script>
+        <!--jquery form-->
+        <script src="<?php echo $this->baseUrl('client/lib-js/jquery.form.js')?>"></script>
+
+        <!-- jquery-ui -->
+        <script src="<?php echo $this->baseUrl('client/lib-js/jquery-ui.min.js')?>"></script>
 		<!-- jQuery Easing -->
 		<script src="<?php echo $this->baseUrl('template/js/jquery.easing.1.3.js')?>"></script>
 		<!-- Bootstrap -->
@@ -325,20 +332,20 @@
 		<script src="<?php echo $this->baseUrl('template/js/jquery.waypoints.min.js')?>"></script>
 		<!-- Main JS -->
 		<script src="<?php echo $this->baseUrl('template/js/main.js')?>"></script>
-                <script src="<?php echo $this->baseUrl('client/js/js.js') ?>"></script>
-                <!-- js for page -->
-                <script src="<?php echo $this->baseUrl() .'/client/'.$_SESSION["paramUrl"]["module"].'/'.$_SESSION["paramUrl"]["controller"].'/'.$_SESSION["paramUrl"]["action"].'/js.js' ?>"></script>
-                <script>
-                // Get the modal
-                var modal = document.getElementById('box-popup');
+        <script src="<?php echo $this->baseUrl('client/js/js.js') ?>"></script>
+        <!-- js for page -->
+        <script src="<?php echo $this->baseUrl() .'/client/'.$_SESSION["paramUrl"]["module"].'/'.$_SESSION["paramUrl"]["controller"].'/'.$_SESSION["paramUrl"]["action"].'/js.js' ?>"></script>
+        <script>
+            // Get the modal
+            var modal = document.getElementById('box-popup');
 
-                // When the user clicks anywhere outside of the modal, close it
-                window.onclick = function(event) {
-                    if (event.target == modal) {
-                        Default.closePopup();
-                    }
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    Default.closePopup();
                 }
-                </script>
+            }
+        </script>
 	</body>
 </html>
 

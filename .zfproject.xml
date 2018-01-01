@@ -27,6 +27,7 @@
           <dbTableFile dbTableName="User"/>
           <dbTableFile dbTableName="Video"/>
         </dbTableDirectory>
+        <modelFile modelName="Logic"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="Admin">

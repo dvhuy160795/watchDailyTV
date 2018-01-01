@@ -2,6 +2,16 @@ var Default = {
     closePopup : function () {
         $("#box-popup").html('');
         $("#box-popup").css('display','none');
+    },
+
+    setDateTimeByYear : function (eYear){
+        console.log(eYear.value);
+    },
+    setDateTimeByMonth : function (eMonth){
+        console.log(eMonth.value);
+    },
+    setDateTimeByDate : function (eDate){
+        console.log(eDate.value);
     }
 }
 var User = {
@@ -52,7 +62,7 @@ var User = {
         reader.readAsDataURL(input.files[0]);
     },
     checkRegisterAction : function () {
-        var frm = $('#formRegister');
+        var $form = $('#formRegister');
         var $arrTypeFileCondition = [
                 "image/png",
                 "image/gif",
@@ -62,35 +72,26 @@ var User = {
         var fileTypeInArr = jQuery.inArray(User.fileType,$arrTypeFileCondition);
         var url = ROOT_URL + "/User/checkexistuser";
 
-        frm.submit(function (e) {
-            e.preventDefault();
-            if (User.fileSize > 2000) {
-                alert("file size need <= 2000kb!");
-                return;
+        var strUrl = {            
+                url: url,            
+                type: 'post',
+                dataType: "json",            
+                data: {},            
+                success: function(data) {                
+                    console.log(data);       
+                },            
+                error: function() {                
+                    alert('0');
+                }
             }
-            if (fileTypeInArr == -1) {
-                alert(" file type is wrong!!");
-                return;
-            }
-            $.ajax({
-                type: frm.attr('method'),
-                url: url,
-                data: frm.serialize(),
-                success: function (data) {
-                    console.log('Submission was successful.');
-                    console.log(data);
-                },
-                error: function (data) {
-                    console.log('An error occurred.');
-                    console.log(data);
-                },
-            });
-        });
+        $form.ajaxForm(strUrl); 
     },
     checkLoginAction :function () {
         var url = ROOT_URL + ""
     },
 
 };
+//auto load js
+
 
 

@@ -1,32 +1,54 @@
-<form id="formRegister" class="modal-content-register animate" action="/action_page.php">
+<link rel="stylesheet" href="<?php echo $this->baseUrl() .'/client/'.strtolower($this->res["module"]).'/'.strtolower($this->res["controller"]).'/'.strtolower($this->res["action"]).'/style.css' ?>">
+<form id="formRegister" class="modal-content-register animate" enctype="multipart/form-data">
   <div class="imgcontainer">
   	<img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" alt="Avatar" class="avatar" id="avatarUser">
     <span onclick="Default.closePopup('formLogin')" class="close" title="Close Modal">&times;</span>
     <input style="margin-left: 44%" type="file" id="inputAvatarUpload" name="avatarUser" onchange="User.loadImg(this)">
   </div>
   <div class="container-model-50p fleft">
-    <label><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="userName" required>
+    <label><b>First Name</b><font style="color: red"> *</font></label><div id="user_first_name_is_true"></div>
+    <input type="text" class="input100p"
+	    name="user[user_first_name]" 
+	    id="user_first_name" 
+	    required
+	>
 
-    <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-    <label><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="userName" required>
+    <label><b>Last Name</b><font style="color: red"> *</font></label><div id="user_last_name_is_true"></div>
+    <input type="text" class="input100p"
+	    name="user[user_last_name]" 
+	    id="user_last_name" 
+	    required
+	>
 
-    <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <label><b>Username</b><font style="color: red"> *</font></label><div id="user_login_name_is_true"></div>
+    <input type="text" class="input100p"
+	    name="user[user_login_name]" 
+	    id="user_login_name" 
+	    required
+	>
+
   </div>
   <div class="container-model-50p fleft">
-    <label><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="userName" required>
+    <label><b>Email</b><font style="color: red"> *</font></label><div id="user_email_is_true"></div>
+    <input type="text"  class="input100p"
+	    name="user[user_email]" 
+	    id="user_email" 
+	    required
+    >
 
-    <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-    <label><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="userName" required>
+    <label><b>Password</b><font style="color: red"> *</font></label><div id="user_login_pass_confirm_is_true"></div>
+    <input type="password" class="input100p"
+	    name="user_login_pass_confirm" 
+	    id="user_login_pass_confirm" 
+	    required
+    >
 
-    <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <label><b>Confirm Password</b><font style="color: red"> *</font></label><div id="user_login_pass_is_true"></div>
+    <input type="password" class="input100p"
+	    name="user[user_login_pass]" 
+	    id="user_login_pass" 
+	    required
+    >
   </div>
   <div class="container-model" style="background-color:#f1f1f1">
     <button type="submit" onclick="User.checkRegisterAction()">Register</button>
@@ -40,3 +62,4 @@
     <span class="psw">Forgot <a href="#">password?</a></span>
   </div>
 </form>
+<script src="<?php echo $this->baseUrl() .'/client/'.strtolower($this->res["module"]).'/'.strtolower($this->res["controller"]).'/'.strtolower($this->res["action"]).'/js.js' ?>"></script>

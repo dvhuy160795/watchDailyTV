@@ -1,5 +1,5 @@
 /* Full-width input fields */
-input[type=text], input[type=password] {
+.input100p {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -7,7 +7,54 @@ input[type=text], input[type=password] {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-
+.input80p {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.input20p {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.select28p {
+    width: 28%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.box20p {
+    width: 20%;
+    padding: 12px 20px;
+    float: left;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.box80p {
+    width: 80%;
+    display: inline-block;
+    box-sizing: border-box;
+}
+.checkResult {
+    float: right;
+    height: 29px;
+    width: 29px;
+    background-image: url('/watchDailyTV/public/client/image/user/true.png');
+    background-size: 29px 29px;
+}
+.bor-red {
+    border-color: red;
+}
 /* Set a style for all buttons */
 button {
     background-color: #4CAF50;
