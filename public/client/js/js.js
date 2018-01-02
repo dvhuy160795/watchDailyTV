@@ -63,13 +63,6 @@ var User = {
     },
     checkRegisterAction : function () {
         var $form = $('#formRegister');
-        var $arrTypeFileCondition = [
-                "image/png",
-                "image/gif",
-                "image/jpg",
-                "image/jpeg"
-            ];
-        var fileTypeInArr = jQuery.inArray(User.fileType,$arrTypeFileCondition);
         var url = ROOT_URL + "/User/checkexistuser";
 
         var strUrl = {            
@@ -77,11 +70,21 @@ var User = {
                 type: 'post',
                 dataType: "json",            
                 data: {},            
-                success: function(data) {                
-                    console.log(data);       
+                success: function(data) {
+                    //reset
+                    $("#formRegister input").removeClass('bor-red');
+                    $("#list_message_error").html("");
+                    if (data.intIsOk == -2) {
+                        $("#list_message_error").html(data.message);
+                        $.each(data.arrItemError, function(key,value){
+                            $("#" + value).addClass('bor-red');
+                        });
+                    } else {
+                        
+                    }  
                 },            
                 error: function() {                
-                    alert('0');
+                    alert('error');
                 }
             }
         $form.ajaxForm(strUrl); 

@@ -52,6 +52,11 @@
     background-image: url('/watchDailyTV/public/client/image/user/true.png');
     background-size: 29px 29px;
 }
+#list_message_error {
+    margin-left: 5px;
+    color: red;
+    font-weight: bold;
+}
 .bor-red {
     border-color: red;
 }
