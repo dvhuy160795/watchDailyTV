@@ -65,7 +65,7 @@
     <link rel="stylesheet" href="<?php echo $this->baseUrl() .'/client/'.$_SESSION["paramUrl"]["module"].'/'.$_SESSION["paramUrl"]["controller"].'/'.$_SESSION["paramUrl"]["action"].'/style.css' ?>">
     <!-- set base url js-->
     <script type="text/javascript">
-    	var ROOT_URL = "<?php echo $this->baseUrl(); ?>";
+    	var ROOT_URL = "<?php echo $this->baseUrl(); ?>" + "/index.php";
     </script>
 	<!-- Modernizr JS -->
 	<script src="<?php echo $this->baseUrl('template/js/modernizr-2.6.2.min.js') ?>"></script>

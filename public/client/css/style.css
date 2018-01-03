@@ -23,6 +23,13 @@
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+.w40p{
+    width: 40%
+}
+
+.w30p{
+    width: 30%
+}
 .select28p {
     width: 28%;
     padding: 12px 20px;
