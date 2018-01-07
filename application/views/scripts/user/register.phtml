@@ -9,13 +9,13 @@
     <label><b>First Name</b><font style="color: red"> *</font></label><div id="user_first_name_is_true"></div>
     <input type="text" class="input100p"
 	    name="user[user_first_name]" 
-	    id="user_first_name" 
+	    id="user_first_name" value="<?php echo isset($_COOKIE['user_first_name']) ? $_COOKIE['user_first_name'] : ""; ?>" 
 	    required
 	>
 
     <label><b>Last Name</b><font style="color: red"> *</font></label><div id="user_last_name_is_true"></div>
     <input type="text" class="input100p"
-	    name="user[user_last_name]" 
+	    name="user[user_last_name]" value="<?php echo isset($_COOKIE['user_last_name']) ? $_COOKIE['user_last_name'] : ""; ?>"
 	    id="user_last_name" 
 	    required
 	>
@@ -23,7 +23,7 @@
     <label><b>Username</b><font style="color: red"> *</font></label><div id="user_login_name_is_true"></div>
     <input type="text" class="input100p"
 	    name="user[user_login_name]" 
-	    id="user_login_name" 
+	    id="user_login_name" value="<?php echo isset($_COOKIE['user_login_name']) ? $_COOKIE['user_login_name'] : ""; ?>"
 	    required
 	>
 
@@ -32,31 +32,28 @@
     <label><b>Email</b><font style="color: red"> *</font></label><div id="user_email_is_true"></div>
     <input type="text"  class="input100p"
 	    name="user[user_email]" 
-	    id="user_email" 
+	    id="user_email" value="<?php echo isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : ""; ?>"
 	    required
     >
 
     <label><b>Confirm Password</b><font style="color: red"> *</font></label><div id="user_login_pass_is_true"></div>
     <input type="password" class="input100p"
 	    name="user[user_login_pass]" 
-	    id="user_login_pass" 
+	    id="user_login_pass" value="<?php echo isset($_COOKIE['user_login_pass']) ? $_COOKIE['user_login_pass'] : ""; ?>"
 	    required
     >
     
     <label><b>Password</b><font style="color: red"> *</font></label><div id="user_login_pass_confirm_is_true"></div>
     <input type="password" class="input100p"
 	    name="user_login_pass_confirm" 
-	    id="user_login_pass_confirm" 
+	    id="user_login_pass_confirm" value="<?php echo isset($_COOKIE['user_login_pass_confirm']) ? $_COOKIE['user_login_pass_confirm'] : ""; ?>"
 	    required
     >
   </div>
   <div class="container-model" style="background-color:#f1f1f1">
-    <div>
-      <h2>Type code from your email</h2>
-      <input type="text" class="w30p" name="codeByEmail" id="codeByEmail">
-    </div>
     <button type="submit" onclick="User.checkRegisterAction()">Register</button>
     <input type="checkbox" checked="checked"> Remember me
+    <img id="imgLoading" style="display: none; margin-left: 31%; width: 100px" src="<?php echo $this->baseUrl('/template/images/loading.gif') ?>">
   </div>
   <div id="list_message_error">
     

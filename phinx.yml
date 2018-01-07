@@ -10,7 +10,7 @@ environments:
         host: localhost
         name: watchtv
         user: root
-        pass: ''
+        pass: '1'
         port: 3306
         charset: utf8
 
@@ -19,7 +19,7 @@ environments:
         host: localhost
         name: watchtv
         user: root
-        pass: ''
+        pass: '1'
         port: 3306
         charset: utf8
 
@@ -28,7 +28,7 @@ environments:
         host: localhost
         name: watchtv
         user: root
-        pass: ''
+        pass: '1'
         port: 3306
         charset: utf8
 

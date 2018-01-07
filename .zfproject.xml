@@ -26,6 +26,7 @@
         <dbTableDirectory>
           <dbTableFile dbTableName="User"/>
           <dbTableFile dbTableName="Video"/>
+          <dbTableFile dbTableName="Group"/>
         </dbTableDirectory>
         <modelFile modelName="Logic"/>
       </modelsDirectory>

@@ -4,10 +4,15 @@ class UserController extends Zend_Controller_Action
 {
     private $_message = "";
     private $_intIsOk = 1;
+    protected $_db;
+    protected $_builder;
+    protected $_logic;
 
     public function init()
     {
-        /* Initialize action controller here */
+        $this->_db = new Application_Model_DbTable_User();
+        $this->_builder = new Application_Model_Builder_User();
+        $this->_logic = new Application_Model_Logic();
     }
 
     public function indexAction()
@@ -29,11 +34,11 @@ class UserController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
         $file = new Zend_File_Transfer();
-        $logic = new Application_Model_Logic();
 
         $params = $this->_request->getParams();
         $fileInfo = $file->getFileInfo();
-        
+        var_dump($fileInfo);die;
+        $aryUserInfo = $params['user'];
         $arrItemError = [];
         $arrTypeFileCondition = [
             "image/png",
@@ -41,6 +46,7 @@ class UserController extends Zend_Controller_Action
             "image/jpg",
             "image/jpeg"
         ];
+        // validate form
         if (!empty($fileInfo)) {
             if (!in_array($fileInfo['avatarUser']['type'],$arrTypeFileCondition)){
                 $this->_message .= "type image alias invalid!"."<br>";
@@ -65,7 +71,7 @@ class UserController extends Zend_Controller_Action
             $this->_message .= "login name must be 8 characters and include uppercase, lowercase, and number!"."<br>";
             array_push($arrItemError, 'user_login_name');
         }
-        if (!$logic->validateMail($params['user']['user_email'])) {
+        if (!$this->_logic->validateMail($params['user']['user_email'])) {
             $this->_message .= "user email invalid!"."<br>";
             array_push($arrItemError, 'user_email');
         }
@@ -80,15 +86,41 @@ class UserController extends Zend_Controller_Action
             $this->_message .="Passwords must be 8 characters and include uppercase, lowercase, and number"."<br>";
             array_push($arrItemError, 'user_login_pass');
         }
-        
+    
         
         if ($this->_message != "") {
             $this->_intIsOk = -2; //err valdate
+            goto GOTO_LINE;
         }
+        //check exist user and mail
+        $aryUserExist = [];
+        $userMail = $params['user']['user_email'];
+        $aryConditionUserExist = [
+            'user_login_name' => $params['user']['user_login_name']
+        ];
+
+        if ($this->_db->getUserByMailAndMoreByOR($aryUserExist,$aryConditionUserExist,$userMail)) {
+            array_push($arrItemError, 'user_login_name');
+            array_push($arrItemError, 'user_email');
+            $this->_message = "Register name or email address used !!".PHP_EOL."Please choose a different name or different email !";
+            $this->_intIsOk = -2; //err valdate
+            goto GOTO_LINE;
+        }
+
+        //validate success
         if ($this->_intIsOk == 1){
+            $params['codeByEmail'] = rand(100000,999999);
+            $this->_builder->setAryCookieBeforeCheckCodeEmail($params);
             $huyLib = new HuyLib_Mail();
-            $huyLib->send();
+            $isSendMailSuccess = $huyLib->sendMailRegisterUser($params['user']['user_email'], $params['codeByEmail']);
+            //send mail faild
+            if (!$isSendMailSuccess) {
+                $this->_intIsOk = -2;
+                $this->_message = "Have problems sending mail !!";
+                goto GOTO_LINE;
+            }
         }
+        GOTO_LINE:
         $arrReponse = [
             "arrItemError" => $arrItemError,
             "message" => $this->_message,
@@ -96,9 +128,37 @@ class UserController extends Zend_Controller_Action
         ];
         echo json_encode($arrReponse);
     }
-    
-    public function confirmmailcodeAction($param) {
+
+    public function showpopupcheckcodeAction () {
+        $this->_helper->layout->disableLayout();
+    }
+
+    public function checkregistercodesendedbymailAction () {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $params = $this->_request->getParams();
         
+        if (isset($_COOKIE['user_code_register']) && $_COOKIE['user_code_register'] === hash("sha256",trim($params['codeByEmail'])) ) {
+            $aryUserForm = $_COOKIE;
+            $this->_builder->buildDataBeforeInsertUser($aryUserForm,$params);
+            $newIdUser = "";
+            $err = [];
+            $this->_db->insertNewUser($aryUserForm, $newIdUser, $err);
+
+            foreach ($_COOKIE as $key => $value) {
+                setcookie($key,"", time() - 360);
+            }
+            $intIsOk = true;
+        } else {
+            setcookie("user_code_register","", time() - 360);
+            $this->_message = "Code invalid!!!";
+            $intIsOk = false;
+        }
+        $respon = [
+            "intIsOk" => $intIsOk,
+            "message" => $this->_message
+        ];
+        echo json_encode($respon);
     }
 }
 

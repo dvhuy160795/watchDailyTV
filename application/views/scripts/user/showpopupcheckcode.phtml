@@ -1,0 +1,19 @@
+<form id="formCheckCode" class="modal-content animate" action="/action_page.php">
+  <div class="imgcontainer">
+    <span onclick="Default.closePopup('formLogin')" class="close" title="Close Modal">&times;</span>
+  </div>
+
+  <div class="container-model">
+    <label><b>Type code from your email</b></label>
+  	<input type="text" class="w100p" name="codeByEmail" id="codeByEmail">
+    <button type="submit" onclick="User.checkRegisterCodeSendedByMail()">Complete</button>
+    <div><a href="#" onclick="User.showPopupRegister()">Register?</a></div>
+  </div>
+  <div id="list_message_error">
+    
+  </div>
+  <div class="container-model" style="background-color:#f1f1f1">
+    <button type="button" onclick="Default.closePopup('formLogin')" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  </div>
+</form>
