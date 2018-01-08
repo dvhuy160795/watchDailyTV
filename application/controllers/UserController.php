@@ -5,13 +5,15 @@ class UserController extends Zend_Controller_Action
     private $_message = "";
     private $_intIsOk = 1;
     protected $_db;
-    protected $_builder;
+    protected $_builderUser;
+    protected $_builderAttachment;
     protected $_logic;
 
     public function init()
     {
         $this->_db = new Application_Model_DbTable_User();
-        $this->_builder = new Application_Model_Builder_User();
+        $this->_builderUser = new Application_Model_Builder_User();
+        $this->_builderAttachment = new Application_Model_Builder_Attachment();
         $this->_logic = new Application_Model_Logic();
     }
 
@@ -37,7 +39,7 @@ class UserController extends Zend_Controller_Action
 
         $params = $this->_request->getParams();
         $fileInfo = $file->getFileInfo();
-        var_dump($fileInfo);die;
+        
         $aryUserInfo = $params['user'];
         $arrItemError = [];
         $arrTypeFileCondition = [
@@ -110,7 +112,8 @@ class UserController extends Zend_Controller_Action
         //validate success
         if ($this->_intIsOk == 1){
             $params['codeByEmail'] = rand(100000,999999);
-            $this->_builder->setAryCookieBeforeCheckCodeEmail($params);
+            $this->_builderUser->setAryCookieBeforeCheckCodeEmail($params);
+            $this->_builderAttachment->setCookieToAryAttachment($fileInfo);
             $huyLib = new HuyLib_Mail();
             $isSendMailSuccess = $huyLib->sendMailRegisterUser($params['user']['user_email'], $params['codeByEmail']);
             //send mail faild
@@ -140,7 +143,7 @@ class UserController extends Zend_Controller_Action
         
         if (isset($_COOKIE['user_code_register']) && $_COOKIE['user_code_register'] === hash("sha256",trim($params['codeByEmail'])) ) {
             $aryUserForm = $_COOKIE;
-            $this->_builder->buildDataBeforeInsertUser($aryUserForm,$params);
+            $this->_builderUser->buildDataBeforeInsertUser($aryUserForm,$params);
             $newIdUser = "";
             $err = [];
             $this->_db->insertNewUser($aryUserForm, $newIdUser, $err);

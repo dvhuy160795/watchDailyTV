@@ -1,12 +1,12 @@
 <?php
 
-class Application_Model_Builder_User
+class Application_Model_Builder_Attachment
 {
 	protected $_HuyLibCookie;
 	public function __construct() {
 		
 	}
-	public function buildDataBeforeInsertUser (&$aryData, $aryParams) {
+	public function buildDataBeforeInsertAttachment (&$aryData, $aryParams) {
 		$libDataBase =  new HuyLib_DataBase();
 		$code = $libDataBase->buildCodeInsertByDateTime();
 		$aryMiss = [
@@ -32,9 +32,8 @@ class Application_Model_Builder_User
 		return $intIsOk = 1;
 	}
 
-	public function setAryCookieBeforeCheckCodeEmail($params) {
+	public function setCookieToAryAttachment($params) {
 		$this->_HuyLibCookie = new HuyLib_Cookie();
-		$params['user']['user_code_register'] = $params['codeByEmail'];
-		$this->_HuyLibCookie->setNewCookieForSendMailInFiveMinute($params['user']);
+		$this->_HuyLibCookie->setNewCookieForSendMailInFiveMinute($params);
 	}
 }

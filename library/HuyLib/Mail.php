@@ -6,11 +6,11 @@ class HuyLib_Mail extends Zend_Controller_Plugin_Abstract
     private $_mailSenderDefaultPass = "dvh160795";
     
     public function sendMail($fromAddress = [], $aryListToAddress = [], $bodyHtml = "", $subject = "" ) {
-      $mail = new Zend_Mail();
-    	
-      $userNameAddressFrom = isset($fromAddress['usernameaddress']) ? $fromAddress['usernameaddress'] : $this->_mailSenderDefaultAddress;
-      $userPassFrom = isset($fromAddress['userpass']) ? $fromAddress['userpass'] : $this->_mailSenderDefaultPass;
-      $userNameFrom = isset($fromAddress['username']) ? $fromAddress['username'] : $this->_mailSenderDefaultNameAddress;
+        $mail = new Zend_Mail();
+
+        $userNameAddressFrom = isset($fromAddress['usernameaddress']) ? $fromAddress['usernameaddress'] : $this->_mailSenderDefaultAddress;
+        $userPassFrom = isset($fromAddress['userpass']) ? $fromAddress['userpass'] : $this->_mailSenderDefaultPass;
+        $userNameFrom = isset($fromAddress['username']) ? $fromAddress['username'] : $this->_mailSenderDefaultNameAddress;
   		$config = array(
               'ssl'      => 'ssl',
               'auth'     => 'login',
@@ -19,10 +19,10 @@ class HuyLib_Mail extends Zend_Controller_Plugin_Abstract
               'port'     => 465
           );
 
-  		$transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
-  		$sendNow   = 
-  		$mail ->setBodyHtml($bodyHtml)
-            //->setFrom($this->_mailSenderDefaultAddress,$this->_mailSenderDefaultNameAddress)
+            $transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
+            $sendNow   = 
+            $mail ->setBodyHtml($bodyHtml)
+            ->setFrom($this->_mailSenderDefaultAddress,$this->_mailSenderDefaultNameAddress)
             ->addTo($aryListToAddress)
             ->setSubject($subject)
             ->addHeader('X-MailGenerator', 'MyCoolApplication');

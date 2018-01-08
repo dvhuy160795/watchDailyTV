@@ -100,7 +100,7 @@ var User = {
                             $("#" + value).addClass('bor-red');
                         });
                     } else {
-                        setTimeout(User.showPopupCheckCodeSendedByEmail(), 7000);;
+                        User.showPopupCheckCodeSendedByEmail();
                     }  
                 },            
                 error: function() {                
