@@ -4,17 +4,21 @@ class UserController extends Zend_Controller_Action
 {
     private $_message = "";
     private $_intIsOk = 1;
-    protected $_db;
+    protected $_dbUser;
     protected $_builderUser;
     protected $_builderAttachment;
+    protected $_dbAttachment;
     protected $_logic;
+    protected $_libAttachment;
 
     public function init()
     {
-        $this->_db = new Application_Model_DbTable_User();
+        $this->_dbUser = new Application_Model_DbTable_User();
         $this->_builderUser = new Application_Model_Builder_User();
         $this->_builderAttachment = new Application_Model_Builder_Attachment();
+        $this->_dbAttachment = new Application_Model_DbTable_Attachment;
         $this->_logic = new Application_Model_Logic();
+        $this->_libAttachment = new HuyLib_AttachmentFile();
     }
 
     public function indexAction()
@@ -98,10 +102,11 @@ class UserController extends Zend_Controller_Action
         $aryUserExist = [];
         $userMail = $params['user']['user_email'];
         $aryConditionUserExist = [
-            'user_login_name' => $params['user']['user_login_name']
+            'user_login_name' => $params['user']['user_login_name'],
+            'user_is_deleted' => 1
         ];
 
-        if ($this->_db->getUserByMailAndMoreByOR($aryUserExist,$aryConditionUserExist,$userMail)) {
+        if ($this->_dbUser->getUserByMailAndMoreByOR($aryUserExist,$aryConditionUserExist,$userMail)) {
             array_push($arrItemError, 'user_login_name');
             array_push($arrItemError, 'user_email');
             $this->_message = "Register name or email address used !!".PHP_EOL."Please choose a different name or different email !";
@@ -114,14 +119,15 @@ class UserController extends Zend_Controller_Action
             $params['codeByEmail'] = rand(100000,999999);
             $this->_builderUser->setAryCookieBeforeCheckCodeEmail($params);
             $this->_builderAttachment->setCookieToAryAttachment($fileInfo);
-            // $huyLib = new HuyLib_Mail();
-            // $isSendMailSuccess = $huyLib->sendMailRegisterUser($params['user']['user_email'], $params['codeByEmail']);
-            // //send mail faild
-            // if (!$isSendMailSuccess) {
-            //     $this->_intIsOk = -2;
-            //     $this->_message = "Have problems sending mail !!";
-            //     goto GOTO_LINE;
-            // }
+            $this->_libAttachment->SaveAttachmentFile($params['controller']);
+            $huyLib = new HuyLib_Mail();
+            $isSendMailSuccess = $huyLib->sendMailRegisterUser($params['user']['user_email'], $params['codeByEmail']);
+            //send mail faild
+            if (!$isSendMailSuccess) {
+                $this->_intIsOk = -2;
+                $this->_message = "Have problems sending mail !!";
+                goto GOTO_LINE;
+            }
         }
         GOTO_LINE:
         $arrReponse = [
@@ -141,13 +147,6 @@ class UserController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender(true);
         $params = $this->_request->getParams();
         
-        $aryAttachment = [
-                'attachment_url_source' => APPLICATION_PATH."/temp/".$params['module']."/".$params['controller']."/".$_COOKIE['name'],
-                'attachment_file_name' => $_COOKIE['name'],
-                'attachment_size' => $_COOKIE['size'],
-                'attachment_type' => $_COOKIE['type'],
-            ];
-            $this->_builderAttachment->buildDataBeforeInsertAttachment($aryAttachment,$params);
         if (isset($_COOKIE['user_code_register']) && $_COOKIE['user_code_register'] === hash("sha256",trim($params['codeByEmail'])) ) {
             //insert to wdt_user
             $aryUserForm = [
@@ -161,11 +160,26 @@ class UserController extends Zend_Controller_Action
             $this->_builderUser->buildDataBeforeInsertUser($aryUserForm,$params);
             $newIdUser = "";
             $err = [];
-            $this->_db->insertNewUser($aryUserForm, $newIdUser, $err);
+            $this->_dbUser->insertNewUser($aryUserForm, $newIdUser, $err);
 
             //insert to wtv_attachment
-            
-
+            $nameFile = isset($_COOKIE['name']) ? $_COOKIE['name'] : "";
+            $sizeFile = isset($_COOKIE['size']) ? $_COOKIE['size'] : "";
+            $typeFile = isset($_COOKIE['type']) ? $_COOKIE['type'] : "";
+            $aryAttachment = [
+                'attachment_url_source' => APPLICATION_PATH."/temp/".$params['module']."/".$params['controller']."/".$nameFile,
+                'attachment_file_name' => $nameFile,
+                'attachment_size' => $sizeFile,
+                'attachment_type' => $typeFile,
+                'attachment_type_upload_code' => "1",
+            ];
+            $newIdAttachment = "";
+            $errAttachment = [];
+            $this->_builderAttachment->buildDataBeforeInsertAttachment($aryAttachment,$params);
+            $insertOk = $this->_dbAttachment->insertAttachment($aryAttachment,$newIdAttachment,$errAttachment);
+            if ($insertOk != 1) {
+                var_dump($errAttachment);
+            }
             foreach ($_COOKIE as $key => $value) {
                 setcookie($key,"", time() - 360);
             }
