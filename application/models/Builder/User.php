@@ -34,7 +34,7 @@ class Application_Model_Builder_User
 
 	public function setAryCookieBeforeCheckCodeEmail($params) {
 		$this->_HuyLibCookie = new HuyLib_Cookie();
-		$params['user']['user_code_register'] = $params['codeByEmail'];
-		$this->_HuyLibCookie->setNewCookieForSendMailInFiveMinute($params['user']);
+		$mailCode['user_code_register'] = $params['codeByEmail'];
+		$this->_HuyLibCookie->setCookieFiveMinute($params['user'],$mailCode);
 	}
 }

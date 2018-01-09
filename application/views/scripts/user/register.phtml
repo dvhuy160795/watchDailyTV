@@ -1,7 +1,6 @@
-<link rel="stylesheet" href="<?php echo $this->baseUrl() .'/client/'.strtolower($this->res["module"]).'/'.strtolower($this->res["controller"]).'/'.strtolower($this->res["action"]).'/style.css' ?>">
 <form id="formRegister" class="modal-content-register animate" enctype="multipart/form-data">
   <div class="imgcontainer">
-  	<img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" alt="Avatar" class="avatar" id="avatarUser">
+  	<img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" alt="Avatar" style="height: 105px" class="avatar" id="avatarUser">
     <span onclick="Default.closePopup('formLogin')" class="close" title="Close Modal">&times;</span>
     <input style="margin-left: 44%" type="file" id="inputAvatarUpload" name="avatarUser" onchange="User.loadImg(this)">
   </div>
@@ -63,4 +62,3 @@
     <span class="psw">Forgot <a href="#">password?</a></span>
   </div>
 </form>
-<script src="<?php echo $this->baseUrl() .'/client/'.strtolower($this->res["module"]).'/'.strtolower($this->res["controller"]).'/'.strtolower($this->res["action"]).'/js.js' ?>"></script>

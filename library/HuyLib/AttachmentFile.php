@@ -10,6 +10,7 @@ class AttachmentFile
         }
         //set path dir
         $upload->setDestination(APPLICATION_PATH."/temp/".$aryFile['dir']);
+
         //upload to path dir
         $upload->receive();
     }
