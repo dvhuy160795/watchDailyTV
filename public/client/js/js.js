@@ -68,6 +68,22 @@ var User = {
             }
         });
     },
+    showForgotPassword : function () {
+        var url = ROOT_URL + "/User/showpopupforgotpassword";
+        var data = {};
+        $.ajax({
+            url:url,
+            data:data,
+            success: function(data){
+                $('#box-popup').html("");
+                $('#box-popup').html(data);
+                $('#box-popup').css('display','block');
+            },
+            errror: function() {
+                alert('error')
+            }
+        });
+    },
     loadImg : function (input){
         var $avatarUser = $('#avatarUser');
         var reader = new FileReader();
@@ -109,6 +125,7 @@ var User = {
             }
         $form.ajaxForm(strUrl); 
     },
+
     checkRegisterCodeSendedByMail : function() {
         var $form = $('#formCheckCode');
         var url = ROOT_URL + "/User/checkregistercodesendedbymail";
@@ -131,9 +148,33 @@ var User = {
             }
         $form.ajaxForm(strUrl); 
     },
+
     checkLoginAction :function () {
         var url = ROOT_URL + ""
     },
+
+    sendMailForgotPassword : function () {
+        var $form = $('#formForgotPassword');
+        var url = ROOT_URL + "/User/sendmailforgotpassword";
+        var strUrl = {            
+                url: url,            
+                type: 'post',
+                dataType: "json",            
+                data: {},            
+                success: function(data) {
+                    if (data.intIsOk == false) {
+                        alert(data.message);
+                        //User.showPopupRegister();
+                    } else{
+                        //User.showPopupLogin();
+                    }
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            }
+        $form.ajaxForm(strUrl); 
+    }
 
 };
 //auto load js

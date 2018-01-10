@@ -36,7 +36,6 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
     	foreach ($condition as $key => $value) {
     		$where .= $this->_db->quoteInto(" or ".$key." = ?",$value);
     	}
-    	
     	$sql = $this->_db->select()->from($this->_name)->where($where);
     	$aryUser = $this->_db->fetchRow($sql);
 		if (empty($aryUser)) {
@@ -45,6 +44,22 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
 			return true;
 		}
     }
+
+    public function getUserByMailAndMoreByAND (&$aryUser = null , $condition = null, $email) {
+        $where = $this->_db->quoteInto('user_email = ?',$email);
+        foreach ($condition as $key => $value) {
+            $where .= $this->_db->quoteInto(" AND ".$key." = ?",$value);
+        }
+        
+        $sql = $this->_db->select()->from($this->_name)->where($where);
+        $aryUser = $this->_db->fetchRow($sql);
+        if (empty($aryUser)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public function getMultiUser () {
 
     }

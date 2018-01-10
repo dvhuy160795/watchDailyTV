@@ -1,4 +1,4 @@
-<form id="formLogin" class="modal-content animate" action="/action_page.php">
+<form id="formLogin" class="modal-content animate">
   <div class="imgcontainer">
     <span onclick="Default.closePopup('formLogin')" class="close" title="Close Modal">&times;</span>
     <img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" alt="Avatar" class="avatar">
@@ -19,7 +19,7 @@
     
   </div>
   <div class="container-model" style="background-color:#f1f1f1">
-    <button type="button" onclick="Default.closePopup('formLogin')" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
+    <button type="submit" onclick="Default.closePopup('formLogin')" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="#" onclick="User.showForgotPassword()">password?</a></span>
   </div>
 </form>

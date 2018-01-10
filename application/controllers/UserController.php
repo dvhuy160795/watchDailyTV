@@ -83,8 +83,7 @@ class UserController extends Zend_Controller_Action
         }
         if (strlen($params['user']['user_login_pass']) >= 8 && preg_match("/[a-zA-Z0-9]/", $params['user']['user_login_pass'])) {
             if ($params['user']['user_login_pass'] !== $params['user_login_pass_confirm']) {
-                $this->_message .=" user login pass and user login pass confirm are dissimilarity
-    !"."<br>";
+                $this->_message .=" user login pass and user login pass confirm are dissimilarity !"."<br>";
                 array_push($arrItemError, 'user_login_pass');
                 array_push($arrItemError, 'user_login_pass_confirm');
             }
@@ -103,7 +102,6 @@ class UserController extends Zend_Controller_Action
         $userMail = $params['user']['user_email'];
         $aryConditionUserExist = [
             'user_login_name' => $params['user']['user_login_name'],
-            'user_is_deleted' => 1
         ];
 
         if ($this->_dbUser->getUserByMailAndMoreByOR($aryUserExist,$aryConditionUserExist,$userMail)) {
@@ -139,6 +137,10 @@ class UserController extends Zend_Controller_Action
     }
 
     public function showpopupcheckcodeAction () {
+        $this->_helper->layout->disableLayout();
+    }
+
+    public function showpopupforgotpasswordAction () {
         $this->_helper->layout->disableLayout();
     }
 
@@ -194,6 +196,21 @@ class UserController extends Zend_Controller_Action
             "message" => $this->_message
         ];
         echo json_encode($respon);
+    }
+
+    public function sendmailforgotpasswordAction () {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        $params = $this->_request->getParams();
+
+        if ($this->_dbUser->getUserByMailAndMoreByAND($aryUserExist,$aryConditionUserExist,$userMail)) {
+            array_push($arrItemError, 'user_login_name');
+            array_push($arrItemError, 'user_email');
+            $this->_message = "Register name or email address used !!".PHP_EOL."Please choose a different name or different email !";
+            $this->_intIsOk = -2; //err valdate
+            goto GOTO_LINE;
+        }
     }
 }
 
