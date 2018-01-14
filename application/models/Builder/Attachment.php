@@ -24,7 +24,9 @@ class Application_Model_Builder_Attachment
 			unset($params['avatarUser']['received']);
 			unset($params['avatarUser']['filtered']);
 			unset($params['avatarUser']['validators']);
-			
+			if (!empty($params['avatarUser'])) {
+				$params['avatarUser']['isAttachment'] = true;
+			}
 			$this->_HuyLibCookie->setCookieFiveMinute($params['avatarUser'],[]);
 		}
 	}

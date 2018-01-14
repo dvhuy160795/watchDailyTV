@@ -17,8 +17,22 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
     	}
     }
 
-    public function updateUser () {
-
+    public function updateUserByCode ($aryUserUpdate = [],$condition = [], $code,&$err) {
+        try {
+            $where = "user_code = "."'".$code."'";
+            if ($condition != []) {
+                foreach ($condition as $key => $value) {
+                    $where .= " AND ".$key." = ".$value;
+                }
+            }
+            
+            $intIsOk = $this->_db->update($this->_name,$aryUserUpdate,$where);
+            return $intIsOk;
+        }
+        catch (Zend_Db_Exception $e) {
+            $err = $e->getMessage();
+            return $intIsOk = -2;
+        }
     }
 
     public function getOneUser (&$aryUser = null , $condition = null) {

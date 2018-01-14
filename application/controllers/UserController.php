@@ -165,23 +165,26 @@ class UserController extends Zend_Controller_Action
             $this->_dbUser->insertNewUser($aryUserForm, $newIdUser, $err);
 
             //insert to wtv_attachment
-            $nameFile = isset($_COOKIE['name']) ? $_COOKIE['name'] : "";
-            $sizeFile = isset($_COOKIE['size']) ? $_COOKIE['size'] : "";
-            $typeFile = isset($_COOKIE['type']) ? $_COOKIE['type'] : "";
-            $aryAttachment = [
-                'attachment_url_source' => APPLICATION_PATH."/temp/".$params['module']."/".$params['controller']."/".$nameFile,
-                'attachment_file_name' => $nameFile,
-                'attachment_size' => $sizeFile,
-                'attachment_type' => $typeFile,
-                'attachment_type_upload_code' => "1",
-            ];
-            $newIdAttachment = "";
-            $errAttachment = [];
-            $this->_builderAttachment->buildDataBeforeInsertAttachment($aryAttachment,$params);
-            $insertOk = $this->_dbAttachment->insertAttachment($aryAttachment,$newIdAttachment,$errAttachment);
-            if ($insertOk != 1) {
-                var_dump($errAttachment);
+            if (isset($_COOKIE['isAttachment']) && $_COOKIE['isAttachment'] == true) {
+                $nameFile = isset($_COOKIE['name']) ? $_COOKIE['name'] : "";
+                $sizeFile = isset($_COOKIE['size']) ? $_COOKIE['size'] : null;
+                $typeFile = isset($_COOKIE['type']) ? $_COOKIE['type'] : "";
+                $aryAttachment = [
+                    'attachment_url_source' => APPLICATION_PATH."/temp/".$params['module']."/".$params['controller']."/".$nameFile,
+                    'attachment_file_name' => $nameFile,
+                    'attachment_size' => $sizeFile,
+                    'attachment_type' => $typeFile,
+                    'attachment_type_upload_code' => "1",
+                ];
+                $newIdAttachment = "";
+                $errAttachment = [];
+                $this->_builderAttachment->buildDataBeforeInsertAttachment($aryAttachment,$params);
+                $insertOk = $this->_dbAttachment->insertAttachment($aryAttachment,$newIdAttachment,$errAttachment);
+                if ($insertOk != 1) {
+                    var_dump($errAttachment);
+                }
             }
+            //unset Cookie
             foreach ($_COOKIE as $key => $value) {
                 setcookie($key,"", time() - 360);
             }
@@ -204,13 +207,41 @@ class UserController extends Zend_Controller_Action
 
         $params = $this->_request->getParams();
 
-        if ($this->_dbUser->getUserByMailAndMoreByAND($aryUserExist,$aryConditionUserExist,$userMail)) {
-            array_push($arrItemError, 'user_login_name');
-            array_push($arrItemError, 'user_email');
-            $this->_message = "Register name or email address used !!".PHP_EOL."Please choose a different name or different email !";
-            $this->_intIsOk = -2; //err valdate
+        $aryUserExist = [];
+        $aryConditionUserExist = [
+            'user_login_name' => $params['user_login_name']
+        ];
+        $userMail = $params['user_email'];
+        $userIsExist = $this->_dbUser->getUserByMailAndMoreByAND($aryUserExist,$aryConditionUserExist,$userMail);
+
+        if ($userIsExist == false) {
+            $this->_message = "Account is not exist!";
+            $this->_intIsOk = -2;
             goto GOTO_LINE;
         }
+        $newPassword = rand(10000000,99999999);
+        $aryUserUpdate = [
+            'user_login_pass' => $newPassword
+        ];
+        $condition = [];
+        $intIsOk = $this->_dbUser->updateUserByCode($aryUserUpdate,$condition,$aryUserExist['user_code'],$err);
+        if ($intIsOk == 1) {
+            $huyLib = new HuyLib_Mail();
+            $isSendMailSuccess = $huyLib->sendMailForgotPasword($params['user_email'], $newPassword);
+        } else {
+            var_dump($err);
+        }
+
+        GOTO_LINE:
+        $arrReponse = [
+            "message" => $this->_message,
+            "intIsOk" => $this->_intIsOk
+        ];
+        echo json_encode($arrReponse);
+    }
+
+    public function loginExistUserAction {
+        
     }
 }
 

@@ -149,8 +149,26 @@ var User = {
         $form.ajaxForm(strUrl); 
     },
 
-    checkLoginAction :function () {
-        var url = ROOT_URL + ""
+    loginUserExistAction :function () {
+        var url = ROOT_URL + "/User/loginexistuser";
+        var strUrl = {            
+                url: url,            
+                type: 'post',
+                dataType: "json",            
+                data: {},            
+                success: function(data) {
+                    if (data.intIsOk == false) {
+                        alert(data.message);
+
+                    } else{
+                        alert("login");
+                    }
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            }
+        $form.ajaxForm(strUrl); 
     },
 
     sendMailForgotPassword : function () {
