@@ -191,3 +191,8 @@ span.psw {
        width: 100%;
     }
 }
+
+.container-header {
+    width: 90%;
+    float: right;
+}

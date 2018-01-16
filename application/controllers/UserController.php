@@ -23,6 +23,7 @@ class UserController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        $params = $this->_request->getParams();
 //        $this->_helper->layout()->disableLayout();
 //        $this->_helper->viewRenderer->setNoRender(true);
     }
@@ -240,8 +241,31 @@ class UserController extends Zend_Controller_Action
         echo json_encode($arrReponse);
     }
 
-    public function loginExistUserAction {
+    public function loginexistuserAction () {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
         
+        $params = $this->_request->getParams();
+        $condition = $params['user'];
+        $arrResult = [];
+
+        $isGetDataSuccess = $this->_dbUser->getUserByConditionByAnd($condition, $arrResult);
+        if ($isGetDataSuccess == false) {
+            $this->_message = "User name or password is wrong !";
+            $this->_intIsOk = -2;
+            goto GOTO_LINE;
+        }
+        // session_destroy();
+        $_SESSION['user'] = [
+            'user_name' => $arrResult['user_full_name'],
+            'user_code' => $arrResult['user_code']
+        ];
+        GOTO_LINE:
+        $arrReponse = [
+            "message" => $this->_message,
+            "intIsOk" => $this->_intIsOk
+        ];
+        echo json_encode($arrReponse);
     }
 }
 

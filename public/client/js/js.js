@@ -96,6 +96,28 @@ var User = {
         };
         reader.readAsDataURL(input.files[0]);
     },
+    checkLoginAction :function () {
+        var $form = $('#formLogin');
+        var url = ROOT_URL + "/User/loginexistuser";
+        var strUrl = {            
+                url: url,            
+                type: 'post',
+                dataType: "json",            
+                data: {},            
+                success: function(data) {
+                    //reset
+                    if (data.intIsOk == -2) {
+                        alert(data.message);
+                    } else {
+                        Default.closePopup();
+                    }  
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            }
+        $form.ajaxForm(strUrl); 
+    },
     checkRegisterAction : function () {
         var $form = $('#formRegister');
         var url = ROOT_URL + "/User/checkexistuser";

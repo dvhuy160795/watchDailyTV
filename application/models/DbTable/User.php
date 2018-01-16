@@ -77,5 +77,20 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
     public function getMultiUser () {
 
     }
+
+    public function getUserByConditionByAnd ($condition, &$aryUser) {
+        $where = "user_is_deleted = 0";
+        foreach ($condition as $key => $value) {
+            $where .= $this->_db->quoteInto(" AND ".$key." = ?",$value);
+        }
+        
+        $sql = $this->_db->select()->from($this->_name)->where($where);
+        $aryUser = $this->_db->fetchRow($sql);
+        if (empty($aryUser)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
