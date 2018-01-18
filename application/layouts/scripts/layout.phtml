@@ -61,6 +61,10 @@
 	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/style.css') ?>">
     <!-- css ui -->
     <link rel="stylesheet" href="<?php echo $this->baseUrl('client/lib-css/jquery-ui.css') ?>">
+    <!-- Css W3 -->
+	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/w3.css') ?>">
+    <!-- Css font-awesome.min -->
+	<link rel="stylesheet" href="<?php echo $this->baseUrl('template/css/font-awesome.min.css') ?>">
     <!-- js for page -->
     <link rel="stylesheet" href="<?php echo $this->baseUrl() .'/client/'.$_SESSION["paramUrl"]["module"].'/'.$_SESSION["paramUrl"]["controller"].'/'.$_SESSION["paramUrl"]["action"].'/style.css' ?>">
     <!-- set base url js-->
@@ -81,76 +85,9 @@
 		<header id="fh5co-header-section" role="header" class="" >
 			<?php  echo $this->render('header.phtml');?>
 		</header>
-		
-		
-		<div id="fh5co-hero" style="background-image: url(<?php echo $this->baseUrl('template/images/slide_2.jpg')?>);">
-			<div class="overlay"></div>
-			<a href="#fh5co-main" class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i class="ti-angle-down"></i></a>
-			<!-- End fh5co-arrow -->
-			<div class="container-fluid">
-                            <div class="row" style="margin-top:200px">
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_1.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>Web Developer</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_2.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>User Experience</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_2.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>Web Designer</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_3.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>Web Analyst</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_3.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>Web Analyst</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_3.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>Web Analyst</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>	
-		</div>
 
 		<div id="fh5co-main">
-			<?php
-		echo $this->layout()->content; 
-	?>
+			<?php echo $this->layout()->content; ?>
 			<div class="fh5co-cards">
 				<div class="container-fluid">
                                     <div class="row animate-box">

@@ -24,8 +24,11 @@ class UserController extends Zend_Controller_Action
     public function indexAction()
     {
         $params = $this->_request->getParams();
-//        $this->_helper->layout()->disableLayout();
-//        $this->_helper->viewRenderer->setNoRender(true);
+        if (!isset($_SESSION['user'])) {
+            $this->_helper->layout->disableLayout();
+            $this->_helper->viewRenderer->setNoRender(true);
+            return;
+        }
     }
     
     public function registerAction() {

@@ -198,7 +198,7 @@ textarea {
 
 #fh5co-logo {
   font-size: 20px;
-  margin: .9em 0 0 0;
+  margin: .5em 0 0 0;
   padding: 0;
   font-weight: 700;
 }
@@ -403,7 +403,9 @@ textarea {
   top: 6px;
   right: 100%;
 }
-
+#fh5co-primary-menu {
+  padding-top: 5px;
+}
 #fh5co-primary-menu .fh5co-sub-menu .fh5co-sub-menu:after {
   top: 7px;
   right: 100%;
@@ -1864,6 +1866,9 @@ a > img.fh5co-align-center {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+.mar-top-75 {
+  margin-top: 75px;
 }
 
 /*# sourceMappingURL=style.css.map */
