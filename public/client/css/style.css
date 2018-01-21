@@ -23,6 +23,22 @@
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+.input25p {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.input23p {
+    width: 23%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
 .w40p{
     width: 40%
 }
@@ -52,6 +68,21 @@
     display: inline-block;
     box-sizing: border-box;
 }
+/* margin left*/ 
+.mar-left-94p {
+    margin-left: 94%;
+}
+.mar-left-5p{
+    margin-left: 5%;
+}
+/* margin right*/ 
+.mar-right-5p {
+    margin-right: 5%;
+}
+.mar-right-2p {
+    margin-right: 2%;
+}
+
 .checkResult {
     float: right;
     height: 29px;

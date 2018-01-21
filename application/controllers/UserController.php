@@ -270,5 +270,9 @@ class UserController extends Zend_Controller_Action
         ];
         echo json_encode($arrReponse);
     }
+
+    public function showpopupeditAction () {
+        $this->_helper->layout->disableLayout();
+    }
 }
 
