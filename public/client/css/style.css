@@ -54,6 +54,14 @@
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+.select23p {
+    width: 23%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
 .box20p {
     width: 20%;
     padding: 12px 20px;

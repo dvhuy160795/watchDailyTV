@@ -5,16 +5,55 @@ var Default = {
     },
 
     setDateTimeByYear : function (eYear){
-        console.log(eYear.value);
+        var year = $(eYear).val();
+        var month = $("#date-month").val()
+        var listOptionDay;
+        listOptionDay = Default.builListDay(year,month);
+        $("#date-day").html(listOptionDay);
+
     },
     setDateTimeByMonth : function (eMonth){
-        console.log(eMonth.value);
+        var year = $(eMonth).val();
+        var month = $("#date-year").val();
+        var listOptionDay;
+        listOptionDay = Default.builListDay(year,month);
+        console.log(listOptionDay);
+        $("#date-day").html(listOptionDay);
     },
-    setDateTimeByDate : function (eDate){
+    setDateTimeByDate : function (){
         console.log(eDate.value);
     },
     showLoading : function (id, src) {
         $("#" +id).attr("src",src);
+    },
+    builListDay :function (year, month) {
+        var listOptionDay = "";
+        var countDay;
+        var month1 = ['1','3','5','7','8','10','12'];
+        var month2 = ['4','6','9','11'];
+        var month3 = ['2'];
+
+        if (((year%4 == 0) && (year % 100 != 0)) || (year %400 == 0) ) {
+            if (month1.indexOf(month) >= 0) {
+                countDay = 31;
+            } else if (month2.indexOf(month) >= 0){
+                countDay = 30;
+            } else {
+                countDay = 29;
+            }
+        } else {
+            if (month1.indexOf(month) >= 0) {
+                countDay = 31;
+            } else if (month2.indexOf(month) >= 0){
+                countDay = 30;
+            } else {
+                countDay = 28;
+            }
+        }
+        for (var i = 1; i <= countDay; i++) {
+            listOptionDay += "<option value='"+i+"'>"+i+"</option>";
+        }
+        return listOptionDay;
     }
 }
 var User = {
