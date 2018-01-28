@@ -28,13 +28,12 @@ class WtvStreet extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_street',['id' => true, 'primary_key' => ['id']]);
+        $tableAdmin=$this-> table('wtv_street',['id' => false, 'primary_key' => ['street_code']]);
         $tableAdmin
                 ->addColumn('street_code','string',['limit'=>100,'null' => false])
                 ->addColumn('street_name','string',['limit'=>3000,'null' => false])
-                ->addColumn('street_is_deleted','boolean',['default'=>0,'null' => false])
-                ->addColumn('updated','date')
-                ->addColumn('created','date')
+                ->addColumn('street_type','string',['limit'=>3000,'null' => false])
+                ->addColumn('street_district_code','string',['limit'=>100,'null' => false])
                 ->save();
     }
 }

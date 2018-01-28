@@ -13,11 +13,10 @@ var Default = {
 
     },
     setDateTimeByMonth : function (eMonth){
-        var year = $(eMonth).val();
-        var month = $("#date-year").val();
+        var month = $(eMonth).val();
+        var year = $("#date-year").val();
         var listOptionDay;
         listOptionDay = Default.builListDay(year,month);
-        console.log(listOptionDay);
         $("#date-day").html(listOptionDay);
     },
     setDateTimeByDate : function (){
@@ -32,7 +31,6 @@ var Default = {
         var month1 = ['1','3','5','7','8','10','12'];
         var month2 = ['4','6','9','11'];
         var month3 = ['2'];
-
         if (((year%4 == 0) && (year % 100 != 0)) || (year %400 == 0) ) {
             if (month1.indexOf(month) >= 0) {
                 countDay = 31;

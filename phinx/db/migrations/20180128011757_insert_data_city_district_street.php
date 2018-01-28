@@ -3,7 +3,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class WtvDistrict extends AbstractMigration
+class InsertDataCityDistrictStreet extends AbstractMigration
 {
     /**
      * Change Method.
@@ -28,12 +28,19 @@ class WtvDistrict extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_district',['id' => false, 'primary_key' => ['district_code']]);
-        $tableAdmin
-                ->addColumn('district_code','string',['limit'=>100,'null' => false])
-                ->addColumn('district_name','string',['limit'=>3000,'null' => false])
-                ->addColumn('district_type','string',['limit'=>3000,'null' => false])
-                ->addColumn('district_city_code','string',['limit'=>100,'null' => false])
-                ->save();
+        $fileContent = file_get_contents(__DIR__. "/insert_data_city_district_street.sql");
+        $sqlScript = explode(";", $fileContent);
+        
+        if (count($sqlScript) > 0) {
+            foreach ($sqlScript as $sql) {
+                $sql = trim($sql);
+                $sql = trim($sql, "\n");
+                if ($sql !== "") {
+                    $sql .= ";";
+                    $this->execute($sql);
+                }
+            }
+        }
+
     }
 }

@@ -20,13 +20,37 @@
 	    required
 	>
 
-    <label><b>Username</b><font style="color: red"> *</font></label>
+    <label><b>Phone</b><font style="color: red"> *</font></label>
     <input type="text" class="input100p"
 	    name="user[user_login_name]" 
 	    id="user_login_name" value="<?php echo isset($_COOKIE['user_login_name']) ? $_COOKIE['user_login_name'] : ""; ?>"
 	    required
 	>
-
+  <label><b>Birthday</b><font style="color: red"> *</font></label><br>
+  <label><b>Year : </b></label> 
+  <select class="select23p" name="user[birth-year]" id="date-year" onchange="Default.setDateTimeByYear(this)">
+    <?php for ($i = 1900; $i <= 2050; $i++) { ?>
+      <option value="<?php echo $i ?>" <?php if ($i == 1995) {echo "selected";} ?> >
+        <?php echo $i ?>
+      </option>
+    <?php } ?>
+  </select>
+  <label><b>Month : </b></label>
+  <select class="select23p" name="user[birth-month]" id="date-month" onchange="Default.setDateTimeByMonth(this)">
+    <?php for ($i = 1; $i <= 12; $i++) { ?>
+      <option value="<?php echo $i ?>">
+        <?php echo $i ?>
+      </option>
+    <?php } ?>
+  </select>
+  <label><b>Date : </b></label> 
+  <select class="select23p" name="user[birth-day]" id="date-day">
+    <?php for ($i = 1; $i <= 31; $i++) { ?>
+      <option value="<?php echo $i ?>">
+        <?php echo $i ?>
+      </option>
+    <?php } ?>
+  </select>
   </div>
   <div class="container-model-50p fleft">
     <label><b>Email</b><font style="color: red"> *</font></label>
@@ -36,38 +60,32 @@
 	    required
     >
 
-    <label><b>Confirm Password</b><font style="color: red"> *</font></label>
+    <label><b>Job present</b><font style="color: red"> *</font></label>
     <input type="password" class="input100p"
 	    name="user[user_login_pass]" 
 	    id="user_login_pass" value="<?php echo isset($_COOKIE['user_login_pass']) ? $_COOKIE['user_login_pass'] : ""; ?>"
 	    required
     >
     
-    <label><b>Password</b><font style="color: red"> *</font></label>
-    <input type="password" class="input100p"
-	    name="user_login_pass_confirm" 
-	    id="user_login_pass_confirm" value="<?php echo isset($_COOKIE['user_login_pass_confirm']) ? $_COOKIE['user_login_pass_confirm'] : ""; ?>"
-	    required
-    >
-    <label><b>Birthday</b><font style="color: red"> *</font></label><br>
-    <label><b>Year : </b></label> 
-    <select class="select23p" name="user[birth-year]" id="date-year" onchange="Default.setDateTimeByYear(this)">
+    <label><b>Address</b><font style="color: red"> *</font></label><br>
+    <label><b>City : </b></label> 
+    <select class="select23p" name="user[user_city]" id="user_city" onchange="Default.setDateTimeByYear(this)">
       <?php for ($i = 1900; $i <= 2050; $i++) { ?>
         <option value="<?php echo $i ?>" <?php if ($i == 1995) {echo "selected";} ?> >
           <?php echo $i ?>
         </option>
       <?php } ?>
     </select>
-	  <label><b>Month : </b></label>
-    <select class="select23p" name="user[birth-month]" id="date-month" onchange="Default.setDateTimeByMonth(this)">
+    <label><b>District : </b></label>
+    <select class="select23p" name="user[user_district]" id="user_district" onchange="Default.setDateTimeByMonth(this)">
       <?php for ($i = 1; $i <= 12; $i++) { ?>
         <option value="<?php echo $i ?>">
           <?php echo $i ?>
         </option>
       <?php } ?>
     </select>
-	  <label><b>Date : </b></label> 
-    <select class="select23p" name="user[birth-day]" id="date-day">
+    <label><b>Street : </b></label> 
+    <select class="select23p" name="user[user_street]" id="user_street">
       <?php for ($i = 1; $i <= 31; $i++) { ?>
         <option value="<?php echo $i ?>">
           <?php echo $i ?>

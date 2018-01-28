@@ -28,13 +28,11 @@ class WtvCity extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_city',['id' => true, 'primary_key' => ['id']]);
+        $tableAdmin=$this-> table('wtv_city',['id' => false, 'primary_key' => ['city_code']]);
         $tableAdmin
                 ->addColumn('city_code','string',['limit'=>100,'null' => false])
                 ->addColumn('city_name','string',['limit'=>3000,'null' => false])
-                ->addColumn('city_is_deleted','boolean',['default'=>0,'null' => false])
-                ->addColumn('updated','date')
-                ->addColumn('created','date')
+                ->addColumn('city_type','string',['limit'=>3000,'null' => false])
                 ->save();
     }
 }
