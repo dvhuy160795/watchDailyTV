@@ -52,7 +52,64 @@ var Default = {
             listOptionDay += "<option value='"+i+"'>"+i+"</option>";
         }
         return listOptionDay;
-    }
+    },
+    loadListSelected : function (address){
+        var url = ROOT_URL + "/Index/loadlistselect";
+        var data = {};
+        $.ajax({
+            url:url,
+            data:data,
+            success: function(data){
+                console.log(data);
+                $('#user_'+address).html(data);
+            },
+            errror: function() {
+                alert('error')
+            }
+        });
+    },
+    loadListDistrict : function (){
+        var url = ROOT_URL + "/Index/loadlistdistrict";
+        var data = {};
+        var strUrl = {            
+            url: url,            
+            type: 'post',
+            dataType: "json",            
+            data:data,            
+            success: function(data) {
+                if (data.intIsOk == false) {
+                    alert(data.message);
+                    //User.showPopupRegister();
+                } else{
+                    //User.showPopupLogin();
+                }
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+    },
+    loadListStreet : function (){
+        var url = ROOT_URL + "/Index/loadliststreet";
+        var data = {};
+        var strUrl = {            
+            url: url,            
+            type: 'post',
+            dataType: "json",            
+            data:data,            
+            success: function(data) {
+                if (data.intIsOk == false) {
+                    alert(data.message);
+                    //User.showPopupRegister();
+                } else{
+                    //User.showPopupLogin();
+                }
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+    },
 }
 var User = {
     fileType :"",
@@ -234,25 +291,25 @@ var User = {
         var $form = $('#formForgotPassword');
         var url = ROOT_URL + "/User/sendmailforgotpassword";
         var strUrl = {            
-                url: url,            
-                type: 'post',
-                dataType: "json",            
-                data: {},            
-                success: function(data) {
-                    if (data.intIsOk == false) {
-                        alert(data.message);
-                        //User.showPopupRegister();
-                    } else{
-                        //User.showPopupLogin();
-                    }
-                },            
-                error: function() {                
-                    alert('error');
+            url: url,            
+            type: 'post',
+            dataType: "json",            
+            data: {},            
+            success: function(data) {
+                if (data.intIsOk == false) {
+                    alert(data.message);
+                    //User.showPopupRegister();
+                } else{
+                    //User.showPopupLogin();
                 }
+            },            
+            error: function() {                
+                alert('error');
             }
+        }
         $form.ajaxForm(strUrl); 
-    }
-
+    },
+    
 };
 //auto load js
 

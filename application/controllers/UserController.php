@@ -273,6 +273,7 @@ class UserController extends Zend_Controller_Action
 
     public function showpopupeditAction () {
         $this->_helper->layout->disableLayout();
+        $this->_logic->setParamToView();
     }
 }
 

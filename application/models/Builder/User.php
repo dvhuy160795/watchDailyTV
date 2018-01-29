@@ -3,8 +3,10 @@
 class Application_Model_Builder_User
 {
 	protected $_HuyLibCookie;
+	protected $dbCity;
+
 	public function __construct() {
-		
+		$this->dbCity = new Application_Model_DbTable_City();
 	}
 	public function buildDataBeforeInsertUser (&$aryData, $aryParams) {
 		$libDataBase =  new HuyLib_DataBase();
@@ -36,5 +38,9 @@ class Application_Model_Builder_User
 		$this->_HuyLibCookie = new HuyLib_Cookie();
 		$mailCode['user_code_register'] = $params['codeByEmail'];
 		$this->_HuyLibCookie->setCookieFiveMinute($params['user'],$mailCode);
+	}
+
+	public function getDataCity (&$aryResult) {
+		$aryResult = $this->dbCity->getListCity();
 	}
 }

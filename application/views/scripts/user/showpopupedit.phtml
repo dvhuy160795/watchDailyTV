@@ -69,28 +69,16 @@
     
     <label><b>Address</b><font style="color: red"> *</font></label><br>
     <label><b>City : </b></label> 
-    <select class="select23p" name="user[user_city]" id="user_city" onchange="Default.setDateTimeByYear(this)">
-      <?php for ($i = 1900; $i <= 2050; $i++) { ?>
-        <option value="<?php echo $i ?>" <?php if ($i == 1995) {echo "selected";} ?> >
-          <?php echo $i ?>
-        </option>
-      <?php } ?>
+    <select class="select23p" name="user[user_city]" id="user_city" onclick="Default.loadListSelected('city')">
+      
     </select>
     <label><b>District : </b></label>
-    <select class="select23p" name="user[user_district]" id="user_district" onchange="Default.setDateTimeByMonth(this)">
-      <?php for ($i = 1; $i <= 12; $i++) { ?>
-        <option value="<?php echo $i ?>">
-          <?php echo $i ?>
-        </option>
-      <?php } ?>
+    <select class="select23p" name="user[user_district]" id="user_district" onclick="Default.loadListSelected('district')">
+      
     </select>
     <label><b>Street : </b></label> 
-    <select class="select23p" name="user[user_street]" id="user_street">
-      <?php for ($i = 1; $i <= 31; $i++) { ?>
-        <option value="<?php echo $i ?>">
-          <?php echo $i ?>
-        </option>
-      <?php } ?>
+    <select class="select23p" name="user[user_street]" id="user_street" onclick="Default.loadListSelected('street')">
+      
     </select>
   </div>
   <div class="container-model" style="background-color:#f1f1f1">

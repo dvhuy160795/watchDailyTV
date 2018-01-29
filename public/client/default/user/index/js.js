@@ -111,18 +111,19 @@ $( function() {
 var UserInfo = {
   showPopupEditUserInfo : function (userCode){
     var url = ROOT_URL + "/User/showpopupedit";
-        var data = {userCode:userCode};
-        $.ajax({
-            url:url,
-            data:data,
-            success: function(data){
-                $('#box-popup').html("");
-                $('#box-popup').html(data);
-                $('#box-popup').css('display','block');
-            },
-            errror: function() {
-                alert('error')
-            }
-        });
+    var data = {userCode:userCode};
+    $.ajax({
+        url:url,
+        data:data,
+        success: function(data){
+            $('#box-popup').html("");
+            $('#box-popup').html(data);
+            $('#box-popup').css('display','block');
+        },
+        errror: function() {
+            alert('error')
+        }
+    });
   },
+  
 };

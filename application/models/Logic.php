@@ -15,5 +15,19 @@ class Application_Model_Logic extends Application_Model_DbTable_User
 
 	}
 
+	public function setParamToView ($aryParams) {
+		foreach ($aryParams as $key => $value) {
+			$this->view->$key = $value;
+		}
+	}
+
+	public function getOneItemInArr ($listArr,$itemGet) {
+    	$arrResult = [];
+    	foreach ($listArr as $arr) {
+    		array_push($arrResult, $arr[$itemGet]);
+    	}
+    	return $arrResult;
+    }
+
 }
 
