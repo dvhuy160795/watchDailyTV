@@ -55,13 +55,13 @@ var Default = {
     },
     loadListSelected : function (address){
         var url = ROOT_URL + "/Index/loadlistselect";
-        var data = {};
+        var code = $('#user_'+address).val();
+        var data = {code:code,address:address};
         $.ajax({
             url:url,
             data:data,
             success: function(data){
                 console.log(data);
-                $('#user_'+address).html(data);
             },
             errror: function() {
                 alert('error')

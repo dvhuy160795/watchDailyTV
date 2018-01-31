@@ -15,11 +15,11 @@ class Application_Model_Logic extends Application_Model_DbTable_User
 
 	}
 
-	public function setParamToView ($aryParams) {
-		foreach ($aryParams as $key => $value) {
-			$this->view->$key = $value;
-		}
-	}
+	// public function setParamToView ($aryParams) {
+	// 	foreach ($aryParams as $key => $value) {
+	// 		$this->view->$key = $value;
+	// 	}
+	// }
 
 	public function getOneItemInArr ($listArr,$itemGet) {
     	$arrResult = [];
@@ -29,5 +29,10 @@ class Application_Model_Logic extends Application_Model_DbTable_User
     	return $arrResult;
     }
 
+    public function setParamToView($arrParams) {
+		foreach ($arrParams as $key => $value) {
+			$this->view->$key = $value;
+		}
+	}
 }
 

@@ -19,21 +19,21 @@ class IndexController extends Zend_Controller_Action
     public function loadlistselectAction() {
     	$this->_helper->layout()->disableLayout();
     	$params = $this->_request->getParams();
-    	$arrCity = [];
+    	$arrSelect = [];
     	$arrSetView = [];
-    	$this->dbCity->getListCity($arrCity);
-    	$arrCityToView = $this->logic->getOneItemInArr($arrCity,'city_name');
-    	$this->view->aryList = $arrCityToView;
+        switch ($params['address']) {
+            case 'value':
+                # code...
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+    	$this->dbCity->getListCity($arrSelect);
+    	$arrToView = $this->logic->getOneItemInArr($arrSelect,'city_name');
+    	$this->view->aryList = $arrToView;
     }
 
-    public function loadlistdistrictAction() {
-    	$params = $this->_request->getParams();
-    	
-    }
-
-    public function loadliststreetAction() {
-    	$params = $this->_request->getParams();
-    	
-    }
 }
 

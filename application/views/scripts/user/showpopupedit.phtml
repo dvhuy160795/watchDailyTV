@@ -1,4 +1,3 @@
-
 <form id="formRegister" class="modal-content-register animate" enctype="multipart/form-data">
   <div class="imgcontainer">
   	<img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" alt="Avatar" style="height: 105px" class="avatar" id="avatarUser">
@@ -69,15 +68,16 @@
     
     <label><b>Address</b><font style="color: red"> *</font></label><br>
     <label><b>City : </b></label> 
-    <select class="select23p" name="user[user_city]" id="user_city" onclick="Default.loadListSelected('city')">
-      
+    <select class="select23p" name="user[user_city]" id="user_city" onchange="Default.loadListSelected('city')"> 
+      <?php foreach ($this->citys as $city) { ?>
+          <option value="<?php echo $city['city_code'] ?>"><?php echo $city['city_name'] ?></option>
+      <?php } ?>
     </select>
     <label><b>District : </b></label>
-    <select class="select23p" name="user[user_district]" id="user_district" onclick="Default.loadListSelected('district')">
-      
+    <select class="select23p" name="user[user_district]" id="user_district" onchange="Default.loadListSelected('district')">
     </select>
     <label><b>Street : </b></label> 
-    <select class="select23p" name="user[user_street]" id="user_street" onclick="Default.loadListSelected('street')">
+    <select class="select23p" name="user[user_street]" id="user_street">
       
     </select>
   </div>

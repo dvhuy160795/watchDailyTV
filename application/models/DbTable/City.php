@@ -38,7 +38,7 @@ class Application_Model_DbTable_City extends Zend_Db_Table_Abstract
     public function getListCity (&$aryResult) {
         $sql = $this->_db->select()->from($this->_name);
         $aryResult = $this->_db->fetchAll($sql);
-        if (empty($aryUser)) {
+        if (empty($aryResult)) {
             return false;
         } else {
             return true;

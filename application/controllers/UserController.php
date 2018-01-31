@@ -10,6 +10,7 @@ class UserController extends Zend_Controller_Action
     protected $_dbAttachment;
     protected $_logic;
     protected $_libAttachment;
+    protected $dbCity;
 
     public function init()
     {
@@ -19,6 +20,7 @@ class UserController extends Zend_Controller_Action
         $this->_dbAttachment = new Application_Model_DbTable_Attachment;
         $this->_logic = new Application_Model_Logic();
         $this->_libAttachment = new HuyLib_AttachmentFile();
+        $this->dbCity = new Application_Model_DbTable_City();
     }
 
     public function indexAction()
@@ -273,7 +275,10 @@ class UserController extends Zend_Controller_Action
 
     public function showpopupeditAction () {
         $this->_helper->layout->disableLayout();
-        $this->_logic->setParamToView();
+        $arrCity = [];
+        if ($this->dbCity->getListCity($arrCity)) {
+            $this->view->citys = $arrCity;
+        }
     }
 }
 

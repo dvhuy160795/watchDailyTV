@@ -43,4 +43,6 @@ class Application_Model_Builder_User
 	public function getDataCity (&$aryResult) {
 		$aryResult = $this->dbCity->getListCity();
 	}
+
+	
 }
