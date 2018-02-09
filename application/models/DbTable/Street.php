@@ -1,12 +1,12 @@
  <?php
 
-class Application_Model_DbTable_City extends Zend_Db_Table_Abstract
+class Application_Model_DbTable_Street extends Zend_Db_Table_Abstract
 {
 
-    protected $_name = 'wtv_city';
+    protected $_name = 'wtv_street';
 
-    public function getCityByConditionAnd (&$aryResult = null , $condition = null) {
-    	$where = $this->_db->quoteInto('city_is_deleted = ?','0');
+    public function getStreetByConditionAnd (&$aryResult = null , $condition = null) {
+    	$where = $this->_db->quoteInto('street_is_deleted = ?','0');
         foreach ($condition as $key => $value) {
             $where .= $this->_db->quoteInto(" AND ".$key." = ?",$value);
         }
@@ -20,8 +20,8 @@ class Application_Model_DbTable_City extends Zend_Db_Table_Abstract
         }
     }
 
-    public function getCityByConditionOR (&$aryResult = null , $condition = null) {
-    	$where = $this->_db->quoteInto('city_is_deleted = ?','0');
+    public function getStreetByConditionOR (&$aryResult = null , $condition = null) {
+    	$where = $this->_db->quoteInto('street_is_deleted = ?','0');
         foreach ($condition as $key => $value) {
             $where .= $this->_db->quoteInto(" OR ".$key." = ?",$value);
         }

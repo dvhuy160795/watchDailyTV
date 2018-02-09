@@ -235,3 +235,6 @@ span.psw {
     width: 90%;
     float: right;
 }
+.display-none {
+    display: none;
+}

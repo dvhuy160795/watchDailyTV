@@ -53,62 +53,23 @@ var Default = {
         }
         return listOptionDay;
     },
-    loadListSelected : function (address){
+    loadListSelected : function (addressGet,addressFill){
         var url = ROOT_URL + "/Index/loadlistselect";
-        var code = $('#user_'+address).val();
-        var data = {code:code,address:address};
+        var code = $('#'+addressGet).val();
+        var data = {code:code,address:addressGet};
         $.ajax({
             url:url,
             data:data,
             success: function(data){
                 console.log(data);
+                $('#'+addressFill).removeClass('display-none');
+                $('#lb_'+addressFill).removeClass('display-none');
+                $('#'+addressFill).html(data);
             },
             errror: function() {
                 alert('error')
             }
         });
-    },
-    loadListDistrict : function (){
-        var url = ROOT_URL + "/Index/loadlistdistrict";
-        var data = {};
-        var strUrl = {            
-            url: url,            
-            type: 'post',
-            dataType: "json",            
-            data:data,            
-            success: function(data) {
-                if (data.intIsOk == false) {
-                    alert(data.message);
-                    //User.showPopupRegister();
-                } else{
-                    //User.showPopupLogin();
-                }
-            },            
-            error: function() {                
-                alert('error');
-            }
-        }
-    },
-    loadListStreet : function (){
-        var url = ROOT_URL + "/Index/loadliststreet";
-        var data = {};
-        var strUrl = {            
-            url: url,            
-            type: 'post',
-            dataType: "json",            
-            data:data,            
-            success: function(data) {
-                if (data.intIsOk == false) {
-                    alert(data.message);
-                    //User.showPopupRegister();
-                } else{
-                    //User.showPopupLogin();
-                }
-            },            
-            error: function() {                
-                alert('error');
-            }
-        }
     },
 }
 var User = {

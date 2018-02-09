@@ -275,10 +275,15 @@ class UserController extends Zend_Controller_Action
 
     public function showpopupeditAction () {
         $this->_helper->layout->disableLayout();
+        $arrCurrentUser = [];
+        $userCode = $_SESSION['user']['user_code'];
+        $this->_dbUser->getOneUser($arrCurrentUser,[],$userCode);
+
         $arrCity = [];
         if ($this->dbCity->getListCity($arrCity)) {
             $this->view->citys = $arrCity;
         }
+        $this ->view->arrCurrentUser = $arrCurrentUser;
     }
 }
 

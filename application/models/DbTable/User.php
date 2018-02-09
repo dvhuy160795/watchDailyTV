@@ -35,14 +35,16 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
         }
     }
 
-    public function getOneUser (&$aryUser = null , $condition = null) {
-    	$where = $this->_db->quoteInto('user_code = ?',12);
-    	$where .= $this->_db->quoteInto(' and 1 = ?',1231);
+    public function getOneUser (&$aryUser = null , $condition = null,$userCode = "") {
+    	$where = $this->_db->quoteInto('user_code = ?',$userCode);
+        if ($condition != null) {
+            foreach ($condition as $key => $value) {
+               $where .= $this->_db->quoteInto(' and $key = ?',$value);
+            }
+        }
     	
     	$sql = $this->_db->select()->from($this->_name)->where($where);
-    	$arr = $this->_db->fetchRow($sql);
-    	var_dump($arr);
-    	echo $where;die;
+    	$aryUser = $this->_db->fetchRow($sql);
     }
 
     public function getUserByMailAndMoreByOR (&$aryUser = null , $condition = null, $email) {

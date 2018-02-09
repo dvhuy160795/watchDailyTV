@@ -1,28 +1,23 @@
 <form id="formRegister" class="modal-content-register animate" enctype="multipart/form-data">
-  <div class="imgcontainer">
-  	<img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" alt="Avatar" style="height: 105px" class="avatar" id="avatarUser">
-    <span onclick="Default.closePopup('formLogin')" class="close" title="Close Modal">&times;</span>
-    <input style="margin-left: 44%" type="file" id="inputAvatarUpload" name="avatarUser" onchange="User.loadImg(this)">
-  </div>
   <div class="container-model-50p fleft">
     <label><b>First Name</b><font style="color: red"> *</font></label>
     <input type="text" class="input100p"
 	    name="user[user_first_name]" 
-	    id="user_first_name" value="<?php echo isset($_COOKIE['user_first_name']) ? $_COOKIE['user_first_name'] : ""; ?>" 
+	    id="user_first_name" value="<?php echo $this->arrCurrentUser['user_first_name']; ?>" 
 	    required
 	>
 
     <label><b>Last Name</b><font style="color: red"> *</font></label>
     <input type="text" class="input100p"
-	    name="user[user_last_name]" value="<?php echo isset($_COOKIE['user_last_name']) ? $_COOKIE['user_last_name'] : ""; ?>"
+	    name="user[user_last_name]" value="<?php echo $this->arrCurrentUser['user_last_name']; ?>"
 	    id="user_last_name" 
 	    required
 	>
 
     <label><b>Phone</b><font style="color: red"> *</font></label>
     <input type="text" class="input100p"
-	    name="user[user_login_name]" 
-	    id="user_login_name" value="<?php echo isset($_COOKIE['user_login_name']) ? $_COOKIE['user_login_name'] : ""; ?>"
+	    name="user[user_phone]" 
+	    id="user_phone" value="<?php echo $this->arrCurrentUser['user_phone']; ?>"
 	    required
 	>
   <label><b>Birthday</b><font style="color: red"> *</font></label><br>
@@ -55,29 +50,29 @@
     <label><b>Email</b><font style="color: red"> *</font></label>
     <input type="text"  class="input100p"
 	    name="user[user_email]" 
-	    id="user_email" value="<?php echo isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : ""; ?>"
+	    id="user_email" value="<?php echo $this->arrCurrentUser['user_email']; ?>"
 	    required
     >
 
     <label><b>Job present</b><font style="color: red"> *</font></label>
-    <input type="password" class="input100p"
-	    name="user[user_login_pass]" 
-	    id="user_login_pass" value="<?php echo isset($_COOKIE['user_login_pass']) ? $_COOKIE['user_login_pass'] : ""; ?>"
+    <input type="text" class="input100p"
+	    name="user[user_jog_present]" 
+	    id="user_jog_present" value="<?php echo $this->arrCurrentUser['user_jog_present']; ?>"
 	    required
     >
     
     <label><b>Address</b><font style="color: red"> *</font></label><br>
     <label><b>City : </b></label> 
-    <select class="select23p" name="user[user_city]" id="user_city" onchange="Default.loadListSelected('city')"> 
+    <select class="select23p" name="user[user_city]" id="user_city" onchange="Default.loadListSelected('user_city','user_district')"> 
       <?php foreach ($this->citys as $city) { ?>
           <option value="<?php echo $city['city_code'] ?>"><?php echo $city['city_name'] ?></option>
       <?php } ?>
     </select>
-    <label><b>District : </b></label>
-    <select class="select23p" name="user[user_district]" id="user_district" onchange="Default.loadListSelected('district')">
+    <label class="display-none" id="lb_user_district"><b>District : </b></label>
+    <select class="select23p display-none" name="user[user_district]" id="user_district" onchange="Default.loadListSelected('user_district','user_street')">
     </select>
-    <label><b>Street : </b></label> 
-    <select class="select23p" name="user[user_street]" id="user_street">
+    <label class="display-none" id="lb_user_street"><b>Street : </b></label> 
+    <select class="select23p display-none" name="user[user_street]" id="user_street">
       
     </select>
   </div>
