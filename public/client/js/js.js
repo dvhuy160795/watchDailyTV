@@ -20,7 +20,7 @@ var Default = {
         $("#date-day").html(listOptionDay);
     },
     setDateTimeByDate : function (){
-        console.log(eDate.value);
+
     },
     showLoading : function (id, src) {
         $("#" +id).attr("src",src);
@@ -61,7 +61,6 @@ var Default = {
             url:url,
             data:data,
             success: function(data){
-                console.log(data);
                 $('#'+addressFill).removeClass('display-none');
                 $('#lb_'+addressFill).removeClass('display-none');
                 $('#'+addressFill).html(data);
@@ -71,6 +70,15 @@ var Default = {
             }
         });
     },
+    setValueChangeSelect : function (e, idInputCode, idInputValue) {
+        if (idInputCode !== "") {
+            $("#input_" + idInputCode).val(e.selectedIndex);
+        }
+        
+        if (idInputValue !== "") {
+            $("#input_" + idInputValue).val(e.options[e.selectedIndex].text);
+        }
+    }
 }
 var User = {
     fileType :"",

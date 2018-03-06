@@ -288,15 +288,9 @@ class UserController extends Zend_Controller_Action
 
     public function saveedituserAction () {
         $this->_helper->layout->disableLayout();
-        $arrCurrentUser = [];
-        $userCode = $_SESSION['user']['user_code'];
-        $this->_dbUser->getOneUser($arrCurrentUser,[],$userCode);
-
-        $arrCity = [];
-        if ($this->dbCity->getListCity($arrCity)) {
-            $this->view->citys = $arrCity;
-        }
-        $this->view->arrCurrentUser = $arrCurrentUser;
+        $this->_helper->viewRenderer->setNoRender(true);
+        $params = $this->_request->getParams();
+        var_dump($params);die;
     }
 }
 
