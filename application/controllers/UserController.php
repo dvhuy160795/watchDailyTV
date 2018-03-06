@@ -283,7 +283,20 @@ class UserController extends Zend_Controller_Action
         if ($this->dbCity->getListCity($arrCity)) {
             $this->view->citys = $arrCity;
         }
-        $this ->view->arrCurrentUser = $arrCurrentUser;
+        $this->view->arrCurrentUser = $arrCurrentUser;
+    }
+
+    public function saveedituserAction () {
+        $this->_helper->layout->disableLayout();
+        $arrCurrentUser = [];
+        $userCode = $_SESSION['user']['user_code'];
+        $this->_dbUser->getOneUser($arrCurrentUser,[],$userCode);
+
+        $arrCity = [];
+        if ($this->dbCity->getListCity($arrCity)) {
+            $this->view->citys = $arrCity;
+        }
+        $this->view->arrCurrentUser = $arrCurrentUser;
     }
 }
 

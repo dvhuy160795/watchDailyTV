@@ -1,6 +1,9 @@
 <option value=''></option>
-<?php foreach ($this->aryResult as $key => $value) { ?>
-	<option value='<?php echo $value['district_code'] ?>'>
-		<?php echo $value['district_name'] ?>
+<?php 
+$fieldName = $this->typeSelect.'_name';
+$fieldCode = $this->typeSelect.'_code';
+foreach ($this->aryResult as $key => $value) { ?>
+	<option value='<?php echo $value[$fieldCode] ?>'>
+		<?php echo $value[$fieldName] ?>
 	</option>
 <?php } ?>

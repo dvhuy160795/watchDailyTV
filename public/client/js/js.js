@@ -270,6 +270,29 @@ var User = {
         }
         $form.ajaxForm(strUrl); 
     },
+
+    saveUser : function () {
+        var $form = $('#formEdituser');
+        var url = ROOT_URL + "/User/saveedituser";
+        var strUrl = {            
+            url: url,            
+            type: 'post',
+            dataType: "json",            
+            data: {},            
+            success: function(data) {
+                if (data.intIsOk == false) {
+                    alert(data.message);
+                    //User.showPopupRegister();
+                } else{
+                    //User.showPopupLogin();
+                }
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+        $form.ajaxForm(strUrl); 
+    }
     
 };
 //auto load js

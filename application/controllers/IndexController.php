@@ -27,19 +27,23 @@ class IndexController extends Zend_Controller_Action
     	$arrSelect = [];
     	$arrSetView = [];
         $aryResult = [];
+        $typeSelect = "";
         if ($params['address'] == 'user_city') {
             $arrCondition = [
                 "district_city_code" => $params['code']
             ];
             $this->dbDistrict->getDistrictByConditionAnd($aryResult,$arrCondition);
+            $typeSelect = "district";
         }
         if ($params['address'] == 'user_district') {
             $arrCondition = [
                 "street_district_code" => $params['code']
             ];
             $this->dbStreet->getStreetByConditionAnd($aryResult,$arrCondition);
+            $typeSelect = "street";
         }
     	$this->view->aryResult = $aryResult;
+        $this->view->typeSelect = $typeSelect;
     }
 
 }
