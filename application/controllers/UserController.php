@@ -311,7 +311,9 @@ class UserController extends Zend_Controller_Action
     public function logoutAction() {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
-        session_destroy();
+        unset($_SESSION['user']);
+        $arrReponse['intIsOk'] = 1;
+        echo json_encode($arrReponse);
     }
 }
 

@@ -173,6 +173,7 @@ var User = {
                         alert(data.message);
                     } else {
                         Default.closePopup();
+                        location.href = "/WatchDailyTV/public/index.php/index";
                     }  
                 },            
                 error: function() {                
@@ -298,6 +299,23 @@ var User = {
             }
         }
         $form.ajaxForm(strUrl); 
+    },
+    
+    logoutUser : function () {
+        var url = ROOT_URL + "/User/logout";
+        var strUrl = {            
+            url: url,            
+            type: 'post',
+            dataType: "json",            
+            data: {},            
+            success: function(data) {
+                location.href = "/WatchDailyTV/public/index.php/index";
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+        $.ajax(strUrl);
     }
     
 };

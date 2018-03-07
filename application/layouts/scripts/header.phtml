@@ -1,11 +1,11 @@
 <div id="fh5co-hero" style="background-image: url(<?php echo $this->baseUrl('template/images/slide_2.jpg')?>); height:70px">
 <div class="container-header">
 	<!-- START #fh5co-logo -->
-	<h1 id="fh5co-logo" class="pull-left"><a href="index.html"><img src="<?php echo $this->baseUrl('template/images/logo.png')?>" alt="Valet Free HTML5 Template"></a></h1>
+	<h1 id="fh5co-logo" class="pull-left"><a href="<?php echo $this->baseUrl('index.php/default/index'); ?>"><img src="<?php echo $this->baseUrl('template/images/logo.png')?>" alt="Valet Free HTML5 Template"></a></h1>
 
 	<ul class="sf-menu" id="fh5co-primary-menu">
 		<li class="active">
-			<a href="index.html">Home</a>
+			<a href="<?php echo $this->baseUrl('index.php/default/index'); ?>">Home</a>
 		</li>
 		
 		<li>
@@ -31,7 +31,7 @@
 		<li><a href="contact.html">Contact</a></li>
 			<li><?php if (isset($_SESSION['user'])) { ?><a href="<?php echo $this->baseUrl("index.php/User/index/userCode/".$_SESSION['user']['user_code']) ?>">
 				<img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" alt="Avatar" style="width: 30px" class="avatar">
-                            </a><a style="margin-top: -80px" href="<?php echo $this->baseUrl("index.php/User/logout")?>">Logout</a><?php } else { ?>
+                            </a><a style="margin-top: -80px" href="#" onclick="User.logoutUser()">Logout</a><?php } else { ?>
 				<a href="#" onclick="User.showPopupLogin()">Login</a>
 			<?php } ?>
 		</li>
