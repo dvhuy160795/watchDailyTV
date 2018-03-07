@@ -15,15 +15,15 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
         <div class="w3-display-container">
           <img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" style="width:100%; height:350px" alt="Avatar">
           <div class="w3-display-bottomleft w3-container w3-text-black">
-            <h2>Jane Doe</h2>
+            <h2><?php echo $this->aryUser['user_full_name'] ?></h2>
           </div>
         </div>
         <div class="w3-container">
-          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Designer</p>
-          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>London, UK</p>
-          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>ex@mail.com</p>
-          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>1224435534</p>
-          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-large w3-text-teal"></i>1224435534</p>
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo $this->aryUser['user_jog_present'] ?></p>
+          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo $this->aryUser['user_address']."-".$this->aryUser['user_district']."-".$this->aryUser['user_city'] ?></p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo $this->aryUser['user_email'] ?></p>
+          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo $this->aryUser['user_phone'] ?></p>
+          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo $this->aryUser['user_birthday'] ?></p>
           <div style="width: 100%"><a href="#" class="mar-left-94p" onclick="UserInfo.showPopupEditUserInfo(1)"><i class="fa fa-edit w3-margin-right w3-large w3-text-red"></i></a></div>
           <hr>
           <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Account</b></p>

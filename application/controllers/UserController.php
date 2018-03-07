@@ -25,12 +25,16 @@ class UserController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $params = $this->_request->getParams();
         if (!isset($_SESSION['user'])) {
             $this->_helper->layout->disableLayout();
             $this->_helper->viewRenderer->setNoRender(true);
             return;
         }
+        $params = $this->_request->getParams();
+        $arrCondition['user_code'] = $_SESSION['user']['user_code'];
+        $this->_dbUser->getUserByConditionByAnd($arrCondition,$arrResult);
+//        var_dump($arrResult);die;
+        $this->view->aryUser = $arrResult;
     }
     
     public function registerAction() {
@@ -290,7 +294,24 @@ class UserController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
         $params = $this->_request->getParams();
-        var_dump($params);die;
+        
+        $dataUpdate = [];
+        $this->_builderUser->buildDataBeforeUpdateUser($dataUpdate,$params['user']);
+        $error = [];
+        $intIsOk = $this->_dbUser->updateUserByCode($dataUpdate, [], $_SESSION['user']['user_code'],$error);
+        if (!empty($error)) {
+            var_dump($error);die;
+        }
+        if ($intIsOk == 1){
+            $arrReponse['intIsOk'] = $intIsOk;
+            echo json_encode($arrReponse);
+        }
+    }
+    
+    public function logoutAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        session_destroy();
     }
 }
 

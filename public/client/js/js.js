@@ -288,12 +288,10 @@ var User = {
             dataType: "json",            
             data: {},            
             success: function(data) {
-                if (data.intIsOk == false) {
-                    alert(data.message);
-                    //User.showPopupRegister();
-                } else{
-                    //User.showPopupLogin();
-                }
+                if (data.intIsOk == 1) {
+                    alert("Edit success!!");
+                    location.reload();
+                } 
             },            
             error: function() {                
                 alert('error');

@@ -63,23 +63,18 @@
     
     <label><b>Address</b><font style="color: red"> *</font></label><br>
     <label><b>City : </b></label> 
-    <select class="select23p"  id="user_city" onchange="Default.loadListSelected('user_city','user_district');Default.setValueChangeSelect(this,'', 'user_city')"> 
+    <select class="select23p"  id="user_city" name="user[user_city]" onchange="Default.loadListSelected('user_city','user_district')"> 
       <?php foreach ($this->citys as $city) { ?>
           <option value="<?php echo $city['city_code'] ?>"><?php echo $city['city_name'] ?></option>
       <?php } ?>
     </select>
     <label class="display-none" id="lb_user_district"><b>District : </b></label>
-    <select class="select23p display-none" id="user_district" onchange="Default.loadListSelected('user_district','user_street');Default.setValueChangeSelect(this,'', 'user_district')">
+    <select class="select23p display-none" id="user_district" name="user[user_district]" onchange="Default.loadListSelected('user_district','user_street');Default.setValueChangeSelect(this,'', 'user_district')">
     </select>
     <label class="display-none" id="lb_user_street"><b>Street : </b></label> 
-    <select class="select23p display-none" id="user_street" onchange="Default.setValueChangeSelect(this,'', 'user_street')">
+    <select class="select23p display-none" id="user_street" name="user[user_street]" onchange="Default.setValueChangeSelect(this,'', 'user_street')">
       
     </select>
-    <div style=" display: none">
-        <input type="hidden" id="input_user_city" name="user[user_city]">
-        <input type="hidden" id="input_user_district" name="user[user_district]">
-        <input type="hidden" id="input_user_street" name="user[user_street]">
-    </div>
   </div>
   <div class="container-model" style="background-color:#f1f1f1">
     <button type="submit" onclick="User.saveUser()">Register</button>

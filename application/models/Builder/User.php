@@ -18,7 +18,7 @@ class Application_Model_Builder_User
 			'user_city' => "",
 			'user_district' => "",
 			'user_address' => "",
-			'user_birthday' => date("Y/m/d"),
+			'user_birthday' => null,
 			'user_url_image_alias' => "",
 			'user_url_background' => "",
 			'user_jog_present' => "",
@@ -34,6 +34,22 @@ class Application_Model_Builder_User
 		return $intIsOk = 1;
 	}
 
+        public function buildDataBeforeUpdateUser (&$aryData, $aryParams) {
+		$aryData = [
+			'user_full_name' => $aryParams['user_first_name']." ".$aryParams['user_last_name'],
+			'user_phone' => $aryParams['user_phone'],
+			'user_city' => $aryParams['user_city'],
+			'user_district' => $aryParams['user_district'],
+			'user_address' => $aryParams['user_street'],
+			'user_birthday' => $aryParams['birth-year'].'-'.$aryParams['birth-month'].'-'.$aryParams['birth-day'],
+			'user_jog_present' => $aryParams['user_jog_present'],
+			'user_type_account' => 1,
+			'user_is_deleted' => 0,
+			'created' => date("Y/m/d"),
+		];
+		return $intIsOk = 1;
+	}
+        
 	public function setAryCookieBeforeCheckCodeEmail($params) {
 		$this->_HuyLibCookie = new HuyLib_Cookie();
 		$mailCode['user_code_register'] = $params['codeByEmail'];
@@ -44,5 +60,5 @@ class Application_Model_Builder_User
 		$aryResult = $this->dbCity->getListCity();
 	}
 
-	
+        
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_Logic extends Application_Model_DbTable_User
+class Application_Model_Logic
 {
     public function __construct(){
         
@@ -33,6 +33,6 @@ class Application_Model_Logic extends Application_Model_DbTable_User
 		foreach ($arrParams as $key => $value) {
 			$this->view->$key = $value;
 		}
-	}
+    }
 }
 

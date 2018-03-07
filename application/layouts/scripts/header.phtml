@@ -30,8 +30,8 @@
 		<li><a href="elements.html">Elements</a></li>
 		<li><a href="contact.html">Contact</a></li>
 			<li><?php if (isset($_SESSION['user'])) { ?><a href="<?php echo $this->baseUrl("index.php/User/index/userCode/".$_SESSION['user']['user_code']) ?>">
-				<img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" alt="Avatar" style="width: 30px" class="avatar"> 
-				</a><?php } else { ?>
+				<img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" alt="Avatar" style="width: 30px" class="avatar">
+                            </a><a style="margin-top: -80px" href="<?php echo $this->baseUrl("index.php/User/logout")?>">Logout</a><?php } else { ?>
 				<a href="#" onclick="User.showPopupLogin()">Login</a>
 			<?php } ?>
 		</li>
