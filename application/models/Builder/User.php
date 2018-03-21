@@ -22,6 +22,7 @@ class Application_Model_Builder_User
 			'user_url_image_alias' => "",
 			'user_url_background' => "",
 			'user_jog_present' => "",
+                        'user_birthday'     => date("Y/m/d"),
 			'user_type_account' => 1,
 			'user_is_deleted' => 0,
 			'created' => date("Y/m/d"),

@@ -11,6 +11,8 @@ class UserController extends Zend_Controller_Action
     protected $_logic;
     protected $_libAttachment;
     protected $dbCity;
+    protected $dbDistrict;
+    protected $dbStreet;
 
     public function init()
     {
@@ -21,6 +23,8 @@ class UserController extends Zend_Controller_Action
         $this->_logic = new Application_Model_Logic();
         $this->_libAttachment = new HuyLib_AttachmentFile();
         $this->dbCity = new Application_Model_DbTable_City();
+        $this->dbDistrict = new Application_Model_DbTable_District;
+        $this->dbStreet = new Application_Model_DbTable_Street;
     }
 
     public function indexAction()
@@ -33,8 +37,13 @@ class UserController extends Zend_Controller_Action
         $params = $this->_request->getParams();
         $arrCondition['user_code'] = $_SESSION['user']['user_code'];
         $this->_dbUser->getUserByConditionByAnd($arrCondition,$arrResult);
-//        var_dump($arrResult);die;
+        $this->dbCity->getCityByConditionAnd($arrCity,['city_code' => $arrResult['user_city']]);
+        $this->dbDistrict->getDistrictByConditionAnd($arrDistrict,['district_code' =>$arrResult['user_district']]);
+        $this->dbStreet->getStreetByConditionAnd($arrStreet,['street_code' => $arrResult['user_address']]);
         $this->view->aryUser = $arrResult;
+        $this->view->arrCity = $arrCity[0];
+        $this->view->arrDistrict = $arrDistrict[0];
+        $this->view->arrStreet = $arrStreet[0];
     }
     
     public function registerAction() {
@@ -285,6 +294,13 @@ class UserController extends Zend_Controller_Action
 
         $arrCity = [];
         if ($this->dbCity->getListCity($arrCity)) {
+            $this->view->citys = $arrCity;
+        }
+        $conditionDistrict = [
+            
+        ];
+        $arrDistrict = [];
+        if ($this->dbDistrict->getDistrictByConditionAnd($arrDistrict, $conditionDistrict)) {
             $this->view->citys = $arrCity;
         }
         $this->view->arrCurrentUser = $arrCurrentUser;

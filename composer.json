@@ -1,15 +1,13 @@
 {
-    "name": "pc/watch-daily-tv",
+    "name": "root/watch-daily-tv",
     "license": "MIT",
     "authors": [
         {
-            "name": "dvhuy160795",
-            "email": "dvhuy160795@gmail.com"
+            "name": "dao van huy",
+            "email": "huydv@vnext.com.vn"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
-        "zendframework/zendframework1": "^1.12@dev",
-        "robmorgan/phinx": "dev-master"
+        "robmorgan/phinx": "^0.9.2"
     }
 }

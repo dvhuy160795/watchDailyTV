@@ -9,7 +9,7 @@ class HuyLib_Cookie extends Zend_Controller_Plugin_Abstract
           }
         }
       }
-      
+
       if (!empty($arySetEncode)) {
         foreach ($arySetEncode as $key => $value) {
           if (!isset($_COOKIE[$key])) {
