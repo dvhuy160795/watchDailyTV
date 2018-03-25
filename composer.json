@@ -3,11 +3,10 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "dao van huy",
-            "email": "huydv@vnext.com.vn"
+            "name": "Huy",
+            "email": "dvhuy160795@gmail.com"
         }
     ],
-    "require": {
-        "robmorgan/phinx": "^0.9.2"
-    }
+    "minimum-stability": "dev",
+    "require": {}
 }

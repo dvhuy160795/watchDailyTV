@@ -78,6 +78,9 @@ var Default = {
         if (idInputValue !== "") {
             $("#input_" + idInputValue).val(e.options[e.selectedIndex].text);
         }
+    },
+    uploadVideo : function (userCode, videoCode) {
+        
     }
 }
 var User = {
@@ -173,7 +176,7 @@ var User = {
                         alert(data.message);
                     } else {
                         Default.closePopup();
-                        location.href = "/WatchDailyTV/public/index.php/index";
+                        location.reload();
                     }  
                 },            
                 error: function() {                
@@ -309,7 +312,7 @@ var User = {
             dataType: "json",            
             data: {},            
             success: function(data) {
-                location.href = "/WatchDailyTV/public/index.php/index";
+                location.reload();
             },            
             error: function() {                
                 alert('error');
