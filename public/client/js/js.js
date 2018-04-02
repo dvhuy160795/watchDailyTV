@@ -150,8 +150,8 @@ var User = {
             }
         });
     },
-    loadImg : function (input){
-        var $avatarUser = $('#avatarUser');
+    loadImg : function (input, autoImg){
+        var $avatarUser = $('#'+autoImg);
         var reader = new FileReader();
 
         User.fileSize = input.files[0].size;
@@ -161,6 +161,9 @@ var User = {
             $avatarUser.attr('src', e.target.result);
         };
         reader.readAsDataURL(input.files[0]);
+    },
+    loadVideo : function (input){
+        
     },
     checkLoginAction :function () {
         var $form = $('#formLogin');
@@ -319,8 +322,31 @@ var User = {
             }
         }
         $.ajax(strUrl);
-    }
+    },  
     
+};
+
+var Video = {
+    showOvlAddVideo : function (id){
+        var $form = $('#formEdituser');
+        var url = ROOT_URL + "/User/saveedituser";
+        var strUrl = {            
+            url: url,            
+            type: 'post',
+            dataType: "json",            
+            data: {},            
+            success: function(data) {
+                if (data.intIsOk == 1) {
+                    alert("Edit success!!");
+                    location.reload();
+                } 
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+        $form.ajaxForm(strUrl);
+    }
 };
 //auto load js
 
