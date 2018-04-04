@@ -162,8 +162,17 @@ var User = {
         };
         reader.readAsDataURL(input.files[0]);
     },
-    loadVideo : function (input){
-        
+    autoLoadEl : function (el, elDisplay){
+        var $avatarUser = $('#'+elDisplay);
+        var reader = new FileReader();
+
+        User.fileSize = el.files[0].size;
+        User.fileType = el.files[0].type;
+
+        reader.onload = function (e) {
+            $avatarUser.attr('src', e.target.result);
+        };
+        reader.readAsDataURL(el.files[0]);
     },
     checkLoginAction :function () {
         var $form = $('#formLogin');
