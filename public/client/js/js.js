@@ -79,8 +79,19 @@ var Default = {
             $("#input_" + idInputValue).val(e.options[e.selectedIndex].text);
         }
     },
-    uploadVideo : function (userCode, videoCode) {
-        
+    uploadVideo : function (videoCode) {
+        var url = ROOT_URL + "/Video/addvideo";
+        var data = {videoCode: videoCode};
+        $.ajax({
+            url:url,
+            data:data,
+            success: function(data){
+                $('#boxContentVideo').html(data);
+            },
+            errror: function() {
+                alert('error')
+            }
+        });
     }
 }
 var User = {
@@ -162,15 +173,20 @@ var User = {
         };
         reader.readAsDataURL(input.files[0]);
     },
-    autoLoadEl : function (el, elDisplay){
+    autoLoadEl : function (el, elDisplay, isLoading, elLoading){
         var $avatarUser = $('#'+elDisplay);
         var reader = new FileReader();
 
         User.fileSize = el.files[0].size;
         User.fileType = el.files[0].type;
-
+        if (isLoading == 1) {
+            $("#" + elLoading).show();
+        }
         reader.onload = function (e) {
             $avatarUser.attr('src', e.target.result);
+            if (isLoading == 1) {
+                $("#" + elLoading).hide();
+            }
         };
         reader.readAsDataURL(el.files[0]);
     },
@@ -349,6 +365,22 @@ var Video = {
                     alert("Edit success!!");
                     location.reload();
                 } 
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+        $form.ajaxForm(strUrl);
+    },
+    saveVideo : function () {
+        var $form = $('#formVideo');
+        var url = ROOT_URL + "/Video/savevideo";
+        var strUrl = {            
+            url: url,            
+            type: 'post',
+            dataType: "json",            
+            data: {},            
+            success: function(data) {
             },            
             error: function() {                
                 alert('error');

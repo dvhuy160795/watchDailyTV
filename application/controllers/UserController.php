@@ -23,8 +23,8 @@ class UserController extends Zend_Controller_Action
         $this->_logic = new Application_Model_Logic();
         $this->_libAttachment = new HuyLib_AttachmentFile();
         $this->dbCity = new Application_Model_DbTable_City();
-        $this->dbDistrict = new Application_Model_DbTable_District;
-        $this->dbStreet = new Application_Model_DbTable_Street;
+        $this->dbDistrict = new Application_Model_DbTable_District();
+        $this->dbStreet = new Application_Model_DbTable_Street();
     }
 
     public function indexAction()

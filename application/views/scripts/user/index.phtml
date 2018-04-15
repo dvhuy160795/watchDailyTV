@@ -74,52 +74,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
         <h2 class="w3-text-grey w3-padding-16" onclick="Default.uploadVideo()"><i class="fa fa-upload fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i></h2>
         
         <div class="w3-container" id="boxContentVideo">
-          <form>
-            <table style="width: 100%">
-              <tr>
-                <td>
-                  <div class="">
-                    <video width="320" height="260" id="video" src="" controls>
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                  <input type="file" name="video[video_url_video]" onchange="User.autoLoadEl(this,'video')" style="margin: 0px 0px 0px 5px">
-                </td>
-                <td>
-                  <img src="" id="imgAlias" style="width: 320px ; height: 260px">
-                  <input type="file" name="video[video_url_images_alias]" onchange="User.loadImg(this,'imgAlias')" style="margin: 0px 0px 0px 5px">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label for="videoname">Video Name</label>
-                  <input type="text" name="video[video_title]" id="videotitle" maxlength="100">
-                </td>
-                <td>
-                  <label for="videodescription">Video Description</label>
-                  <textarea name="video[video_description]" id="videodescription" maxlength="1000">
-                  </textarea>
-                </td>
-                <td>
-                  <label for="videodescription">Video Name</label>
-                  <textarea name="video[video_description]" id="videodescription" maxlength="1000">
-                  </textarea>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label >Video Type</label>
-                  <select>
-                    <option>1</option>
-                    <option>2</option>
-                  </select>
-                </td>
-                <td>
-
-                </td>
-              </tr>
-            </table>
-          </form>
+          
         </div>
       </div>
 
