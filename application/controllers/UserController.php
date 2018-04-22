@@ -137,7 +137,7 @@ class UserController extends Zend_Controller_Action
             $this->_builderUser->setAryCookieBeforeCheckCodeEmail($params);
             $this->_builderAttachment->setCookieToAryAttachment($fileInfo);
 
-            $this->_libAttachment->SaveAttachmentFile($params['controller']);            
+            $this->_libAttachment->UploadAttachmentFile($params['controller']);            
             $huyLib = new HuyLib_Mail();
             $isSendMailSuccess = $huyLib->sendMailRegisterUser($params['user']['user_email'], $params['codeByEmail']);
             //send mail faild
