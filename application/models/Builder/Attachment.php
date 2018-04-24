@@ -10,6 +10,8 @@ class Application_Model_Builder_Attachment
 		$aryMiss = [
 			'attachment_name' => $aryData['attachment_file_name'],
 			'attachment_type_upload' => $aryParams['controller']."-".$aryParams['action'],
+                        'attachment_type_upload_code' => $aryParams['controller']."-".$aryParams['action'],
+                        'attachment_is_deleted'  => 0,
 			'created' => date("Y/m/d")
 		];
 

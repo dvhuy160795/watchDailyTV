@@ -1,7 +1,7 @@
 <?php
 class HuyLib_AttachmentFile extends Zend_Controller_Plugin_Abstract
 {
-    public function UploadAttachmentFile($dir) {
+    public function UploadAttachmentFile($arrayFile, $dir) {
         //define 
         $upload= new Zend_File_Transfer_Adapter_Http();
         $libDatabase = new HuyLib_DataBase();
@@ -24,7 +24,6 @@ class HuyLib_AttachmentFile extends Zend_Controller_Plugin_Abstract
                 $arrayFile[$index]['url_path'] = "/temp/".$dir."/".$libDatabase->buildCodeInsertByDateTime().$strName.rand(0, 999999).".".$strExtendTion;
             }
         }
-        var_dump($arrayFile);die;
         return $arrayFile;
     }
     public function ViewAttachmentFile($aryListToAddress = [], $codeRandom) {
@@ -42,9 +41,11 @@ class HuyLib_AttachmentFile extends Zend_Controller_Plugin_Abstract
     }
     
     public function buildExtendTionString ($fileType) {
-        $strExtendTion = "";
-        $listExtendTion = $this->getExtendtion();
-        $strExtendTion = $listExtendTion[$fileType];
+        $strExtendTion = "mp4";
+        if (isset($fileType)) {
+            $listExtendTion = $this->getExtendtion();
+            $strExtendTion = $listExtendTion[$fileType];
+        }
         return $strExtendTion;
     }
 
