@@ -28,7 +28,7 @@ class WtvVideoCategory extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_video_category',['id' => false, 'primary_key' => ['video_category_id']]);
+        $tableAdmin=$this-> table('wtv_video_category',['id' => true]);
         $tableAdmin
                 ->addColumn('video_category_id','integer')
                 ->addColumn('video_category_code','string',['limit'=>100,'null' => false])

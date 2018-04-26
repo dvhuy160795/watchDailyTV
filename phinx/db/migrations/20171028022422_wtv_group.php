@@ -28,9 +28,8 @@ class WtvGroup extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_group',['id' => false, 'primary_key' => ['group_id']]);
+        $tableAdmin=$this-> table('wtv_group',['id' => true]);
         $tableAdmin
-                ->addColumn('group_id','integer')
                 ->addColumn('group_code','string',['limit'=>100,'null' => false])
                 ->addColumn('group_creater_user_code','string',['limit'=>100,'null' => false])
                 ->addColumn('group_title','string',['limit'=>300,'null' => false])

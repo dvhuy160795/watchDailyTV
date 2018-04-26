@@ -28,7 +28,7 @@ class WtvFriendship extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_friendship',['id' => false, 'primary_key' => ['friendship_id']]);
+        $tableAdmin=$this-> table('wtv_friendship',['id' => true]);
         $tableAdmin
                 ->addColumn('friendship_id','integer')
                 ->addColumn('friendship_user_send_code','string',['limit'=>100,'null' => false])

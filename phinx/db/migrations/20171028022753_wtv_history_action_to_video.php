@@ -28,7 +28,7 @@ class WtvHistoryActionToVideo extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_action_on_video',['id' => false, 'primary_key' => ['action_on_video_id']]);
+        $tableAdmin=$this-> table('wtv_action_on_video',['id' => true]);
         $tableAdmin
                 ->addColumn('action_on_video_id','integer')
                 ->addColumn('action_on_video_code','string',['limit'=>100,'null' => false])

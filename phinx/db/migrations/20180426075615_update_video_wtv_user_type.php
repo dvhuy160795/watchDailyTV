@@ -3,7 +3,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class WtvFolow extends AbstractMigration
+class UpdateVideoWtvUserType extends AbstractMigration
 {
     /**
      * Change Method.
@@ -28,15 +28,6 @@ class WtvFolow extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_follow',['id' => true]);
-        $tableAdmin
-                ->addColumn('follow_id','integer')
-                ->addColumn('follow_code','string',['limit'=>100,'null' => false])
-                ->addColumn('follow_send_user_code','string',['limit'=>100,'null' => false])
-                ->addColumn('follow_apply_user_code','string',['limit'=>100,'null' => false])
-                ->addColumn('follow_is_deleted','boolean',['default'=>0,'null' => false])
-                ->addColumn('delete','date')
-                ->addColumn('created','date')
-                ->save();
+        $this->execute('ALTER TABLE wtv_video MODIFY video_type_account VARCHAR(20)');
     }
 }

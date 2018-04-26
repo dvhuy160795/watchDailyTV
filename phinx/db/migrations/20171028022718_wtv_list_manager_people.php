@@ -28,7 +28,7 @@ class WtvListManagerPeople extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_manager_group',['id' => false, 'primary_key' => ['manager_group_id']]);
+        $tableAdmin=$this-> table('wtv_manager_group',['id' => true]);
         $tableAdmin
                 ->addColumn('manager_group_id','integer')
                 ->addColumn('manager_group_code','string',['limit'=>100,'null' => false])

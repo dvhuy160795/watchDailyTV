@@ -70,81 +70,50 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
     <!-- Right Column -->
     <div class="w3-twothird">
     
-      <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16" onclick="Default.uploadVideo()"><i class="fa fa-upload fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i></h2>
-        
-        <div class="w3-container" id="boxContentVideo">
-          
+        <div class="w3-container w3-card w3-white w3-margin-bottom">
+            <h2 class="w3-text-grey w3-padding-16" onclick="Default.uploadVideo()"><i class="fa fa-upload fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i></h2>
+
+            <div class="w3-container" id="boxContentVideo">
+
+            </div>
         </div>
-      </div>
 
-      <div class="w3-container w3-card w3-white" style="height:539px">
-	  <div class="ui-widget ui-helper-clearfix">
-	  
-	 <ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix" style="overflow-y:auto; height:500px">
-	   <li class="ui-widget-content ui-corner-tr">
-		 <h5 class="ui-widget-header">High Tatras</h5>
-		 <img src="images/high_tatras_min.jpg" alt="The peaks of High Tatras" width="96" height="72">
-		 <a href="images/high_tatras.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-		 <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
-	   </li>
-	   <li class="ui-widget-content ui-corner-tr">
-		 <h5 class="ui-widget-header">High Tatras 2</h5>
-		 <img src="images/high_tatras2_min.jpg" alt="The chalet at the Green mountain lake" width="96" height="72">
-		 <a href="images/high_tatras2.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-		 <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
-	   </li>
-	   <li class="ui-widget-content ui-corner-tr">
-		 <h5 class="ui-widget-header">High Tatras 3</h5>
-		 <img src="images/high_tatras3_min.jpg" alt="Planning the ascent" width="96" height="72">
-		 <a href="images/high_tatras3.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-		 <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
-	   </li>
-	   <li class="ui-widget-content ui-corner-tr">
-		 <h5 class="ui-widget-header">High Tatras 4</h5>
-		 <img src="images/high_tatras4_min.jpg" alt="On top of Kozi kopka" width="96" height="72">
-		 <a href="images/high_tatras4.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-		 <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
-	   </li>
-	   <li class="ui-widget-content ui-corner-tr">
-		 <h5 class="ui-widget-header">High Tatras</h5>
-		 <img src="images/high_tatras_min.jpg" alt="The peaks of High Tatras" width="96" height="72">
-		 <a href="images/high_tatras.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-		 <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
-	   </li>
-	   <li class="ui-widget-content ui-corner-tr">
-		 <h5 class="ui-widget-header">High Tatras 2</h5>
-		 <img src="images/high_tatras2_min.jpg" alt="The chalet at the Green mountain lake" width="96" height="72">
-		 <a href="images/high_tatras2.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-		 <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
-	   </li>
-	   <li class="ui-widget-content ui-corner-tr">
-		 <h5 class="ui-widget-header">High Tatras 3</h5>
-		 <img src="images/high_tatras3_min.jpg" alt="Planning the ascent" width="96" height="72">
-		 <a href="images/high_tatras3.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-		 <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
-	   </li>
-	   <li class="ui-widget-content ui-corner-tr">
-		 <h5 class="ui-widget-header">High Tatras 4</h5>
-		 <img src="images/high_tatras4_min.jpg" alt="On top of Kozi kopka" width="96" height="72">
-		 <a href="images/high_tatras4.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-		 <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
-	   </li>
-	   
-	 </ul>
-	  
-	 <div id="trash" class="ui-widget-content ui-state-default">
-	   <h4 class="ui-widget-header"><span class="ui-icon ui-icon-trash">Trash</span> Trash</h4>
-	 </div>
-	  
-	 </div>
-      </div>
+        <div class="w3-container w3-card w3-white" style="height:539px">
+            <div style=" height: 5px"></div>
+            <div class="ui-widget ui-helper-clearfix" id="list_video">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <a class="fh5co-card" href="#">
+                        <img src="<?php echo $this->baseUrl('template/images/img_large_1.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
+                        <div class="fh5co-card-body">
+                            <h3>Web Developer</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <a class="fh5co-card" href="#">
+                        <img src="<?php echo $this->baseUrl('template/images/img_large_2.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
+                        <div class="fh5co-card-body">
+                            <h3>User Experience</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <a class="fh5co-card" href="#">
+                        <img src="<?php echo $this->baseUrl('template/images/img_large_2.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
+                        <div class="fh5co-card-body">
+                            <h3>User Experience</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        <!-- End Right Column -->
+        </div>
 
-    <!-- End Right Column -->
+    <!-- End Grid -->
     </div>
-    
-  <!-- End Grid -->
-  </div>
   
   <!-- End Page Container -->
 </div>

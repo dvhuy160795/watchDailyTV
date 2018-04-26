@@ -381,6 +381,10 @@ var Video = {
             dataType: "json",            
             data: {},            
             success: function(data) {
+                if(data.intIsOk == 1){
+                    alert(data.message);
+                    location.reload();
+                }
             },            
             error: function() {                
                 alert('error');

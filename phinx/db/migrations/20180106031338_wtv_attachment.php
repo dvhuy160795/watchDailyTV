@@ -28,7 +28,7 @@ class WtvAttachment extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_attachment',['id' => true, 'primary_key' => ['id']]);
+        $tableAdmin=$this-> table('wtv_attachment',['id' => true]);
         $tableAdmin
                 ->addColumn('attachment_name','string',['limit'=>100,'null' => false])
                 ->addColumn('attachment_url_source','string',['limit'=>3000,'null' => false])

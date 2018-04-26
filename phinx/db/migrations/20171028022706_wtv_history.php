@@ -28,7 +28,7 @@ class WtvHistory extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_history',['id' => false, 'primary_key' => ['history_id']]);
+        $tableAdmin=$this-> table('wtv_history',['id' => true]);
         $tableAdmin
                 ->addColumn('history_id','integer')
                 ->addColumn('history_code','string',['limit'=>100,'null' => false])

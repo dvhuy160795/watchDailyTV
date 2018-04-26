@@ -28,7 +28,7 @@ class WtvKeyword extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_keyword',['id' => false, 'primary_key' => ['keyword_id']]);
+        $tableAdmin=$this-> table('wtv_keyword',['id' => true]);
         $tableAdmin
                 ->addColumn('keyword_id','integer')
                 ->addColumn('keyword_code','string',['limit'=>100,'null' => false])

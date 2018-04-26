@@ -1,7 +1,7 @@
 <?php
 class HuyLib_AttachmentFile extends Zend_Controller_Plugin_Abstract
 {
-    public function UploadAttachmentFile($arrayFile, $dir) {
+    public function UploadAttachmentFile(&$arrayFile, $dir) {
         //define 
         $upload= new Zend_File_Transfer_Adapter_Http();
         $libDatabase = new HuyLib_DataBase();

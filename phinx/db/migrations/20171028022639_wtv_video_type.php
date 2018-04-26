@@ -28,7 +28,7 @@ class WtvVideoType extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_video_type',['id' => false, 'primary_key' => ['video_type_id']]);
+        $tableAdmin=$this-> table('wtv_video_type',['id' => true]);
         $tableAdmin
                 ->addColumn('video_type_id','integer')
                 ->addColumn('video_type_code','string',['limit'=>100,'null' => false])

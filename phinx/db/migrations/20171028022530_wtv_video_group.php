@@ -28,7 +28,7 @@ class WtvVideoGroup extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_video_group',['id' => false, 'primary_key' => ['video_group_id']]);
+        $tableAdmin=$this-> table('wtv_video_group',['id' => true]);
         $tableAdmin
                 ->addColumn('video_group_id','integer')
                 ->addColumn('video_group_video_code','string',['limit'=>100,'null' => false])

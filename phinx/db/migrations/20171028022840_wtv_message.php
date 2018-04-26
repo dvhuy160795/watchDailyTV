@@ -28,7 +28,7 @@ class WtvMessage extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_message',['id' => false, 'primary_key' => ['message_id']]);
+        $tableAdmin=$this-> table('wtv_message',['id' => true]);
         $tableAdmin
                 ->addColumn('message_id','integer')
                 ->addColumn('message_code','string',['limit'=>100,'null' => false])

@@ -28,7 +28,7 @@ class WtvComment extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_comment',['id' => false, 'primary_key' => ['comment_id']]);
+        $tableAdmin=$this-> table('wtv_comment',['id' => true]);
         $tableAdmin
                 ->addColumn('comment_id','integer')
                 ->addColumn('comment_code','string',['limit'=>100,'null' => false])

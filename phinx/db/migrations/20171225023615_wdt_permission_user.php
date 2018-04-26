@@ -28,7 +28,7 @@ class WdtPermissionUser extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_permission',['id' => false, 'primary_key' => ['permission_id']]);
+        $tableAdmin=$this-> table('wtv_permission',['id' => true]);
         $tableAdmin
                 ->addColumn('permission_id','integer')
                 ->addColumn('permission_code','string',['limit'=>100,'null' => false])

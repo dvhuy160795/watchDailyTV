@@ -28,7 +28,7 @@ class WtvUser extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_user',['id' => false, 'primary_key' => ['user_id']]);
+        $tableAdmin=$this-> table('wtv_user',['id' => true]);
         $tableAdmin
                 ->addColumn('user_id','integer')
                 ->addColumn('user_code','string',['limit'=>100,'null' => false])

@@ -28,7 +28,7 @@ class WtvGroupChat extends AbstractMigration
      */
     public function change()
     {
-        $tableAdmin=$this-> table('wtv_group_chat',['id' => false, 'primary_key' => ['group_chat_id']]);
+        $tableAdmin=$this-> table('wtv_group_chat',['id' => true]);
         $tableAdmin
                 ->addColumn('group_chat_id','integer')
                 ->addColumn('group_chat_code','string',['limit'=>100,'null' => false])
