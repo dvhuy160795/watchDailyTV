@@ -13,6 +13,7 @@ class UserController extends Zend_Controller_Action
     protected $dbCity;
     protected $dbDistrict;
     protected $dbStreet;
+    protected $dbVideo ;
 
     public function init()
     {
@@ -25,6 +26,7 @@ class UserController extends Zend_Controller_Action
         $this->dbCity = new Application_Model_DbTable_City();
         $this->dbDistrict = new Application_Model_DbTable_District();
         $this->dbStreet = new Application_Model_DbTable_Street();
+        $this->dbVideo = new Application_Model_DbTable_Video();
     }
 
     public function indexAction()
@@ -35,15 +37,18 @@ class UserController extends Zend_Controller_Action
             return;
         }
         $params = $this->_request->getParams();
+        $aryListVideo = [];
         $arrCondition['user_code'] = $_SESSION['user']['user_code'];
         $this->_dbUser->getUserByConditionByAnd($arrCondition,$arrResult);
         $this->dbCity->getCityByConditionAnd($arrCity,['city_code' => $arrResult['user_city']]);
         $this->dbDistrict->getDistrictByConditionAnd($arrDistrict,['district_code' =>$arrResult['user_district']]);
         $this->dbStreet->getStreetByConditionAnd($arrStreet,['street_code' => $arrResult['user_address']]);
+        $this->dbVideo->getVideoByConditionAnd($aryListVideo, ['video_type_account' => $_SESSION['user']['user_code']]);
         $this->view->aryUser = $arrResult;
         $this->view->arrCity = $arrCity[0];
         $this->view->arrDistrict = $arrDistrict[0];
         $this->view->arrStreet = $arrStreet[0];
+        $this->view->aryListVideo = $aryListVideo;
     }
     
     public function registerAction() {

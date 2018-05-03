@@ -6,22 +6,22 @@ class HuyLib_AttachmentFile extends Zend_Controller_Plugin_Abstract
         $upload= new Zend_File_Transfer_Adapter_Http();
         $libDatabase = new HuyLib_DataBase();
         //create path dir if dir not exist
-        if (is_dir(APPLICATION_PATH."/temp/".$dir) == false) {
-            mkdir(APPLICATION_PATH."/temp/".$dir,0777);
+        if (is_dir(PUBLIC_PATH."/temp/".$dir) == false) {
+            mkdir(PUBLIC_PATH."/temp/".$dir,0777);
         }
         $arrayFile = $upload->getFileInfo();
-        $upload->setDestination(APPLICATION_PATH."/temp/".$dir);
+        $upload->setDestination(PUBLIC_PATH."/temp/".$dir);
         //upload to path dir
         $upload->receive();
-        
+        $randomCode = rand(0, 999999);
         if (!empty($arrayFile)) {
             foreach ($arrayFile as $index => $file) {
                 $strName = $this->renderNameAttachment($file['name']);
                 $strExtendTion = $this->buildExtendTionString($file['type']);
                 //set path dir
-                rename(APPLICATION_PATH."/temp/".$dir."/".$file['name'],APPLICATION_PATH."/temp/".$dir."/".$libDatabase->buildCodeInsertByDateTime().$strName.rand(0, 999999).".".$strExtendTion);
+                rename(PUBLIC_PATH."/temp/".$dir."/".$file['name'],PUBLIC_PATH."/temp/".$dir."/".$libDatabase->buildCodeInsertByDateTime().$strName.$randomCode.".".$strExtendTion);
                 $arrayFile[$index]['name'] = $strName.".".$strExtendTion;
-                $arrayFile[$index]['url_path'] = "/temp/".$dir."/".$libDatabase->buildCodeInsertByDateTime().$strName.rand(0, 999999).".".$strExtendTion;
+                $arrayFile[$index]['url_path'] = "/temp/".$dir."/".$libDatabase->buildCodeInsertByDateTime().$strName.$randomCode.".".$strExtendTion;
             }
         }
         return $arrayFile;
