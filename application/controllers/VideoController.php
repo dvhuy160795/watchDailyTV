@@ -61,7 +61,12 @@ class VideoController extends Zend_Controller_Action
     
     public function viewAction() {
         $params = $this->_request->getParams();
-        var_dump($params);
+        $aryVideo = [];
+        $condition = [
+            'id' => $params['id'],
+        ];
+        $this->dbVideo->getOneVideoByMailAndMoreByAND($aryVideo, $condition);
+        $this->view->aryVideo = $aryVideo;
     }
 }
 
