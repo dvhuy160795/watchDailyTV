@@ -17,8 +17,22 @@ class Application_Model_DbTable_Video extends Zend_Db_Table_Abstract
     	}
     }
     
-    public function getVideoByConditionAnd (&$aryResult = null , $condition = null) {
-    	$where = $this->_db->quoteInto('video_is_deleted = ?','0');
+    public function getVideoByMailAndMoreByOR (&$aryVideo = null , $condition = null) {
+    	$where = $this->_db->quoteInto('video_is_deleted = ?',0);
+    	foreach ($condition as $key => $value) {
+    		$where .= $this->_db->quoteInto(" or ".$key." = ?",$value);
+    	}
+    	$sql = $this->_db->select()->from($this->_name)->where($where);
+    	$aryVideo = $this->_db->fetchAll($sql);
+        if (empty($aryVideo)) {
+                return false;
+        } else {
+                return true;
+        }
+    }
+
+    public function getVideoByMailAndMoreByAND (&$aryResult = null , $condition = null) {
+        $where = $this->_db->quoteInto('video_is_deleted = ?',0);
         foreach ($condition as $key => $value) {
             $where .= $this->_db->quoteInto(" AND ".$key." = ?",$value);
         }

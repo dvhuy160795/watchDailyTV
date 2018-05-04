@@ -13,15 +13,15 @@ class HuyLib_AttachmentFile extends Zend_Controller_Plugin_Abstract
         $upload->setDestination(PUBLIC_PATH."/temp/".$dir);
         //upload to path dir
         $upload->receive();
-        $randomCode = rand(0, 999999);
         if (!empty($arrayFile)) {
             foreach ($arrayFile as $index => $file) {
+                $randCode = rand(0, 999999);
                 $strName = $this->renderNameAttachment($file['name']);
                 $strExtendTion = $this->buildExtendTionString($file['type']);
                 //set path dir
-                rename(PUBLIC_PATH."/temp/".$dir."/".$file['name'],PUBLIC_PATH."/temp/".$dir."/".$libDatabase->buildCodeInsertByDateTime().$strName.$randomCode.".".$strExtendTion);
+                rename(PUBLIC_PATH."/temp/".$dir."/".$file['name'],PUBLIC_PATH."/temp/".$dir."/".$libDatabase->buildCodeInsertByDateTime().$strName.$randCode.".".$strExtendTion);
                 $arrayFile[$index]['name'] = $strName.".".$strExtendTion;
-                $arrayFile[$index]['url_path'] = "/temp/".$dir."/".$libDatabase->buildCodeInsertByDateTime().$strName.$randomCode.".".$strExtendTion;
+                $arrayFile[$index]['url_path'] = "/temp/".$dir."/".$libDatabase->buildCodeInsertByDateTime().$strName.$randCode.".".$strExtendTion;
             }
         }
         return $arrayFile;
@@ -36,7 +36,10 @@ class HuyLib_AttachmentFile extends Zend_Controller_Plugin_Abstract
             'image/jpeg' => "jpeg",
             'image/jpg' => "jpg",
             'image/gif' => "gif",
-            'video/mp4' => "mp4"
+            'video/mp4' => "mp4",
+            'video/x-flv' => "flv",
+            'video/x-matroska' => "mkv",
+            'application/octet-stream' => "3gp",
         ];
     }
     

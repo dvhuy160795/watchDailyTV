@@ -38,17 +38,63 @@ class UserController extends Zend_Controller_Action
         }
         $params = $this->_request->getParams();
         $aryListVideo = [];
+        $aryConditionGetVideo = [
+            'video_type_account' => $_SESSION['user']['user_code'],
+        ];
         $arrCondition['user_code'] = $_SESSION['user']['user_code'];
         $this->_dbUser->getUserByConditionByAnd($arrCondition,$arrResult);
         $this->dbCity->getCityByConditionAnd($arrCity,['city_code' => $arrResult['user_city']]);
         $this->dbDistrict->getDistrictByConditionAnd($arrDistrict,['district_code' =>$arrResult['user_district']]);
         $this->dbStreet->getStreetByConditionAnd($arrStreet,['street_code' => $arrResult['user_address']]);
-        $this->dbVideo->getVideoByConditionAnd($aryListVideo, ['video_type_account' => $_SESSION['user']['user_code']]);
+        $isHasVideo = $this->dbVideo->getVideoByMailAndMoreByAND($aryListVideo,$aryConditionGetVideo);
+        if (!$isHasVideo) {
+           $aryListVideo = []; 
+        }
+        $paginator  = Zend_Paginator::factory($aryListVideo);
+        $perPage = 3;
+        $paginator->setDefaultItemCountPerPage($perPage);
+        $allItems = $paginator->getTotalItemCount();
+        $countPages = $paginator->count();
+        $p = $this->getRequest()->getParam('p');
+        if(isset($p)) {
+            $paginator->setCurrentPageNumber($p); 
+        } else {
+            $paginator->setCurrentPageNumber(1);
+        }
+        $currentPage = $paginator->getCurrentPageNumber();
+        $this->view->albums = $paginator;
+        $this->view->countItems = $allItems;
+        $this->view->countPages = $countPages;
+        $this->view->currentPage = $currentPage;
+        if($currentPage != $countPages)
+        {
+            $this->view->previousPage = $currentPage-1;
+            $this->view->nextPage = $currentPage+1;
+            $this->view->endPage = $countPages; 
+        }
+        else if($currentPage == 1)
+        {
+            $this->view->nextPage = $currentPage+1;
+            $this->view->previousPage = 1; 
+        }
+        else if($currentPage == 0)
+        {
+            $this->view->firstPage = $currentPage;
+        }
+        else {
+            $this->view->nextPage = $currentPage+1;
+            $this->view->previousPage = $currentPage-1;
+        }
+        $this->view->hasNext = $currentPage < $countPages ? true : false;
+        $this->view->hasPrev = $currentPage > 1 ? true : false;
+        $this->view->hasFirst = $currentPage > 1 ? true : false;
+        $this->view->hasEnd = $currentPage < $countPages ? true : false;
+        
         $this->view->aryUser = $arrResult;
         $this->view->arrCity = $arrCity[0];
         $this->view->arrDistrict = $arrDistrict[0];
         $this->view->arrStreet = $arrStreet[0];
-        $this->view->aryListVideo = $aryListVideo;
+        $this->view->aryListVideo = $paginator;
     }
     
     public function registerAction() {

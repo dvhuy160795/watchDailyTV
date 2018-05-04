@@ -10,7 +10,7 @@ class Admin_IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        echo "admin page";
+        $this->_helper->layout->disableLayout();
     }
 
 

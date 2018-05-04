@@ -42,13 +42,13 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
             </div>
         </div>
 
-        <div class="w3-container w3-card w3-white" style="height:539px">
+        <div class="w3-container w3-card w3-white">
             <div style=" height: 5px"></div>
             <div class="ui-widget ui-helper-clearfix" id="list_video">
                 <?php foreach ($this->aryListVideo as $aryVideo) { ?>
                     <div class="col-lg-4 col-md-6 col-sm-6">
-                        <a class="fh5co-card" href="#">
-                            <img src="<?php echo $this->baseUrl($aryVideo['video_url_image_alias']);?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
+                        <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$aryVideo['id']); ?>">
+                            <img style="width:300px; height:180px" src="<?php echo $this->baseUrl($aryVideo['video_url_image_alias']);?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
                             <div class="fh5co-card-body">
                                 <h3><?php echo $aryVideo['video_title'];?></h3>
                                 <p><?php echo $aryVideo['video_description'];?></p>
@@ -56,7 +56,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
                         </a>
                     </div>
                 <?php } ?>
-            </div>
+                            </div>
         <!-- End Right Column -->
         </div>
 
@@ -65,7 +65,34 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
   
   <!-- End Page Container -->
 </div>
+<div style="margin-top: 10px;float: right;">
 
+      <?php if($this->hasFirst) : ?>
+      <a href="<?php echo $this->url(array('controller'=>'User','action'=>'index','p'=>$this->firstPage)) ?>"> << </a>
+      <?php else : ?>
+        <span></span>
+      <?php endif; ?>  
+
+      <?php if ($this->hasPrev) : ?>
+        <!-- <a href="">First</a> -->
+        <a href="<?php echo $this->url(array('controller'=>'User','action'=>'index','p'=>$this->previousPage)) ?>"> < </a>
+      <?php else : ?>
+        <span style="display: none">previous</span>
+      <?php endif; ?>   
+      <?php echo "".$this->currentPage."/".$this->countPages; ?>
+      <?php if ($this->hasNext) : ?>
+        <a href="<?php echo $this->url(array('controller'=>'User','action'=>'index','p'=>$this->nextPage)) ?>"> > </a>  
+      <?php else : ?>
+        <span style="display: none">next</span>
+      <?php endif; ?>
+
+      <?php if($this->hasEnd) : ?>
+      <a href="<?php echo $this->url(array('controller'=>'User','action'=>'index','p'=>$this->endPage)) ?>"> >> </a>
+      <?php else : ?>
+        <span></span>
+      <?php endif; ?> 
+
+</div>
 </div>
 <div style="width: 100%"><a href="#"><i class="fa fa-save w3-margin-right w3-large w3-text-red"></i></a></div>
 <div style="width: 100%"><a href="#"><i class="fa fa-remove w3-margin-right w3-large w3-text-red"></i></a></div>
