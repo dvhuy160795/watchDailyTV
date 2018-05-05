@@ -161,7 +161,7 @@ var User = {
             }
         });
     },
-    loadImg : function (input, autoImg){
+    loadImg : function (input, autoImg, itemSetvalue = ""){
         var $avatarUser = $('#'+autoImg);
         var reader = new FileReader();
 
@@ -170,10 +170,11 @@ var User = {
 
         reader.onload = function (e) {
             $avatarUser.attr('src', e.target.result);
+            $("#" + itemSetvalue).val(e.target.result);
         };
         reader.readAsDataURL(input.files[0]);
     },
-    autoLoadEl : function (el, elDisplay, isLoading, elLoading){
+    autoLoadEl : function (el, elDisplay, isLoading, elLoading, itemValue = ""){
         var $avatarUser = $('#'+elDisplay);
         var reader = new FileReader();
 
@@ -181,11 +182,12 @@ var User = {
         User.fileType = el.files[0].type;
         if (isLoading == 1) {
             $("#" + elLoading).show();
-        }
+        }      
         reader.onload = function (e) {
             $avatarUser.attr('src', e.target.result);
             if (isLoading == 1) {
                 $("#" + elLoading).hide();
+                $("#" + itemValue).val(e.target.result);
             }
         };
         reader.readAsDataURL(el.files[0]);
@@ -347,8 +349,25 @@ var User = {
             }
         }
         $.ajax(strUrl);
-    },  
+    }, 
     
+    loadPagination : function(controller, action, page, blockLoadlist) {
+        var url = ROOT_URL + "/" + controller + "/" + action;
+        var strUrl = {            
+            url: url,                        
+            data: {p:page},            
+            success: function(data) {
+                console.log(2);
+                console.log(data);
+                console.log(1);
+                $("#" + blockLoadlist).html(data);
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+        $.ajax(strUrl);
+    },
 };
 
 var Video = {
@@ -384,6 +403,8 @@ var Video = {
                 if(data.intIsOk == 1){
                     alert(data.message);
                     location.reload();
+                } else {
+                    alert(data.message);
                 }
             },            
             error: function() {                

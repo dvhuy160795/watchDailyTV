@@ -14,6 +14,7 @@ class UserController extends Zend_Controller_Action
     protected $dbDistrict;
     protected $dbStreet;
     protected $dbVideo ;
+    protected $dbVideoType;
 
     public function init()
     {
@@ -27,6 +28,7 @@ class UserController extends Zend_Controller_Action
         $this->dbDistrict = new Application_Model_DbTable_District();
         $this->dbStreet = new Application_Model_DbTable_Street();
         $this->dbVideo = new Application_Model_DbTable_Video();
+        $this->dbVideoType = new Application_Model_DbTable_VideoType();
     }
 
     public function indexAction()

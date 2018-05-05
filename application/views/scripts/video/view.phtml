@@ -1,9 +1,10 @@
 <head>
 <style>
-div#video_player_box{ width:550px; background:#000; margin:0px auto;}
+div#video_player_box{ width:100%; background:#000; margin:0px auto;margin-top: 72px;}
 div#video_controls_bar{ background: #333; padding:10px; color:#CCC; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;}
 button#playpausebtn{
-	background:url(pause.png);
+	background:url("<?php echo $this->baseUrl('/template/images/pause.png'); ?>");
+        background-size: 100% 100%;
 	border:none;
 	width:16px;
 	height:18px;
@@ -11,7 +12,7 @@ button#playpausebtn{
 	opacity:0.5;
 }
 button#playpausebtn:hover{ opacity:1; }
-input#seekslider{ width:180px; }
+input#seekslider{ width:100%; }
 input#volumeslider{ width: 80px;}
 input[type='range'] {
     -webkit-appearance: none !important;
@@ -52,10 +53,12 @@ window.onload = intializePlayer;
 function playPause(){
 	if(vid.paused){
 		vid.play();
-		playbtn.style.background = "url(pause.png)";
+		playbtn.style.background = "url(<?php echo $this->baseUrl('/template/images/pause.png'); ?>)";
+                playbtn.style.backgroundSize = "100% 100%";
 	} else {
 		vid.pause();
-		playbtn.style.background = "url(play.png)";
+		playbtn.style.background = "url(<?php echo $this->baseUrl('/template/images/play.png'); ?>)";
+                playbtn.style.backgroundSize = "100% 100%";
 	}
 }
 function vidSeek(){
@@ -100,11 +103,11 @@ function toggleFullScreen(){
 </script>
 </head>
 <div id="video_player_box">
-  <video id="my_video" width="100%" height="310" autoplay>
+  <video id="my_video" width="100%" height="500" autoplay>
     <source src="<?php echo $this->baseUrl($this->aryVideo['video_url_video']); ?>">
   </video>
   <div id="video_controls_bar">
-    <button id="playpausebtn"></button>
+      <button id="playpausebtn"></button>
     <input id="seekslider" type="range" min="0" max="100" value="0" step="1">
     <span id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
     <button id="mutebtn">Mute</button>
