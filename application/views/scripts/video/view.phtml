@@ -12,7 +12,7 @@ button#playpausebtn{
 	opacity:0.5;
 }
 button#playpausebtn:hover{ opacity:1; }
-input#seekslider{ width:100%; }
+input#seekslider{ width:70%; }
 input#volumeslider{ width: 80px;}
 input[type='range'] {
     -webkit-appearance: none !important;
@@ -82,10 +82,12 @@ function seektimeupdate(){
 function vidmute(){
 	if(vid.muted){
 		vid.muted = false;
-		mutebtn.innerHTML = "Mute";
+		mutebtn.style.background = "url(<?php echo $this->baseUrl('/template/images/mute.png'); ?>)";
+                mutebtn.style.backgroundSize = "100% 100%";
 	} else {
 		vid.muted = true;
-		mutebtn.innerHTML = "Unmute";
+		mutebtn.style.background = "url(<?php echo $this->baseUrl('/template/images/unmute.png'); ?>)";
+                mutebtn.style.backgroundSize = "100% 100%";
 	}
 }
 function setvolume(){
@@ -107,11 +109,11 @@ function toggleFullScreen(){
     <source src="<?php echo $this->baseUrl($this->aryVideo['video_url_video']); ?>">
   </video>
   <div id="video_controls_bar">
-      <button id="playpausebtn"></button>
-    <input id="seekslider" type="range" min="0" max="100" value="0" step="1">
-    <span id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
-    <button id="mutebtn">Mute</button>
-    <input id="volumeslider" type="range" min="0" max="100" value="100" step="1">
-    <button id="fullscreenbtn">[ &nbsp; ]</button>
+      <button id="playpausebtn" style="display:inline-block"></button>
+    <input style="display:inline-block" id="seekslider" type="range" min="0" max="100" value="0" step="1">
+    <span style="display:inline-block" id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
+    <button style="display:inline-block" id="mutebtn"></button>
+    <input style="display:inline-block" id="volumeslider" type="range" min="0" max="100" value="100" step="1">
+    <button style="display:inline-block" id="fullscreenbtn">[ &nbsp; ]</button>
   </div>
 </div>

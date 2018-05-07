@@ -1,62 +1,73 @@
-			<div class="overlay"></div>
-			<a href="#fh5co-main" class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i class="ti-angle-down"></i></a>
-			<!-- End fh5co-arrow -->
-			<div class="container-fluid">
-                            <div class="row" style="margin-top:200px">
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_1.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>Web Developer</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_2.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>User Experience</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_2.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>Web Designer</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_3.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>Web Analyst</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_3.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>Web Analyst</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-2 col-md-6 col-sm-6 animate-box">
-                                    <a class="fh5co-card" href="#">
-                                        <img src="<?php echo $this->baseUrl('template/images/img_large_3.jpg')?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
-                                        <div class="fh5co-card-body">
-                                            <h3>Web Analyst</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste sunt porro delectus cum officia magnam.</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+<div class="overlay"></div>
+			<div class="container-fluid" style="margin-top:200px">
+                            <?php
+                            $listVideoType = $this->listAryVideoType;
+                            foreach ($listVideoType as $videoType) : 
+                                ?>
+                                <fieldset style="border: none">
+                                    <legend style=" font-weight: bold; color: black"><?php echo $videoType['video_type_title'] ?></legend>
+                                    <div id="listVideo<?php echo $videoType['id']; ?>">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination">
+                                              <li class="page-item">
+                                                <?php if($this->{'hasFirst'.$videoType['id']}) : ?>
+                                                    <a class="page-link" href="#" aria-label="Previous1" onclick="User.loadPagination('Video','loadlistvideobyhome','<?php echo $this->{'firstPage'.$videoType['id']} ?>','listVideo<?php echo $videoType['id'] ?>',<?php echo $videoType['id'] ?>)">
+                                                        <span aria-hidden="true"> << </span>
+                                                        <span class="sr-only">Previous1</span>
+                                                    </a>
+                                                <?php else : ?>
+                                                <?php endif; ?>
+                                              </li>
+                                              <li class="page-item">
+                                                <?php if ($this->{'hasPrev'.$videoType['id']}) : ?>
+                                                    <!-- <a href="">First</a> -->
+                                                    <a class="page-link" href="#" aria-label="Previous2" onclick="User.loadPagination('Video','loadlistvideobyhome','<?php echo $this->{'previousPage'.$videoType['id']} ?>','listVideo<?php echo $videoType['id'] ?>',<?php echo $videoType['id'] ?>)">
+                                                    <span aria-hidden="true"> < </span>
+                                                    <span class="sr-only">Previous2</span>
+                                                </a>
+                                                <?php else : ?>
+                                                <?php endif; ?> 
+                                              </li>
+                                              <?php if ($this->{'countPages'.$videoType['id']} != $this->{'currentPage'.$videoType['id']}) : ?>
+                                              <li class="page-item"><a class="page-link" href="#"><?php echo "".$this->{'currentPage'.$videoType['id']}."/".$this->{'countPages'.$videoType['id']}; ?></a></li>
+                                              <?php endif; ?>
+                                              <li class="page-item">
+                                                  <?php if ($this->{'hasNext'.$videoType['id']}) : ?>
+                                                    <a class="page-link" href="#" aria-label="Next1" href="#" onclick="User.loadPagination('Video','loadlistvideobyhome','<?php echo $this->{'nextPage'.$videoType['id']} ?>','listVideo<?php echo $videoType['id'] ?>',<?php echo $videoType['id'] ?>)"> 
+                                                        <span aria-hidden="true"> > </span>
+                                                        <span class="sr-only">Next1</span>
+                                                    </a>
+                                                  <?php else : ?>
+                                                  <?php endif; ?>
+                                              </li>
+                                              <li class="page-item">
+                                                  <?php if($this->{'hasEnd'.$videoType['id']}) : ?>
+                                                    <a class="page-link" href="#" aria-label="Next" onclick="User.loadPagination('Video','loadlistvideobyhome','<?php echo $this->{'endPage'.$videoType['id']} ?>','listVideo<?php echo $videoType['id'] ?>',<?php echo $videoType['id'] ?>)">
+                                                        <span aria-hidden="true"> >> </span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                              </li>
+                                                  <?php else : ?>
+                                                  <?php endif; ?> 
+                                            </ul>
+                                        </nav>
+                                        <?php 
+                                        foreach ($this->{"listAryVideo".$videoType['id']} as $video) :
+                                            if ($video['video_video_type_code'] == $videoType['id']) : ?>
+                                                <div class="col-lg-3 col-md-6 col-sm-6 animate-box">
+                                                    <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$video['id']); ?>">
+                                                        <img src="<?php echo $this->baseUrl($video['video_url_image_alias']); ?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
+                                                        <div class="fh5co-card-body">
+                                                            <h3><?php echo $video['video_title']; ?></h3>
+                                                            <p><?php echo $video['video_description']; ?></p>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            <?php endif;
+                                        endforeach; ?>
+                                    </div>
+                                </fieldset>
+                            <?php endforeach;
+                            ?>
+                            
                         </div>	
-		</div>

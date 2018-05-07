@@ -159,5 +159,61 @@ class VideoController extends Zend_Controller_Action
 //        ];
 //        echo json_encode($respon);
     }
+    
+    public function loadlistvideobyhomeAction() {
+        $this->_helper->layout->disableLayout();
+//        $this->_helper->viewRenderer->setNoRender(true);
+        $params = $this->_request->getParams();
+
+        $aryListVideo = [];
+        $aryConditionGetVideo = [
+            'video_video_type_code' => $params['typeCode'],
+        ];
+        $isHasVideo = $this->dbVideo->getVideoByMailAndMoreByAND($aryListVideo,$aryConditionGetVideo);
+        if (!$isHasVideo) {
+           $aryListVideo = []; 
+        }
+        $paginator  = Zend_Paginator::factory($aryListVideo);
+        $perPage = 3;
+        $paginator->setDefaultItemCountPerPage($perPage);
+        $allItems = $paginator->getTotalItemCount();
+        $countPages = $paginator->count();
+        $p = $this->getRequest()->getParam('p');
+        if(isset($p)) {
+            $paginator->setCurrentPageNumber($p); 
+        } else {
+            $paginator->setCurrentPageNumber(1);
+        }
+        $currentPage = $paginator->getCurrentPageNumber();
+        $this->view->typeCodeVideo = $params['typeCode'];
+        $this->view->albums = $paginator;
+        $this->view->countItems = $allItems;
+        $this->view->countPages = $countPages;
+        $this->view->currentPage = $currentPage;
+        if($currentPage != $countPages)
+        {
+            $this->view->previousPage = $currentPage-1;
+            $this->view->nextPage = $currentPage+1;
+            $this->view->endPage = $countPages; 
+        }
+        else if($currentPage == 1)
+        {
+            $this->view->nextPage = $currentPage+1;
+            $this->view->previousPage = 1; 
+        }
+        else if($currentPage == 0)
+        {
+            $this->view->firstPage = $currentPage;
+        }
+        else {
+            $this->view->nextPage = $currentPage+1;
+            $this->view->previousPage = $currentPage-1;
+        }
+        $this->view->hasNext = $currentPage < $countPages ? true : false;
+        $this->view->hasPrev = $currentPage > 1 ? true : false;
+        $this->view->hasFirst = $currentPage > 1 ? true : false;
+        $this->view->hasEnd = $currentPage < $countPages ? true : false;
+        $this->view->aryListVideo = $paginator;
+    }
 }
 

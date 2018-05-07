@@ -1,14 +1,3 @@
-<div class="w3-container w3-card w3-white w3-margin-bottom">
-            <h2 class="w3-text-grey w3-padding-16" onclick="Default.uploadVideo()"><i class="fa fa-upload fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i></h2>
-
-            <div class="w3-container" id="boxContentVideo">
-
-            </div>
-        </div>
-
-        <div class="w3-container w3-card w3-white">
-            <div style=" height: 5px"></div>
-            <div class="ui-widget ui-helper-clearfix" id="list_video">
                 <?php foreach ($this->aryListVideo as $aryVideo) { ?>
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$aryVideo['id']); ?>">
@@ -20,10 +9,8 @@
                         </a>
                     </div>
                 <?php } ?>
-                            </div>
         <!-- End Right Column -->
-        </div>
-                <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example" style="width: 100%">
             <ul class="pagination">
               <li class="page-item">
                 <?php if($this->hasFirst) : ?>
@@ -44,7 +31,9 @@
                 <?php else : ?>
                 <?php endif; ?> 
               </li>
+              <?php if ($this->countPages != $this->currentPage) : ?>
               <li class="page-item"><a class="page-link" href="#"><?php echo "".$this->currentPage."/".$this->countPages; ?></a></li>
+              <?php endif; ?>
               <li class="page-item">
                   <?php if ($this->hasNext) : ?>
                     <a class="page-link" href="#" aria-label="Next1" href="#" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->nextPage ?>','list_video')"> 

@@ -351,15 +351,12 @@ var User = {
         $.ajax(strUrl);
     }, 
     
-    loadPagination : function(controller, action, page, blockLoadlist) {
+    loadPagination : function(controller, action, page, blockLoadlist, typeCode = "") {
         var url = ROOT_URL + "/" + controller + "/" + action;
         var strUrl = {            
             url: url,                        
-            data: {p:page},            
+            data: {p:page, typeCode: typeCode},            
             success: function(data) {
-                console.log(2);
-                console.log(data);
-                console.log(1);
                 $("#" + blockLoadlist).html(data);
             },            
             error: function() {                

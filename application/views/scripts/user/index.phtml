@@ -32,7 +32,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
     </div>
 
     <!-- Right Column -->
-    <div class="w3-twothird" id="list_video">
+    <div class="w3-twothird">
     
         <div class="w3-container w3-card w3-white w3-margin-bottom">
             <h2 class="w3-text-grey w3-padding-16" onclick="Default.uploadVideo()"><i class="fa fa-upload fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i></h2>
@@ -56,51 +56,54 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
                         </a>
                     </div>
                 <?php } ?>
-                            </div>
+                 <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <?php if($this->hasFirst) : ?>
+                        <a class="page-link" href="#" aria-label="Previous1" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->firstPage ?>','list_video')">
+                            <span aria-hidden="true"> << </span>
+                            <span class="sr-only">Previous1</span>
+                        </a>
+                    <?php else : ?>
+                    <?php endif; ?>
+                  </li>
+                  <li class="page-item">
+                    <?php if ($this->hasPrev) : ?>
+                        <!-- <a href="">First</a> -->
+                        <a class="page-link" href="#" aria-label="Previous2" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->previousPage ?>','list_video')">
+                        <span aria-hidden="true"> < </span>
+                        <span class="sr-only">Previous2</span>
+                    </a>
+                    <?php else : ?>
+                    <?php endif; ?> 
+                  </li>
+                  <?php if ($this->countPages != $this->currentPage) : ?>
+                  <li class="page-item"><a class="page-link" href="#"><?php echo "".$this->currentPage."/".$this->countPages; ?></a></li>
+                  <?php endif; ?>
+                  <li class="page-item">
+                      <?php if ($this->hasNext) : ?>
+                        <a class="page-link" href="#" aria-label="Next1" href="#" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->nextPage ?>','list_video')"> 
+                            <span aria-hidden="true"> > </span>
+                            <span class="sr-only">Next1</span>
+                        </a>
+                      <?php else : ?>
+                      <?php endif; ?>
+                  </li>
+                  <li class="page-item">
+                      <?php if($this->hasEnd) : ?>
+                        <a class="page-link" href="#" aria-label="Next" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->endPage ?>','list_video')">
+                            <span aria-hidden="true"> >> </span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                  </li>
+                      <?php else : ?>
+                      <?php endif; ?> 
+                </ul>
+            </nav>
+            </div>
         <!-- End Right Column -->
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item">
-                <?php if($this->hasFirst) : ?>
-                    <a class="page-link" href="#" aria-label="Previous1" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->firstPage ?>','list_video')">
-                        <span aria-hidden="true"> << </span>
-                        <span class="sr-only">Previous1</span>
-                    </a>
-                <?php else : ?>
-                <?php endif; ?>
-              </li>
-              <li class="page-item">
-                <?php if ($this->hasPrev) : ?>
-                    <!-- <a href="">First</a> -->
-                    <a class="page-link" href="#" aria-label="Previous2" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->previousPage ?>','list_video')">
-                    <span aria-hidden="true"> < </span>
-                    <span class="sr-only">Previous2</span>
-                </a>
-                <?php else : ?>
-                <?php endif; ?> 
-              </li>
-              <li class="page-item"><a class="page-link" href="#"><?php echo "".$this->currentPage."/".$this->countPages; ?></a></li>
-              <li class="page-item">
-                  <?php if ($this->hasNext) : ?>
-                    <a class="page-link" href="#" aria-label="Next1" href="#" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->nextPage ?>','list_video')"> 
-                        <span aria-hidden="true"> > </span>
-                        <span class="sr-only">Next1</span>
-                    </a>
-                  <?php else : ?>
-                  <?php endif; ?>
-              </li>
-              <li class="page-item">
-                  <?php if($this->hasEnd) : ?>
-                    <a class="page-link" href="#" aria-label="Next" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->endPage ?>','list_video')">
-                        <span aria-hidden="true"> >> </span>
-                        <span class="sr-only">Next</span>
-                    </a>
-              </li>
-                  <?php else : ?>
-                  <?php endif; ?> 
-            </ul>
-        </nav>
+       
     <!-- End Grid -->
     </div>
   
