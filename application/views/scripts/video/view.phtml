@@ -12,7 +12,7 @@ button#playpausebtn{
 	opacity:0.5;
 }
 button#playpausebtn:hover{ opacity:1; }
-input#seekslider{ width:70%; }
+input#seekslider{ width:75%; }
 input#volumeslider{ width: 80px;}
 input[type='range'] {
     -webkit-appearance: none !important;
@@ -111,9 +111,9 @@ function toggleFullScreen(){
   <div id="video_controls_bar">
       <button id="playpausebtn" style="display:inline-block"></button>
     <input style="display:inline-block" id="seekslider" type="range" min="0" max="100" value="0" step="1">
-    <span style="display:inline-block" id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
-    <button style="display:inline-block" id="mutebtn"></button>
+    <span style="display:inline-block;" id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
+    <button style="display:inline-block; background: url('/watchDailyTV/public/template/images/mute.png') 0% 0% / 100% 100%;" id="mutebtn" ></button>
     <input style="display:inline-block" id="volumeslider" type="range" min="0" max="100" value="100" step="1">
-    <button style="display:inline-block" id="fullscreenbtn">[ &nbsp; ]</button>
+    <button style="display:inline-block; background: url('/watchDailyTV/public/template/images/fullscreen.jpeg') 0% 0% / 100% 100%;" id="fullscreenbtn"></button>
   </div>
 </div>

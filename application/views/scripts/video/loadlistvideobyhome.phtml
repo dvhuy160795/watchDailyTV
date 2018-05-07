@@ -43,7 +43,7 @@
 <?php foreach ($this->aryListVideo as $aryVideo) { ?>
     <div class="col-lg-4 col-md-6 col-sm-6">
         <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$aryVideo['id']); ?>">
-            <img style="width:300px; height:180px" src="<?php echo $this->baseUrl($aryVideo['video_url_image_alias']);?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
+            <img class="itemAliasVideo" src="<?php echo $this->baseUrl($aryVideo['video_url_image_alias']);?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
             <div class="fh5co-card-body">
                 <h3><?php echo $aryVideo['video_title'];?></h3>
                 <p><?php echo $aryVideo['video_description'];?></p>
