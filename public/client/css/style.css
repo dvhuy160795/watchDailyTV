@@ -43,6 +43,10 @@
     width: 40%
 }
 
+.w25p{
+    width: 25%
+}
+
 .w30p{
     width: 30%
 }
@@ -108,6 +112,7 @@
 }
 /* Set a style for all buttons */
 button {
+    background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;

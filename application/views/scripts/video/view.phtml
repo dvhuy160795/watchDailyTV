@@ -1,6 +1,6 @@
 <head>
 <style>
-div#video_player_box{ width:100%; background:#000; margin:0px auto;margin-top: 72px;}
+div#video_player_box{ width:50%; background:#000; margin:0px auto;margin-top: 72px;}
 div#video_controls_bar{ background: #333; padding:10px; color:#CCC; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;}
 button#playpausebtn{
 	background:url("<?php echo $this->baseUrl('/template/images/pause.png'); ?>");
@@ -12,7 +12,7 @@ button#playpausebtn{
 	opacity:0.5;
 }
 button#playpausebtn:hover{ opacity:1; }
-input#seekslider{ width:75%; }
+input#seekslider{ width:65%; }
 input#volumeslider{ width: 80px;}
 input[type='range'] {
     -webkit-appearance: none !important;
@@ -104,7 +104,8 @@ function toggleFullScreen(){
 }
 </script>
 </head>
-<div id="video_player_box">
+<div class="w25p fleft">dfgdfghfdgh</div>
+<div id="video_player_box" style="margin-top:72px" class="fleft">
   <video id="my_video" width="100%" height="500" autoplay>
     <source src="<?php echo $this->baseUrl($this->aryVideo['video_url_video']); ?>">
   </video>
@@ -117,3 +118,4 @@ function toggleFullScreen(){
     <button style="display:inline-block; background: url('/watchDailyTV/public/template/images/fullscreen.jpeg') 0% 0% / 100% 100%;" id="fullscreenbtn"></button>
   </div>
 </div>
+<div class="w25p fleft" style="margin-top:72px">dfghdfghfdh</div>
