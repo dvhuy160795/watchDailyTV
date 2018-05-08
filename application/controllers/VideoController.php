@@ -8,7 +8,7 @@ class VideoController extends Zend_Controller_Action
     protected $dbVideo;
     protected $dbVideoType;
     protected $_dbUser;
-
+    protected $dbComment;
 
     public function init()
     {
@@ -17,6 +17,7 @@ class VideoController extends Zend_Controller_Action
         $this->builderAttachment = new Application_Model_Builder_Attachment();
         $this->dbVideo = new Application_Model_DbTable_Video();
         $this->_dbUser = new Application_Model_DbTable_User();
+        $this->dbComment = new Application_Model_DbTable_Comment();
     }
 
     public function indexAction()
@@ -42,6 +43,8 @@ class VideoController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender(true);
         $params = $this->_request->getParams();
         $videoForm = new Application_Form_Video($params['video']);
+        $libDataBase =  new HuyLib_DataBase();
+        $code = $libDataBase->buildCodeInsertByDateTime();
         $message = "";
         if (!$videoForm->isValid($params['video'])){
             $aryMessageValid = $videoForm->getMessages();
@@ -61,7 +64,7 @@ class VideoController extends Zend_Controller_Action
         $arrayFileDone = [];
         $this->libAttachment->UploadAttachmentFile($arrayFile, $params['controller']);
         $aryVideo = [
-            'video_code' => "",
+            'video_code' => "VIDEO".$code,
             'video_title' => $params['video']['video_title'],
             'video_description' => $params['video']['video_description'],
             'video_url_image_alias' => isset($arrayFile['video_url_images_alias']['url_path']) ? $arrayFile['video_url_images_alias']['url_path'] : "",
@@ -214,6 +217,26 @@ class VideoController extends Zend_Controller_Action
         $this->view->hasFirst = $currentPage > 1 ? true : false;
         $this->view->hasEnd = $currentPage < $countPages ? true : false;
         $this->view->aryListVideo = $paginator;
+    }
+    
+    public function sendcommentAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $param = $this->_request->getParams();
+        $libDataBase =  new HuyLib_DataBase();
+        $code = $libDataBase->buildCodeInsertByDateTime();
+        $aryComment = [
+            'comment_id' => "1",
+            'comment_code' => "COMMENT".$code,
+            'comment_user_code' => $_SESSION['user']['user_code'],
+            'comment_video_code' => $param['videoCode'],
+            'comment_content' => $param['comment'],
+            'comment_is_deleted' => 0,
+            'update' => '2000-01-01',
+            'delete' => '2000-01-01',
+            'created' => 'now()'
+        ];
+        $this->dbComment->insertNewComment($aryComment, $newIdComment, $err);
     }
 }
 

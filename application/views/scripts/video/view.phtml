@@ -104,11 +104,18 @@ function toggleFullScreen(){
 }
 </script>
 </head>
-<div class="w25p fleft">dfgdfghfdgh</div>
+<div class="w25p fleft" id="box_comment" style="margin-top:72px; height: 569px">
+    <div id="list_comment" class="w100p" style="height:466px"></div>
+    <div id="insert_comment" class="w100p" style="height:70px">
+        <textarea class="w98p" id="box_comment"></textarea>
+        <input type="button" value="Send Comment" id="btnSendComment" >
+    </div>
+</div>
 <div id="video_player_box" style="margin-top:72px" class="fleft">
   <video id="my_video" width="100%" height="500" autoplay>
     <source src="<?php echo $this->baseUrl($this->aryVideo['video_url_video']); ?>">
   </video>
+    <input type="hidden" id="video_code_hidden" value="<?php echo $this->aryVideo['video_code']; ?>" >
   <div id="video_controls_bar">
       <button id="playpausebtn" style="display:inline-block"></button>
     <input style="display:inline-block" id="seekslider" type="range" min="0" max="100" value="0" step="1">
@@ -118,4 +125,4 @@ function toggleFullScreen(){
     <button style="display:inline-block; background: url('/watchDailyTV/public/template/images/fullscreen.jpeg') 0% 0% / 100% 100%;" id="fullscreenbtn"></button>
   </div>
 </div>
-<div class="w25p fleft" style="margin-top:72px">dfghdfghfdh</div>
+<div class="w24p fleft" id="box_video_like" style="margin-top:72px; height: 466px">dfghdfghfdh</div>
