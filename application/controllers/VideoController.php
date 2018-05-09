@@ -18,6 +18,7 @@ class VideoController extends Zend_Controller_Action
         $this->dbVideo = new Application_Model_DbTable_Video();
         $this->_dbUser = new Application_Model_DbTable_User();
         $this->dbComment = new Application_Model_DbTable_Comment();
+        $this->dbVideoType = new Application_Model_DbTable_VideoType();
     }
 
     public function indexAction()
@@ -31,7 +32,15 @@ class VideoController extends Zend_Controller_Action
 
     public function addvideoAction(){
     	$this->_helper->layout->disableLayout();
-        $this->dbVideoType = new Application_Model_DbTable_VideoType();
+        $params = $this->_request->getParams();
+        if (isset($params['id']) && $params['id'] !== "") {
+            $aryVideo = [];
+            $condition = [
+                'id' => $params['id'],
+            ];
+            $this->dbVideo->getOneVideoByMailAndMoreByAND($aryVideo, $condition);
+            $this->view->aryVideo = $aryVideo;
+        }
         $aryConditionGetVideoType = [];
         $aryVideoType = [];
         $this->dbVideoType->getVideoTypeByConditionAnd($aryVideoType, $aryConditionGetVideoType);
@@ -44,7 +53,7 @@ class VideoController extends Zend_Controller_Action
         $params = $this->_request->getParams();
         $videoForm = new Application_Form_Video($params['video']);
         $libDataBase =  new HuyLib_DataBase();
-        $code = $libDataBase->buildCodeInsertByDateTime();
+        
         $message = "";
         if (!$videoForm->isValid($params['video'])){
             $aryMessageValid = $videoForm->getMessages();
@@ -63,21 +72,38 @@ class VideoController extends Zend_Controller_Action
         $arrayFile = [];
         $arrayFileDone = [];
         $this->libAttachment->UploadAttachmentFile($arrayFile, $params['controller']);
-        $aryVideo = [
-            'video_code' => "VIDEO".$code,
-            'video_title' => $params['video']['video_title'],
-            'video_description' => $params['video']['video_description'],
-            'video_url_image_alias' => isset($arrayFile['video_url_images_alias']['url_path']) ? $arrayFile['video_url_images_alias']['url_path'] : "",
-            'video_url_video' => isset($arrayFile['video_url_video']['url_path']) ? $arrayFile['video_url_video']['url_path'] : "",
-            'video_video_type_code' => $params['video']['video_type_code'],
-            'video_size' => isset($arrayFile['video_url_video']['size']) ? $arrayFile['video_url_video']['size'] : "0",
-            'video_view' => 1,
-            'video_type_account' => $_SESSION['user']['user_code'],
-            'video_is_deleted' => 0,
-            'created' => date("Y/m/d")
-        ];
-        $intIsOk = $this->dbVideo->insertNewVideo($aryVideo, $newIdVideo, $err);
-        $message = "Upload success!!";
+        if (isset($params['id']) && $params['id'] !== "") {
+            $aryVideo = [
+                'video_title' => $params['video']['video_title'],
+                'video_description' => $params['video']['video_description'],
+                'video_url_image_alias' => isset($arrayFile['video_url_images_alias']['url_path']) ? $arrayFile['video_url_images_alias']['url_path'] : $params['video']['video_url_img_hidden'],
+                'video_url_video' => isset($arrayFile['video_url_video']['url_path']) ? $arrayFile['video_url_video']['url_path'] : $params['video']['video_url_video_hidden'],
+                'video_video_type_code' => $params['video']['video_type_code'],
+                'video_size' => isset($arrayFile['video_url_video']['size']) ? $arrayFile['video_url_video']['size'] : "0",
+                'video_is_public' => (isset($params['video']['video_is_public'])) ? $params['video']['video_is_public'] : 0,
+            ];
+            $intIsOk = $this->dbVideo->updateVideoByCode($aryVideo, [],$params['id'],$err);
+            $message = "Edit success!!";
+        } else {
+            $code = $libDataBase->buildCodeInsertByDateTime();
+            $aryVideo = [
+                'video_code' => "VIDEO".$code,
+                'video_title' => $params['video']['video_title'],
+                'video_description' => $params['video']['video_description'],
+                'video_url_image_alias' => isset($arrayFile['video_url_images_alias']['url_path']) ? $arrayFile['video_url_images_alias']['url_path'] : "",
+                'video_url_video' => isset($arrayFile['video_url_video']['url_path']) ? $arrayFile['video_url_video']['url_path'] : "",
+                'video_video_type_code' => $params['video']['video_type_code'],
+                'video_size' => isset($arrayFile['video_url_video']['size']) ? $arrayFile['video_url_video']['size'] : "0",
+                'video_view' => 1,
+                'video_is_public' => (isset($params['video']['video_is_public'])) ? $params['video']['video_is_public'] : 0,
+                'video_type_account' => $_SESSION['user']['user_code'],
+                'video_is_deleted' => 0,
+                'created' => date("Y/m/d")
+            ];
+            $intIsOk = $this->dbVideo->insertNewVideo($aryVideo, $newIdVideo, $err);
+            $message = "Upload success!!";
+        }
+        
         if ($intIsOk != 1) {
             var_dump($err);die;
         }
@@ -177,7 +203,7 @@ class VideoController extends Zend_Controller_Action
            $aryListVideo = []; 
         }
         $paginator  = Zend_Paginator::factory($aryListVideo);
-        $perPage = 3;
+        $perPage = 4;
         $paginator->setDefaultItemCountPerPage($perPage);
         $allItems = $paginator->getTotalItemCount();
         $countPages = $paginator->count();

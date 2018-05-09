@@ -30,7 +30,8 @@ class IndexController extends Zend_Controller_Action
         foreach ($listAryVideoType as $value) {
             $listAryVideo = [];
             $aryConditionVideo = [
-                'video_video_type_code' => $value['id']
+                'video_video_type_code' => $value['id'],
+                'video_is_public'   => 1,
             ];
             $this->dbVideo->getVideoByMailAndMoreByAND($listAryVideo,$aryConditionVideo);
             $paginator  = Zend_Paginator::factory($listAryVideo);

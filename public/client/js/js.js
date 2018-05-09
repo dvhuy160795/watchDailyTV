@@ -79,9 +79,9 @@ var Default = {
             $("#input_" + idInputValue).val(e.options[e.selectedIndex].text);
         }
     },
-    uploadVideo : function (videoCode) {
+    uploadVideo : function (id) {
         var url = ROOT_URL + "/Video/addvideo";
-        var data = {videoCode: videoCode};
+        var data = {id: id};
         $.ajax({
             url:url,
             data:data,
@@ -388,14 +388,14 @@ var Video = {
         }
         $form.ajaxForm(strUrl);
     },
-    saveVideo : function () {
+    saveVideo : function (id) {
         var $form = $('#formVideo');
         var url = ROOT_URL + "/Video/savevideo";
         var strUrl = {            
             url: url,            
             type: 'post',
             dataType: "json",            
-            data: {},            
+            data: {id:id},            
             success: function(data) {
                 if(data.intIsOk == 1){
                     alert(data.message);

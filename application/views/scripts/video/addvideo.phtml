@@ -2,33 +2,45 @@
   <div class="container-model-50p fleft">
     <label><b>File upload:</b><font style="color: red"> *</font></label>
     <div class="" id="box-video" style="width: 100%; height: 50%">
-        <video width="100%" height="80%" id="video" src="" controls>
+        <video width="100%" height="80%" id="video" 
+               src="<?php echo (isset($this->aryVideo['video_url_video'])) ? $this->baseUrl($this->aryVideo['video_url_video']) : ""; ?>" controls>
           Your browser does not support the video tag.
         </video>
-        <input type="hidden" name="video[video_url_video_hidden]" id="video_url_video_hidden">
-        <img src="<?php echo $this->baseUrl('/client/image/user/loading.gif') ?>" style="position: absolute;margin-left: 0px;margin-top: -271px;z-index: 1; width: 20%; height: 266px; display: none" id="imgLoading">
+        <input type="hidden" name="video[video_url_video_hidden]" 
+               id="video_url_video_hidden" 
+               value="<?php echo (isset($this->aryVideo['video_url_video'])) ? $this->aryVideo['video_url_video'] : ""; ?>">
+        <img src="<?php echo $this->baseUrl('/client/image/user/loading.gif') ?>" 
+             style="position: absolute;margin-left: 0px;margin-top: -271px;z-index: 1; width: 20%; height: 266px; display: none" id="imgLoading">
       </div>
     <input type="file" name="video_url_video" onchange="User.autoLoadEl(this,'video',1,'imgLoading','video_url_video_hidden')" style="margin: 0px 0px 0px 5px; width: 50%">
 
     <label for="videoname"><b>Video title</b><font style="color: red"> *</font></label>
-      <textarea name="video[video_title]" id="videotitle" style="width: 100%; height: 150px"></textarea>
+      <textarea name="video[video_title]" id="videotitle" style="width: 100%; height: 150px"><?php echo (isset($this->aryVideo['video_title'])) ? $this->aryVideo['video_title'] : ""; ?></textarea>
     <label for="videoname"><b>Video type</b><font style="color: red"> *</font></label>
-    <select name="video[video_type_code]"><?php foreach ($this->aryVideoType as $value) { ?>
-        <option value="<?php echo $value['id']; ?>"><?php echo $value['video_type_title']; ?></option>
+    <select name="video[video_type_code]">
+        <option></option>
+        <?php foreach ($this->aryVideoType as $value) { ?>
+        <option 
+            value="<?php echo $value['id']; ?>" 
+            <?php echo (isset($this->aryVideo['video_video_type_code']) && $this->aryVideo['video_video_type_code'] == $value['id']) ? "selected" : ""; ?>><?php echo $value['video_type_title']; ?></option>
         <?php } ?> </select>
+    <br>
+    <label for="videoname"><b>Video public</b><font style="color: red"> *</font></label>
+    <input type="checkbox" name="video[video_is_public]" value="1" <?php echo (isset($this->aryVideo['video_video_type_code'])) ? "checked" : ""; ?>>
   </div>
   <div class="container-model-50p fleft">
     <label><b>Images Alias</b><font style="color: red"> *</font></label><div id="user_email_is_true"></div>
-    <img src="<?php echo $this->baseUrl('/client/image/user/imgdefault.jpeg') ?>" id="imgAlias" style="width: 100% ; height: 80%; margin-bottom: 4px">
-    <input type="hidden" name="video[video_url_img_hidden]" id="video_url_img_hidden">
+    <img src="<?php echo (isset($this->aryVideo['video_url_image_alias'])) ? $this->baseUrl($this->aryVideo['video_url_image_alias']) : $this->baseUrl('/client/image/user/imgdefault.jpeg'); ?>" 
+         id="imgAlias" style="width: 100% ; height: 80%; margin-bottom: 4px">
+    <input type="hidden" name="video[video_url_img_hidden]" id="video_url_img_hidden" value="<?php echo (isset($this->aryVideo['video_url_image_alias'])) ? $this->aryVideo['video_url_image_alias'] : ""; ?>">
         <input type="file" name="video_url_images_alias" onchange="User.loadImg(this,'imgAlias', 'video_url_img_hidden')" style="margin: 0px 0px 0px 5px">
 
     <label><b>Video Description</b><font style="color: red"> *</font></label><div id="user_login_pass_is_true"></div>
-    <textarea name="video[video_description]" id="videodescription" style="width: 100%; height: 150px"></textarea>
+    <textarea name="video[video_description]" id="videodescription" style="width: 100%; height: 150px"><?php echo (isset($this->aryVideo['video_description'])) ? $this->aryVideo['video_description'] : ""; ?></textarea>
     <!--<label><b>Video is public</b><font style="color: red"> *</font></label> : <input type="checkbox" name="video[video_is_public]" > -->
   </div>
   <div class="container-model" style="background-color:#f1f1f1">
-    <input type="submit" onclick="Video.saveVideo()" name="uploadVideo" value="Upload Video">
+      <input type="submit" onclick="Video.saveVideo('<?php echo (isset($this->aryVideo['id'])) ? $this->aryVideo['id']:""; ?>')" name="uploadVideo" value="Upload Video">
     <img id="imgLoading" style="display: none; margin-left: 31%; width: 100px" src="<?php echo $this->baseUrl('/template/images/loading.gif') ?>">
   </div>
   <div id="list_message_error">
