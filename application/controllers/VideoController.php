@@ -260,9 +260,29 @@ class VideoController extends Zend_Controller_Action
             'comment_is_deleted' => 0,
             'update' => '2000-01-01',
             'delete' => '2000-01-01',
-            'created' => 'now()'
+            'created' => date("Y/m/d")
         ];
-        $this->dbComment->insertNewComment($aryComment, $newIdComment, $err);
+        if ($param['comment'] !== "") {
+            $intIsOk = $this->dbComment->insertNewComment($aryComment, $newIdComment, $err);
+        } else {
+            $intIsOk = -2;
+        }
+        $respon = [
+            "intIsOk" =>$intIsOk
+        ];
+        echo json_encode($respon);
+    }
+    
+    public function loadlistcommentAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $params = $this->_request->getParams();
+        $aryListComment = [];
+        $conditionComment = [
+            'comment_video_code' => $params['videoCode']
+        ];
+        $this->dbComment->getCommentByConditionAnd($aryListComment, $conditionComment);
+        var_dump($aryListComment);die;
     }
 }
 

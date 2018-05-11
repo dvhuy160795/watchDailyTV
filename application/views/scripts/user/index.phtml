@@ -45,6 +45,50 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
         <div class="w3-container w3-card w3-white">
             <div style=" height: 5px"></div>
             <div class="ui-widget ui-helper-clearfix" id="list_video">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li class="page-item">
+                        <?php if($this->hasFirst) : ?>
+                            <a class="page-link" href="#" aria-label="Previous1" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->firstPage ?>','list_video')">
+                                <span aria-hidden="true"> << </span>
+                                <span class="sr-only">Previous1</span>
+                            </a>
+                        <?php else : ?>
+                        <?php endif; ?>
+                      </li>
+                      <li class="page-item">
+                        <?php if ($this->hasPrev) : ?>
+                            <!-- <a href="">First</a> -->
+                            <a class="page-link" href="#" aria-label="Previous2" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->previousPage ?>','list_video')">
+                            <span aria-hidden="true"> < </span>
+                            <span class="sr-only">Previous2</span>
+                        </a>
+                        <?php else : ?>
+                        <?php endif; ?> 
+                      </li>
+                      <?php if ($this->countPages != $this->currentPage) : ?>
+                      <li class="page-item"><a class="page-link" href="#"><?php echo "".$this->currentPage."/".$this->countPages; ?></a></li>
+                      <?php endif; ?>
+                      <li class="page-item">
+                          <?php if ($this->hasNext) : ?>
+                            <a class="page-link" href="#" aria-label="Next1" href="#" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->nextPage ?>','list_video')"> 
+                                <span aria-hidden="true"> > </span>
+                                <span class="sr-only">Next1</span>
+                            </a>
+                          <?php else : ?>
+                          <?php endif; ?>
+                      </li>
+                      <li class="page-item">
+                          <?php if($this->hasEnd) : ?>
+                            <a class="page-link" href="#" aria-label="Next" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->endPage ?>','list_video')">
+                                <span aria-hidden="true"> >> </span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                      </li>
+                          <?php else : ?>
+                          <?php endif; ?> 
+                    </ul>
+                </nav>
                 <?php foreach ($this->aryListVideo as $aryVideo) { ?>
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$aryVideo['id']); ?>">
@@ -57,50 +101,6 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
                         <a href="#" class="mar-left-94p" onclick="Default.uploadVideo('<?php echo $aryVideo['id'];?>')"><i class="fa fa-edit w3-margin-right w3-large w3-text-red"></i></a>
                     </div>
                 <?php } ?>
-                 <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item">
-                    <?php if($this->hasFirst) : ?>
-                        <a class="page-link" href="#" aria-label="Previous1" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->firstPage ?>','list_video')">
-                            <span aria-hidden="true"> << </span>
-                            <span class="sr-only">Previous1</span>
-                        </a>
-                    <?php else : ?>
-                    <?php endif; ?>
-                  </li>
-                  <li class="page-item">
-                    <?php if ($this->hasPrev) : ?>
-                        <!-- <a href="">First</a> -->
-                        <a class="page-link" href="#" aria-label="Previous2" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->previousPage ?>','list_video')">
-                        <span aria-hidden="true"> < </span>
-                        <span class="sr-only">Previous2</span>
-                    </a>
-                    <?php else : ?>
-                    <?php endif; ?> 
-                  </li>
-                  <?php if ($this->countPages != $this->currentPage) : ?>
-                  <li class="page-item"><a class="page-link" href="#"><?php echo "".$this->currentPage."/".$this->countPages; ?></a></li>
-                  <?php endif; ?>
-                  <li class="page-item">
-                      <?php if ($this->hasNext) : ?>
-                        <a class="page-link" href="#" aria-label="Next1" href="#" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->nextPage ?>','list_video')"> 
-                            <span aria-hidden="true"> > </span>
-                            <span class="sr-only">Next1</span>
-                        </a>
-                      <?php else : ?>
-                      <?php endif; ?>
-                  </li>
-                  <li class="page-item">
-                      <?php if($this->hasEnd) : ?>
-                        <a class="page-link" href="#" aria-label="Next" onclick="User.loadPagination('Video','loadlistvideo','<?php echo $this->endPage ?>','list_video')">
-                            <span aria-hidden="true"> >> </span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                  </li>
-                      <?php else : ?>
-                      <?php endif; ?> 
-                </ul>
-            </nav>
             </div>
         <!-- End Right Column -->
         </div>

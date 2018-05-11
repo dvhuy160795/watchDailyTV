@@ -5,7 +5,7 @@ $(document).keypress(function(e) {
 });
 var viewVideo = {
     sendComment : function () {
-        var comment = $("#box_comment").val();
+        var comment = $("textarea#box_comment").val();
         var videoCode = $("#video_code_hidden").val();
         var url = ROOT_URL + "/Video/sendcomment";
         var data = {comment:comment, videoCode:videoCode};
@@ -13,11 +13,30 @@ var viewVideo = {
             url:url,
             data:data,
             success: function(data){
-                
+                if (data.intIsOk = 1) {
+                    $("textarea#box_comment").val("");
+                    viewVideo.loadListComment();
+                }
             },
             errror: function() {
                 alert('error')
             }
         });
     },
+    
+    loadListComment : function () {
+        var url = ROOT_URL + "/Video/loadlistcomment";
+        videoCode = $("#video_code_hidden").val();
+        var data = {videoCode:videoCode};
+        $.ajax({
+            url:url,
+            data:data,
+            success: function(data){
+               
+            },
+            errror: function() {
+                alert('error')
+            }
+        });
+    }
 };
