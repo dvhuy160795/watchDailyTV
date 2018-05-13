@@ -8,27 +8,7 @@
 			<a href="<?php echo $this->baseUrl('index.php/default/index'); ?>">Home</a>
 		</li>
 		
-		<li>
-			<a href="#" class="fh5co-sub-ddown">Dropdown</a>
-				<ul class="fh5co-sub-menu">
-				<li><a href="left-sidebar.html">Left Sidebar</a></li>
-				<li><a href="right-sidebar.html">Right Sidebar</a></li>
-				<li>
-					<a href="#" class="fh5co-sub-ddown">Free HTML5</a>
-					<ul class="fh5co-sub-menu">
-						<li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-						<li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-						<li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-						<li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-						<li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-						<li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-					</ul>
-				</li>
-				<li><a href="#">CSS3</a></li> 
-			</ul>
-		</li>
-		<li><a href="elements.html">Elements</a></li>
-		<li><a href="contact.html">Contact</a></li>
+		
 			<li><?php if (isset($_SESSION['user'])) { ?><a href="<?php echo $this->baseUrl("index.php/User/index/userCode/".$_SESSION['user']['user_code']) ?>">
 				<img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" alt="Avatar" style="width: 30px" class="avatar">
                             </a><a style="margin-top: -80px" href="#" onclick="User.logoutUser()">Logout</a><?php } else { ?>

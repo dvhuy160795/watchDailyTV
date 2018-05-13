@@ -120,8 +120,20 @@ class VideoController extends Zend_Controller_Action
         $condition = [
             'id' => $params['id'],
         ];
+        $aryListComment = [];
+        
+        $aryUser = [];
+        $this->_dbUser->getUserByConditionByAnd([], $aryUser);
+        
         $this->dbVideo->getOneVideoByMailAndMoreByAND($aryVideo, $condition);
+        $conditionComment = [
+            'comment_video_code' => $aryVideo['video_code']
+        ];
+        $this->dbComment->getCommentByConditionAnd($aryListComment, $conditionComment);
         $this->view->aryVideo = $aryVideo;
+        $this->view->aryListComment = $aryListComment;
+        $this->view->currentUser = $_SESSION['user']['user_code'];
+        $this->view->aryUser = $aryUser;
     }
     
     public function loadlistvideoAction() {
@@ -197,6 +209,7 @@ class VideoController extends Zend_Controller_Action
         $aryListVideo = [];
         $aryConditionGetVideo = [
             'video_video_type_code' => $params['typeCode'],
+            'video_is_public'   => 1,
         ];
         $isHasVideo = $this->dbVideo->getVideoByMailAndMoreByAND($aryListVideo,$aryConditionGetVideo);
         if (!$isHasVideo) {
@@ -281,8 +294,30 @@ class VideoController extends Zend_Controller_Action
         $conditionComment = [
             'comment_video_code' => $params['videoCode']
         ];
-        $this->dbComment->getCommentByConditionAnd($aryListComment, $conditionComment);
-        var_dump($aryListComment);die;
+        
+        $intIsOk = $this->dbComment->getCommentByConditionAnd($aryListComment, $conditionComment);
+        $html = "";
+        foreach ($aryListComment as $comment) { 
+            $condition = [
+                'user_code' => $comment['comment_user_code']
+            ];
+            $aryUser = [];
+            $this->_dbUser->getOneUserByIsDelete($aryUser, $condition,"");
+//            $styleFloat = ($comment['comment_user_code'] == $_SESSION['user']['user_code']) ? 'float: right': '';
+            $styleFloat = "";
+            $html .= '<div>
+                        <div style=" '.$styleFloat.'">
+                            <span style="width:80%; font-size: 18px; font-weight: 800">'.$comment['comment_content'].'</span>  
+                            <br><span style="width:20%">'.$comment['created'].'</span>
+                            <br><font>'.$aryUser['user_full_name'].'</font>
+                        </div>
+                    </div>';
+        }
+        $respon = [
+            "intIsOk" =>$intIsOk,
+            "html"  => $html,
+        ];
+        echo json_encode($respon);
     }
 }
 

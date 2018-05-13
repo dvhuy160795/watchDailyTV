@@ -31,8 +31,11 @@ var viewVideo = {
         $.ajax({
             url:url,
             data:data,
+            dataType: "json", 
             success: function(data){
-               
+                console.log(data);
+               $("#list_comment").html(data.html);
+               $("#list_comment").scrollTop(1000000);
             },
             errror: function() {
                 alert('error')

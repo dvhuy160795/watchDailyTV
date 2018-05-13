@@ -31,7 +31,7 @@
   <div class="container-model-50p fleft">
     <label><b>Images Alias</b><font style="color: red"> *</font></label><div id="user_email_is_true"></div>
     <img src="<?php echo (isset($this->aryVideo['video_url_image_alias'])) ? $this->baseUrl($this->aryVideo['video_url_image_alias']) : $this->baseUrl('/client/image/user/imgdefault.jpeg'); ?>" 
-         id="imgAlias" style="width: 100% ; height: 80%; margin-bottom: 4px">
+         id="imgAlias" style="width: 350px ; height: 200px; margin-bottom: 4px">
     <input type="hidden" name="video[video_url_img_hidden]" id="video_url_img_hidden" value="<?php echo (isset($this->aryVideo['video_url_image_alias'])) ? $this->aryVideo['video_url_image_alias'] : ""; ?>">
         <input type="file" name="video_url_images_alias" onchange="User.loadImg(this,'imgAlias', 'video_url_img_hidden')" style="margin: 0px 0px 0px 5px">
 

@@ -301,9 +301,9 @@ var User = {
             success: function(data) {
                 if (data.intIsOk == false) {
                     alert(data.message);
-                    //User.showPopupRegister();
+                    User.showPopupRegister();
                 } else{
-                    //User.showPopupLogin();
+                    User.showPopupLogin();
                 }
             },            
             error: function() {                

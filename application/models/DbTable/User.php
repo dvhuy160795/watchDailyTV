@@ -39,14 +39,25 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
     	$where = $this->_db->quoteInto('user_code = ?',$userCode);
         if ($condition != null) {
             foreach ($condition as $key => $value) {
-               $where .= $this->_db->quoteInto(' and $key = ?',$value);
+               $where .= $this->_db->quoteInto(' and '.$key.' = ?',$value);
             }
         }
     	
     	$sql = $this->_db->select()->from($this->_name)->where($where);
     	$aryUser = $this->_db->fetchRow($sql);
     }
-
+    
+    public function getOneUserByIsDelete (&$aryUser = null , $condition = null) {
+    	$where = $this->_db->quoteInto('user_is_deleted = ?',0);
+        if ($condition != null) {
+            foreach ($condition as $key => $value) {
+               $where .= $this->_db->quoteInto(' and '.$key.' = ?',$value);
+            }
+        }
+    	
+    	$sql = $this->_db->select()->from($this->_name)->where($where);
+    	$aryUser = $this->_db->fetchRow($sql);
+    }
     public function getUserByMailAndMoreByOR (&$aryUser = null , $condition = null, $email) {
     	$where = $this->_db->quoteInto('user_email = ?',$email);
     	foreach ($condition as $key => $value) {
