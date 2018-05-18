@@ -130,9 +130,19 @@ class VideoController extends Zend_Controller_Action
             'comment_video_code' => $aryVideo['video_code']
         ];
         $this->dbComment->getCommentByConditionAnd($aryListComment, $conditionComment);
+        $conditionGetListVideo = [
+            'video_video_type_code' => $aryVideo['video_video_type_code'],
+            'video_type_account' => $aryVideo['video_type_account'],
+        ];
+        $this->dbVideo->getVideoByMailAndMoreByOR($aryListVideoLike, $conditionGetListVideo);
+        if (isset($_SESSION['user']['user_code'])) {
+            $this->view->currentUser = $_SESSION['user']['user_code'];   
+        }
         $this->view->aryVideo = $aryVideo;
         $this->view->aryListComment = $aryListComment;
-        $this->view->currentUser = $_SESSION['user']['user_code'];
+        $this->view->aryListVideoLike  = $aryListVideoLike;
+        echo "<pre>";
+        var_dump($aryUser);die;
         $this->view->aryUser = $aryUser;
     }
     
