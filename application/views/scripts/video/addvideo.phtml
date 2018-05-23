@@ -15,7 +15,7 @@
     <input type="file" name="video_url_video" onchange="User.autoLoadEl(this,'video',1,'imgLoading','video_url_video_hidden')" style="margin: 0px 0px 0px 5px; width: 50%">
 
     <label for="videoname"><b>Video title</b><font style="color: red"> *</font></label>
-      <textarea name="video[video_title]" id="videotitle" style="width: 100%; height: 150px"><?php echo (isset($this->aryVideo['video_title'])) ? $this->aryVideo['video_title'] : ""; ?></textarea>
+    <textarea name="video[video_title]" id="videotitle" maxlength="100" style="width: 100%; height: 150px"><?php echo (isset($this->aryVideo['video_title'])) ? $this->aryVideo['video_title'] : ""; ?></textarea>
     <label for="videoname"><b>Video type</b><font style="color: red"> *</font></label>
     <select name="video[video_type_code]">
         <option></option>

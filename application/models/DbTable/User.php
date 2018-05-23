@@ -57,6 +57,11 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
     	
     	$sql = $this->_db->select()->from($this->_name)->where($where);
     	$aryUser = $this->_db->fetchRow($sql);
+        if (empty($aryUser)) {
+		 	return false;
+		} else {
+			return true;
+		}
     }
     public function getUserByMailAndMoreByOR (&$aryUser = null , $condition = null, $email) {
     	$where = $this->_db->quoteInto('user_email = ?',$email);
@@ -64,7 +69,7 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
     		$where .= $this->_db->quoteInto(" or ".$key." = ?",$value);
     	}
     	$sql = $this->_db->select()->from($this->_name)->where($where);
-    	$aryUser = $this->_db->fetchRow($sql);
+    	$aryUser = $this->_db->fetchAll($sql);
 		if (empty($aryUser)) {
 		 	return false;
 		} else {
@@ -79,7 +84,7 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
         }
         
         $sql = $this->_db->select()->from($this->_name)->where($where);
-        $aryUser = $this->_db->fetchRow($sql);
+        $aryUser = $this->_db->fetchAll($sql);
         if (empty($aryUser)) {
             return false;
         } else {
@@ -87,10 +92,28 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
         }
     }
 
-    public function getMultiUser () {
-
+    public function getMultiUser (&$aryUser = null , $condition = null) {
+        $where = $this->_db->quoteInto('user_is_deleted = ?',0);
+        if ($condition != null) {
+            foreach ($condition as $key => $value) {
+               $where .= $this->_db->quoteInto(' and '.$key.' = ?',$value);
+            }
+        }
+    	
+    	$sql = $this->_db->select()->from($this->_name)->where($where);
+    	$aryUser = $this->_db->fetchAll($sql);
     }
-
+    public function getMultiUserConditionLike(&$aryUser = null , $condition = null) {
+        $where = $this->_db->quoteInto('user_is_deleted = ?',0);
+        if ($condition != null) {
+            foreach ($condition as $key => $value) {
+               $where .= $this->_db->quoteInto(' AND '.$key.' LIKE ?',"%".$value."%");
+            }
+        }
+    	
+    	$sql = $this->_db->select()->from($this->_name,['user_code'])->where($where);
+    	$aryUser = $this->_db->fetchAll($sql);
+    }
     public function getUserByConditionByAnd ($condition, &$aryUser) {
         $where = "user_is_deleted = 0";
         if ($condition != []) {
@@ -100,7 +123,7 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
         }
         
         $sql = $this->_db->select()->from($this->_name)->where($where);
-        $aryUser = $this->_db->fetchRow($sql);
+        $aryUser = $this->_db->fetchAll($sql);
         if (empty($aryUser)) {
             return false;
         } else {

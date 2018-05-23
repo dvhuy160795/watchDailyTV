@@ -1,5 +1,19 @@
 <div class="overlay"></div>
-<div class="container-fluid" style="margin-top:200px">
+<div class="" id="box_search_video" style="margin-top:72px; text-align: center">
+    <input type="text" onkeyup="Default.searchVideo(this)" class="form-control-lg w25p" placeholder="Search for...">
+</div>
+<div class="" id="box_search_video_list_value" style="text-align: center; overflow-x: auto; margin: 5px 5% 0px 5%; box-sizing: border-box;">
+</div>
+<div style="text-align: center; overflow-x: auto; margin: 20px 5% 20px 5%; box-sizing: border-box;height:70px;">
+    <div class="w100p">
+            <!-- START #fh5co-logo -->
+            <h1 class="pull-right mar-right-2p" style="font-size: 20px;font-weight: bold;"><a class="hover opacity05" href="#">MOST VIEW</a></h1>
+            <h1 class="pull-right mar-right-2p" style="font-size: 20px;font-weight: bold;"><a class="hover opacity05" href="#">HOT TREND</a></h1>
+            <h1 class="pull-right mar-right-2p" style="font-size: 20px;font-weight: bold;"><a class="hover opacity05" href="#">NEWEST</a></h1>
+            <h1 class="pull-right mar-right-2p" style="font-size: 20px;font-weight: bold;"><a class="hover opacity05" href="#">LIST MOST VIEW</a></h1>
+    </div>
+</div>
+<div class="container-fluid" id="box_content_home">
     <?php
     $listVideoType = $this->listAryVideoType;
     foreach ($listVideoType as $videoType) : 
@@ -58,8 +72,8 @@
                             <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$video['id']); ?>">
                                 <img class="itemAliasVideo" src="<?php echo $this->baseUrl($video['video_url_image_alias']); ?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
                                 <div class="fh5co-card-body">
-                                    <h3><?php echo $video['video_title']; ?></h3>
-                                    <p><?php echo $video['video_description']; ?></p>
+                                    <h3 style="color: #004085"><?php echo $video['video_title']; ?></h3>
+                                    <p><?php echo (strlen($video['video_description']) > 100)? substr($video['video_description'],0,100)."..." : $video['video_description'];?></p>
                                 </div>
                             </a>
                         </div>

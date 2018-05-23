@@ -254,7 +254,7 @@ span.psw {
 }
 .itemAliasVideo {
     width: 230px;
-    height: 200px;
+    height: 150px;
 }
 #box_comment {
     margin: 0px 5px;
@@ -262,4 +262,10 @@ span.psw {
     overflow-y: auto;
     resize: none;
     height: 70px;
+}
+.opacity05 {
+    opacity: 0.5
+}
+.hover:hover {
+    opacity: 1.0
 }

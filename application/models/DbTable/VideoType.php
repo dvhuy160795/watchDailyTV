@@ -32,4 +32,20 @@ class Application_Model_DbTable_VideoType extends Zend_Db_Table_Abstract
             return true;
         }
     }
+    
+    public function getMultiVideoTypeConditionLike(&$aryResult = null , $condition = null) {
+        $where = $this->_db->quoteInto('video_is_deleted = ?','0');
+        foreach ($condition as $key => $value) {
+            $where .= $this->_db->quoteInto(" AND ".$key." LIKE ?","%".$value."%");
+        }
+        
+        $sql = $this->_db->select()->from($this->_name,["id"])->where($where);
+        $aryResult = $this->_db->fetchAll($sql);
+        if (empty($aryResult)) {
+            $aryResult = [];
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

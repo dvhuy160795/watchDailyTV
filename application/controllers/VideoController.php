@@ -9,6 +9,7 @@ class VideoController extends Zend_Controller_Action
     protected $dbVideoType;
     protected $_dbUser;
     protected $dbComment;
+    protected $logic;
 
     public function init()
     {
@@ -19,6 +20,7 @@ class VideoController extends Zend_Controller_Action
         $this->_dbUser = new Application_Model_DbTable_User();
         $this->dbComment = new Application_Model_DbTable_Comment();
         $this->dbVideoType = new Application_Model_DbTable_VideoType();
+        $this->logic = new Application_Model_Logic();
     }
 
     public function indexAction()
@@ -138,12 +140,14 @@ class VideoController extends Zend_Controller_Action
         if (isset($_SESSION['user']['user_code'])) {
             $this->view->currentUser = $_SESSION['user']['user_code'];   
         }
+        if (isset($_SESSION['user'])) {
+             $isLogin = 1;
+        }else { $isLogin = 0;}
         $this->view->aryVideo = $aryVideo;
         $this->view->aryListComment = $aryListComment;
         $this->view->aryListVideoLike  = $aryListVideoLike;
-        echo "<pre>";
-        var_dump($aryUser);die;
         $this->view->aryUser = $aryUser;
+        $this->view->isLogin  = $isLogin;
     }
     
     public function loadlistvideoAction() {
@@ -316,7 +320,7 @@ class VideoController extends Zend_Controller_Action
 //            $styleFloat = ($comment['comment_user_code'] == $_SESSION['user']['user_code']) ? 'float: right': '';
             $styleFloat = "";
             $html .= '<div>
-                        <div style=" '.$styleFloat.'">
+                        <div style="margin-left:3px '.$styleFloat.'">
                             <span style="width:80%; font-size: 18px; font-weight: 800">'.$comment['comment_content'].'</span>  
                             <br><span style="width:20%">'.$comment['created'].'</span>
                             <br><font>'.$aryUser['user_full_name'].'</font>
@@ -328,6 +332,31 @@ class VideoController extends Zend_Controller_Action
             "html"  => $html,
         ];
         echo json_encode($respon);
+    }
+    
+    public function searchvideoAction() {
+        $this->_helper->layout->disableLayout();
+        $params = $this->_request->getParams();
+        $conditionUser = [
+            'user_full_name' =>  $params['value']
+        ];
+        $aryListUserCode = [];
+        $this->_dbUser->getMultiUserConditionLike($aryListUserCode, $conditionUser);
+        $conditionTypeVideo = [
+            'video_type_title' => $params['value']
+        ];
+        $aryListTypeCode = [];
+        $this->dbVideoType->getMultiVideoTypeConditionLike($aryListTypeCode, $conditionTypeVideo);
+        $paramCondition = [
+            'video_type_account' => $aryListUserCode,
+            'video_video_type_code' => $aryListTypeCode,
+        ];
+        $sqlCondition = $this->dbVideo->buildSqlConditionSearchVideo($paramCondition,$params['value']);
+        $fieldVideo = [
+            "*"
+        ];
+        $aryListVideo = $this->dbVideo->getVideoByWhere($sqlCondition,$fieldVideo);
+        $this->view->aryListVideo = $aryListVideo;
     }
 }
 

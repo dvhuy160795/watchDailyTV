@@ -92,7 +92,24 @@ var Default = {
                 alert('error')
             }
         });
-    }
+    },
+    searchVideo : function(el) {
+        var value = el.value;
+        if (value.trim() !== "") {
+            var url = ROOT_URL + "/Video/searchvideo";
+            var data = {value:value};
+            $.ajax({
+                url:url,
+                data:data,
+                success: function(data){
+                    $('#box_search_video_list_value').html(data);
+                },
+                errror: function() {
+                    alert('error')
+                }
+            });
+        }
+    },
 }
 var User = {
     fileType :"",
@@ -342,7 +359,7 @@ var User = {
             dataType: "json",            
             data: {},            
             success: function(data) {
-                location.reload();
+                window.location.href = "http://localhost:8000/watchDailyTV/public/index.php";
             },            
             error: function() {                
                 alert('error');

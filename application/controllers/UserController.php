@@ -43,11 +43,12 @@ class UserController extends Zend_Controller_Action
         $aryConditionGetVideo = [
             'video_type_account' => $_SESSION['user']['user_code'],
         ];
-        $arrCondition['user_code'] = $_SESSION['user']['user_code'];
-        $this->_dbUser->getUserByConditionByAnd($arrCondition,$arrResult);
-        $this->dbCity->getCityByConditionAnd($arrCity,['city_code' => $arrResult['user_city']]);
-        $this->dbDistrict->getDistrictByConditionAnd($arrDistrict,['district_code' =>$arrResult['user_district']]);
-        $this->dbStreet->getStreetByConditionAnd($arrStreet,['street_code' => $arrResult['user_address']]);
+        $arrCondition = [];
+        $arrUser = [];
+        $this->_dbUser->getOneUser($arrUser,$arrCondition,$_SESSION['user']['user_code']);
+        $this->dbCity->getCityByConditionAnd($arrCity,['city_code' => $arrUser['user_city']]);
+        $this->dbDistrict->getDistrictByConditionAnd($arrDistrict,['district_code' =>$arrUser['user_district']]);
+        $this->dbStreet->getStreetByConditionAnd($arrStreet,['street_code' => $arrUser['user_address']]);
         $isHasVideo = $this->dbVideo->getVideoByMailAndMoreByAND($aryListVideo,$aryConditionGetVideo);
         if (!$isHasVideo) {
            $aryListVideo = []; 
@@ -92,7 +93,7 @@ class UserController extends Zend_Controller_Action
         $this->view->hasFirst = $currentPage > 1 ? true : false;
         $this->view->hasEnd = $currentPage < $countPages ? true : false;
         
-        $this->view->aryUser = $arrResult;
+        $this->view->aryUser = $arrUser;
         $this->view->arrCity = $arrCity[0];
         $this->view->arrDistrict = $arrDistrict[0];
         $this->view->arrStreet = $arrStreet[0];
@@ -321,7 +322,7 @@ class UserController extends Zend_Controller_Action
         $condition = $params['user'];
         $arrResult = [];
 
-        $isGetDataSuccess = $this->_dbUser->getUserByConditionByAnd($condition, $arrResult);
+        $isGetDataSuccess = $this->_dbUser->getOneUserByIsDelete($arrResult,$condition);
         if ($isGetDataSuccess == false) {
             $this->_message = "User name or password is wrong !";
             $this->_intIsOk = -2;

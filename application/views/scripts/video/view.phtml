@@ -104,21 +104,24 @@ function toggleFullScreen(){
 }
 </script>
 </head>
-<div class="w25p fleft" id="box_comment" style="margin-top:72px; height: 569px">
-    <div id="list_comment" class="w100p" style="height:466px; overflow-y: auto">
+<div class="w25p fleft" id="box_comment" style="margin-top:72px; height: 569px; border: thin solid">
+    <div id="list_comment" class="w100p" style="height:485px; overflow-y: auto; border-bottom: thin solid">
         <?php foreach ($this->aryListComment as $comment) { ?>
             <div>
-                <div style="">
+                <div style=" margin-left: 3px">
                     <span style="width:80%; font-size: 18px; font-weight: 800"><?php echo $comment['comment_content'] ?></span>  
                     <br><span style="width:20%"><?php echo $comment['created']; ?></span>
-                    <br><font><?php echo isset($this->aryUser[$comment['comment_user_code']])? $this->aryUser[$comment['comment_user_code']] : ""; ?></font>
+                    <br><font><?php foreach ($this->aryUser as $user) {
+                        echo ($comment['comment_user_code'] == $user['user_code'])? $user["user_full_name"] : "";
+                    }  ?></font>
                 </div>
             </div>
         <?php } ?>
     </div>
-    <div id="insert_comment" class="w100p" style="height:70px">
+    <div id="insert_comment" class="w100p" style="height:70px; margin-top: 5px">
+        <?php if ($this->isLogin == 1) :?>
         <textarea class="w98p" id="box_comment"></textarea>
-        <input type="button" value="Send Comment" id="btnSendComment" >
+        <?php endif; ?>
     </div>
 </div>
 <div id="video_player_box" style="margin-top:72px" class="fleft">
@@ -135,9 +138,51 @@ function toggleFullScreen(){
     <button style="display:inline-block; background: url('/watchDailyTV/public/template/images/fullscreen.jpeg') 0% 0% / 100% 100%;" id="fullscreenbtn"></button>
   </div>
 </div>
-<div class="w24p fleft" id="box_video_like" style="margin-top:72px; height: 466px">
+<div class="w24p fleft" id="box_video_like" style="margin-top:72px; height: 566px; overflow-y: auto; border: thin solid">
+    <table>
+        <colgroup>
+            <col style="width:100px"/>
+            <col />
+        </colgroup>
+        <?php if (isset($this->aryListVideoLike) && $this->aryListVideoLike != null) {
+            foreach ($this->aryListVideoLike as $key => $video) { ?>
+        <tr style=" background-color: #CCC">
+                    <td><a href="<?php echo $this->baseUrl("Video/view/id/".$video['id']); ?>">
+                        <img src="<?php echo $this->baseUrl($video['video_url_image_alias']);?>" class="w100p">
+                        </a>
+                    </td>
+                    <td>
+                        <div style="margin-top:0px"  class="w100p">
+                            <h4><?php echo (strlen($video['video_title']) > 50)? substr($video['video_title'],0,50)."..." : $video['video_title'];?></h4>
+                            <h5 style=" color: #666"><?php 
+                              foreach ($this->aryUser as $user) {
+                                  echo ($user['user_code'] == $video['video_type_account']) ? $user['user_full_name'] : "";
+                              }
+                            ?></h5>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <br>
+                    </td>
+                </tr>
+        <?php }}  ?>
+    </table>
     <div class="w100p" style="margin-left:5px">
-        <img src="<?php echo $this->baseUrl('/template/images/unmute.png'); ?>" class="w30p">
-        <span>adfasd</span>
+        
+        <span></span>
+    </div>
+</div>
+<div class="" style="width: 90%; box-sizing: border-box; margin: 670px 5% 5px 5%; background: #CCC; border: thin solid">
+    <div><span style=" margin-left: 95%; color: red; font-size: 18px">view:111</span></div>
+    <div>
+        <h2 style=" color: #002752">Title Video : </h2>
+        <h3 style=" margin-left: 30px"><?php echo $this->aryVideo['video_title'] ?></h3>
+    </div>
+    <hr>
+    <div>
+        <h3 style="color: #002752">Desscription Video : </h3>
+        <h4 style=" margin-left: 30px"><?php echo $this->aryVideo['video_description'] ?></h4>
     </div>
 </div>

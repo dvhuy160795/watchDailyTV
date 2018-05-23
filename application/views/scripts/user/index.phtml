@@ -13,7 +13,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
     
       <div class="w3-white w3-text-grey w3-card-4">
         <div class="w3-display-container">
-          <img src="<?php echo $this->baseUrl('/client/image/user/avatarDefault.jpeg') ?>" style="width:100%; height:350px" alt="Avatar">
+          <img src="<?php echo ($this->aryUser['user_url_image_alias'] && $this->aryUser['user_url_image_alias'] !== "") ? $this->baseUrl($this->aryUser['user_url_image_alias']) :
+            $this->baseUrl('/client/image/user/avatarDefault.jpeg'); ?>" style="width:100%; height:350px" alt="Avatar">
           <div class="w3-display-bottomleft w3-container w3-text-black">
             <h2><?php echo $this->aryUser['user_full_name'] ?></h2>
           </div>
@@ -94,8 +95,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
                         <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$aryVideo['id']); ?>">
                             <img class="itemAliasVideo" src="<?php echo $this->baseUrl($aryVideo['video_url_image_alias']);?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
                             <div class="fh5co-card-body">
-                                <h3><?php echo $aryVideo['video_title'];?></h3>
-                                <p><?php echo $aryVideo['video_description'];?></p>
+                                <h3 style="color: #004085"><?php echo $aryVideo['video_title'];?></h3>
+                                <p><?php echo (strlen($aryVideo['video_description']) > 100)? substr($aryVideo['video_description'],0,100)."..." : $aryVideo['video_description'];?></p>
                             </div>
                         </a>
                         <a href="#" class="mar-left-94p" onclick="Default.uploadVideo('<?php echo $aryVideo['id'];?>')"><i class="fa fa-edit w3-margin-right w3-large w3-text-red"></i></a>

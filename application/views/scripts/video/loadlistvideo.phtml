@@ -45,8 +45,8 @@
         <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$aryVideo['id']); ?>">
             <img class="itemAliasVideo" src="<?php echo $this->baseUrl($aryVideo['video_url_image_alias']);?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
             <div class="fh5co-card-body">
-                <h3><?php echo $aryVideo['video_title'];?></h3>
-                <p><?php echo $aryVideo['video_description'];?></p>
+                <h3 style="color: #004085"><?php echo $aryVideo['video_title'];?></h3>
+                <p><?php echo (strlen($aryVideo['video_description']) > 100)? substr($aryVideo['video_description'],0,100)."..." : $aryVideo['video_description'];?></p>
             </div>
         </a>
         <a href="#" class="mar-left-94p" onclick="Default.uploadVideo('<?php echo $aryVideo['id'];?>')"><i class="fa fa-edit w3-margin-right w3-large w3-text-red"></i></a>

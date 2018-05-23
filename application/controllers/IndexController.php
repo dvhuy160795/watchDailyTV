@@ -101,6 +101,9 @@ class IndexController extends Zend_Controller_Action
     	$this->view->aryResult = $aryResult;
         $this->view->typeSelect = $typeSelect;
     }
-
+    
+    public function listvideobymenuAction() {
+        
+    }
 }
 

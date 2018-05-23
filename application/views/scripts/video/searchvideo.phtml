@@ -1,0 +1,17 @@
+
+    <?php if ($this->aryListVideo == []) { echo "";} else { ?>
+    <div style="width: 10000px; height: 300px">
+     <?php  foreach ($this->aryListVideo as $video) : ?>
+        <div class="fadeInUp animated" style="width: 250px; float: left">
+            <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$video['id']); ?>">
+                <img class="itemAliasVideo" src="<?php echo $this->baseUrl($video['video_url_image_alias']); ?>" alt="Free HTML5 Bootstrap template">
+                <div class="fh5co-card-body">
+                    <h3 style="color: #004085"><?php echo (strlen($video['video_title']) > 150)? $video['video_title']."..." : $video['video_title']; ?></h3>
+                </div>
+            </a>
+        </div>
+    <?php endforeach;?>
+    </div>
+        <?php } ?>
+
+
