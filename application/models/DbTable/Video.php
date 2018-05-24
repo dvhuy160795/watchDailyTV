@@ -77,6 +77,23 @@ class Application_Model_DbTable_Video extends Zend_Db_Table_Abstract
             return true;
         }
     }
+    
+    public function getVideoByConditionAndOrder (&$aryResult = null , $condition = null, $order = null) {
+        $where = $this->_db->quoteInto('video_is_deleted = ?',0);
+        foreach ($condition as $key => $value) {
+            $where .= $this->_db->quoteInto(" AND ".$key." = ?",$value);
+        }
+        
+        $sql = $this->_db->select()->from($this->_name)->where($where)->order($order);
+        $aryResult = $this->_db->fetchAll($sql);
+        if (empty($aryResult)) {
+            $aryResult = [];
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     public function getVideoByWhere($where, $aryField = "*") {
         if ($where === "") {
             return [];

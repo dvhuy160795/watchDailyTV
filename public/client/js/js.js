@@ -110,6 +110,20 @@ var Default = {
             });
         }
     },
+    filterListVideo: function (fieldOrder) {
+        var url = ROOT_URL + "/Index/listvideobymenu";
+        var data = {value:fieldOrder};
+        $.ajax({
+            url:url,
+            data:data,
+            success: function(data){
+                $('#box_content_home').html(data);
+            },
+            errror: function() {
+                alert('error')
+            }
+        });
+    }
 }
 var User = {
     fileType :"",
@@ -426,6 +440,22 @@ var Video = {
             }
         }
         $form.ajaxForm(strUrl);
+    }
+};
+var VideoList = {
+    loadListVideoByUser : function(){
+        var url = ROOT_URL + "/VideoList/loadlistvideobyuser";
+        var strUrl = {            
+            url: url,                        
+            data: {},            
+            success: function(data) {
+                $("#box_list_video").html(data);
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+        $.ajax(strUrl);
     }
 };
 //auto load js

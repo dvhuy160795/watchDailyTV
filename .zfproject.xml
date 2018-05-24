@@ -15,6 +15,12 @@
         <controllerFile controllerName="Video">
           <actionMethod actionName="index"/>
         </controllerFile>
+        <controllerFile controllerName="VideoType">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="VideoList">
+          <actionMethod actionName="index"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Video"/>
@@ -58,6 +64,12 @@
             <viewScriptFile forActionName="error"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Video">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="VideoType">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="VideoList">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>

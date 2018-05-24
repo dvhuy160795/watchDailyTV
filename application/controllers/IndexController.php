@@ -103,7 +103,63 @@ class IndexController extends Zend_Controller_Action
     }
     
     public function listvideobymenuAction() {
+        $this->_helper->layout()->disableLayout();
+    	$params = $this->_request->getParams();
+        $aryListVideo = [];
+        $aryConditionGetVideo = [
+            'video_is_public'   => 1,
+        ];
+        if (isset($params['value'])) {
+            $order = $params['value']." DESC";
+            $_SESSION['order_video'] = $params['value'];
+        } else {
+            $order = $_SESSION['order_video']." DESC";
+        }
         
+        $isHasVideo = $this->dbVideo->getVideoByConditionAndOrder($aryListVideo,$aryConditionGetVideo, $order);
+        if (!$isHasVideo) {
+           $aryListVideo = []; 
+        }
+        $paginator  = Zend_Paginator::factory($aryListVideo);
+        $perPage = 20;
+        $paginator->setDefaultItemCountPerPage($perPage);
+        $allItems = $paginator->getTotalItemCount();
+        $countPages = $paginator->count();
+        $p = $this->getRequest()->getParam('p');
+        if(isset($p)) {
+            $paginator->setCurrentPageNumber($p); 
+        } else {
+            $paginator->setCurrentPageNumber(1);
+        }
+        $currentPage = $paginator->getCurrentPageNumber();
+        $this->view->albums = $paginator;
+        $this->view->countItems = $allItems;
+        $this->view->countPages = $countPages;
+        $this->view->currentPage = $currentPage;
+        if($currentPage != $countPages)
+        {
+            $this->view->previousPage = $currentPage-1;
+            $this->view->nextPage = $currentPage+1;
+            $this->view->endPage = $countPages; 
+        }
+        else if($currentPage == 1)
+        {
+            $this->view->nextPage = $currentPage+1;
+            $this->view->previousPage = 1; 
+        }
+        else if($currentPage == 0)
+        {
+            $this->view->firstPage = $currentPage;
+        }
+        else {
+            $this->view->nextPage = $currentPage+1;
+            $this->view->previousPage = $currentPage-1;
+        }
+        $this->view->hasNext = $currentPage < $countPages ? true : false;
+        $this->view->hasPrev = $currentPage > 1 ? true : false;
+        $this->view->hasFirst = $currentPage > 1 ? true : false;
+        $this->view->hasEnd = $currentPage < $countPages ? true : false;
+        $this->view->aryListVideo = $paginator;
     }
 }
 
