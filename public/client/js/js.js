@@ -443,6 +443,22 @@ var Video = {
     }
 };
 var VideoList = {
+    addListVideo :function () {
+        var url = ROOT_URL + "/Videolist/add";
+        var strUrl = {            
+            url: url,  
+            data: {},            
+            success: function(data) {
+                $("#box-popup").html(data);
+                $('#box-popup').css('display','block');
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+        $.ajax(strUrl); 
+    },
+    
     loadListVideoByUser : function(){
         var url = ROOT_URL + "/VideoList/loadlistvideobyuser";
         var strUrl = {            

@@ -1,0 +1,28 @@
+<form id="formAddList" class="modal-content-register animate" enctype="multipart/form-data">
+  <div class="container-model-100p fleft" style="background-color:#f1f1f1">
+    <label><b>List Title :</b><font style="color: red"> *</font></label>
+    <input type="text" class="input100p"
+	    name="user[user_first_name]" 
+	    id="user_first_name" value="" 
+	    required
+	>
+
+    <label><b>Is public:</b><font style="color: red"> *</font></label>
+    <input type="checkbox"
+	    name="user[user_last_name]" value=""
+	    id="user_last_name" 
+	    required
+	>
+  </div>
+    <div class="container-model-50p fleft" style="background-color:#f1f1f1; height: 120px; padding-left: 550px;">
+        <button type="submit" onclick="VideoList.addListVideo()">Register</button>
+        <img id="imgLoading" style="display: none; margin-left: 31%; width: 100px" src="<?php echo $this->baseUrl('/template/images/loading.gif') ?>">
+    </div>
+    <div class="container-model-50p fleft" style="background-color:#f1f1f1; height: 120px;">
+        <button type="button" onclick="Default.closePopup('formAddList')" style="background-color: red">Cancel</button><br>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+  <div id="list_message_error">
+    
+  </div>
+</form>

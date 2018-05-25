@@ -13,12 +13,12 @@ class VideoListController extends Zend_Controller_Action
         // action body
     }
 
-    public function add() {
-        
+    public function addAction() {
+        $this->_helper->layout()->disableLayout();
     }
     
-    public function save() {
-        
+    public function saveAction() {
+        $this->_helper->layout()->disableLayout();
     }
     
     public function loadlistvideobyuserAction() {
