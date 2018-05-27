@@ -1,5 +1,7 @@
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+    html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 div#video_player_box{ width:50%; background:#000; margin:0px auto;margin-top: 72px;}
 div#video_controls_bar{ background: #333; padding:10px; color:#CCC; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;}
 button#playpausebtn{
@@ -175,13 +177,25 @@ function toggleFullScreen(){
     </div>
 </div>
 <div class="" style="width: 90%; box-sizing: border-box; margin: 670px 5% 5px 5%; background: #CCC; border: thin solid">
-    <div><span style=" margin-left: 95%; color: red; font-size: 18px">view:111</span></div>
     <div>
-        <h2 style=" color: #002752">Title Video : </h2>
-        <h3 style=" margin-left: 30px"><?php echo $this->aryVideo['video_title'] ?></h3>
+        <h2 style=" margin-left: 20px"><?php echo $this->aryVideo['video_title'] ?></h2>
+        <div style=" margin-left: 40px">
+            <font style=" font-size: 25px"><?php echo $this->aryVideo['video_view'] ?> views</font>
+            <a>
+                <i id="iconTotalDisLike" onclick="Video.likeVideo(<?php echo $this->aryVideo['id'] ?>, 0,this)" class="fa fa-thumbs-down <?php echo ($this->aryLike['like_is_like'] == 0 && $this->aryLike['like_is_choose'] == 1) ? 'w3-text-blue' : 'w3-text-white' ?>" style="font-size: 35px; float: right;">
+                    &nbsp;<font style=" color: black" id="totalDisLike"><?php echo $this->totalDisLike; ?></font>
+                </i>
+            </a>
+           
+            <a>
+                <i id="iconTotalLike" onclick="Video.likeVideo(<?php echo $this->aryVideo['id'] ?>, 1,this)" class="fa fa-thumbs-up <?php echo ($this->aryLike['like_is_like'] == 1 && $this->aryLike['like_is_choose'] == 1) ? 'w3-text-blue' : 'w3-text-white' ?>" style="font-size: 35px; float: right; margin-right: 90px">
+                    &nbsp;<font style=" color: black" id="totalLike"><?php echo $this->totalLike; ?></font>
+                </i>
+            </a>
+        </div>
     </div>
     <hr>
-    <div>
+    <div style=" border-top: thin solid black">
         <h3 style="color: #002752">Desscription Video : </h3>
         <h4 style=" margin-left: 30px"><?php echo $this->aryVideo['video_description'] ?></h4>
     </div>

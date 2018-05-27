@@ -65,7 +65,9 @@ class Application_Model_DbTable_Video extends Zend_Db_Table_Abstract
     public function getVideoByMailAndMoreByAND (&$aryResult = null , $condition = null) {
         $where = $this->_db->quoteInto('video_is_deleted = ?',0);
         foreach ($condition as $key => $value) {
-            $where .= $this->_db->quoteInto(" AND ".$key." = ?",$value);
+            if ($value !== "") {
+                $where .= $this->_db->quoteInto(" AND ".$key." = ?",$value);
+            }
         }
         
         $sql = $this->_db->select()->from($this->_name)->where($where)->order("id DESC");
@@ -85,6 +87,44 @@ class Application_Model_DbTable_Video extends Zend_Db_Table_Abstract
         }
         
         $sql = $this->_db->select()->from($this->_name)->where($where)->order($order);
+        $aryResult = $this->_db->fetchAll($sql);
+        if (empty($aryResult)) {
+            $aryResult = [];
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public function getVideoByConditionAndOrderLimit (&$aryResult = null , $condition = null, $order = null) {
+        $where = $this->_db->quoteInto('video_is_deleted = ?',0);
+        foreach ($condition as $key => $value) {
+            if ($value !== "") {
+                $where .= $this->_db->quoteInto(" AND ".$key." = ?",$value);
+            }
+        }
+        $sql = $this->_db->select()->from($this->_name)->where($where)->order($order)->limit(30,1);
+        $aryResult = $this->_db->fetchAll($sql);
+        if (empty($aryResult)) {
+            $aryResult = [];
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public function getVideoNotInListByConditionAndOrderLimitInAddLIstVideo (&$aryResult = null , $condition = null, $order = null) {
+        $where = $this->_db->quoteInto('video_is_deleted = ?',0);
+        foreach ($condition as $key => $value) {
+            if ($value !== "") {
+                if ($key == "video_list_code") {
+                    $where .= $this->_db->quoteInto(" AND ".$key." != ?",$value);
+                    continue;
+                }
+                $where .= $this->_db->quoteInto(" AND ".$key." = ?",$value);
+            }
+        }
+        $sql = $this->_db->select()->from($this->_name)->where($where)->order($order)->limit(30,1);
         $aryResult = $this->_db->fetchAll($sql);
         if (empty($aryResult)) {
             $aryResult = [];

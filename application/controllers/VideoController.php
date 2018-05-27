@@ -10,6 +10,7 @@ class VideoController extends Zend_Controller_Action
     protected $_dbUser;
     protected $dbComment;
     protected $logic;
+    protected $dbLike;
 
     public function init()
     {
@@ -20,6 +21,7 @@ class VideoController extends Zend_Controller_Action
         $this->_dbUser = new Application_Model_DbTable_User();
         $this->dbComment = new Application_Model_DbTable_Comment();
         $this->dbVideoType = new Application_Model_DbTable_VideoType();
+        $this->dbLike = new Application_Model_DbTable_Like();
         $this->logic = new Application_Model_Logic();
     }
 
@@ -128,10 +130,37 @@ class VideoController extends Zend_Controller_Action
         $this->_dbUser->getUserByConditionByAnd([], $aryUser);
         
         $this->dbVideo->getOneVideoByMailAndMoreByAND($aryVideo, $condition);
+        $aryVideoUpdate = [
+            'video_view' => $aryVideo['video_view'] + 1
+        ];
+        $this->dbVideo->updateVideoByCode($aryVideoUpdate, $conditionUpdate = [], $params['id'],$err);
         $conditionComment = [
             'comment_video_code' => $aryVideo['video_code']
         ];
         $this->dbComment->getCommentByConditionAnd($aryListComment, $conditionComment);
+        $conditionLike = [
+            'like_user_code' =>  $_SESSION['user']['user_code'],
+            'like_video_code'=> $params['id']
+        ];
+        $this->dbLike->getLikeByConditionAnd($aryLike, $conditionLike);
+        
+        //get total like
+        $conditionTotalLike = [
+            'like_video_code'=> $params['id'],
+            'like_is_like' => 1,
+            'like_is_choose' => 1
+        ];
+        $this->dbLike->getLikeByConditionAnd($aryTotalLike, $conditionTotalLike);
+        $this->view->totalLike = count($aryTotalLike);
+        //get total dislike
+        $conditionTotalDisLike = [
+            'like_video_code'=> $params['id'],
+            'like_is_like' => 0,
+            'like_is_choose' => 1
+        ];
+        $this->dbLike->getLikeByConditionAnd($aryTotalDisLike, $conditionTotalDisLike);
+        $this->view->totalDisLike = count($aryTotalDisLike);
+        //get listVideo
         $conditionGetListVideo = [
             'video_video_type_code' => $aryVideo['video_video_type_code'],
             'video_type_account' => $aryVideo['video_type_account'],
@@ -148,6 +177,7 @@ class VideoController extends Zend_Controller_Action
         $this->view->aryListVideoLike  = $aryListVideoLike;
         $this->view->aryUser = $aryUser;
         $this->view->isLogin  = $isLogin;
+        $this->view->aryLike = $aryLike[0];
     }
     
     public function loadlistvideoAction() {
@@ -358,5 +388,162 @@ class VideoController extends Zend_Controller_Action
         $aryListVideo = $this->dbVideo->getVideoByWhere($sqlCondition,$fieldVideo);
         $this->view->aryListVideo = $aryListVideo;
     }
+    
+    public function loadvideobylistAction() {
+        $this->_helper->layout->disableLayout();
+//        $this->_helper->viewRenderer->setNoRender(true);
+        $params = $this->_request->getParams();
+
+        $aryListVideo = [];
+        $aryConditionGetVideo = [
+            'video_type_account' => $_SESSION['user']['user_code'],
+            'video_list_code'   => (isset($params['video_list_code'])) ? $params['video_list_code'] : $params['typeCode'],
+        ];
+        $this->view->video_list_code = (isset($params['video_list_code'])) ? $params['video_list_code'] : $params['typeCode'];
+        $arrCondition['user_code'] = $_SESSION['user']['user_code'];
+        $this->_dbUser->getUserByConditionByAnd($arrCondition,$arrResult);
+        $isHasVideo = $this->dbVideo->getVideoByMailAndMoreByAND($aryListVideo,$aryConditionGetVideo);
+        if (!$isHasVideo) {
+           $aryListVideo = []; 
+        }
+        $paginator  = Zend_Paginator::factory($aryListVideo);
+        $perPage = 3;
+        $paginator->setDefaultItemCountPerPage($perPage);
+        $allItems = $paginator->getTotalItemCount();
+        $countPages = $paginator->count();
+        $p = $this->getRequest()->getParam('p');
+        if(isset($p)) {
+            $paginator->setCurrentPageNumber($p); 
+        } else {
+            $paginator->setCurrentPageNumber(1);
+        }
+        $currentPage = $paginator->getCurrentPageNumber();
+        $this->view->albums = $paginator;
+        $this->view->countItems = $allItems;
+        $this->view->countPages = $countPages;
+        $this->view->currentPage = $currentPage;
+        if($currentPage != $countPages)
+        {
+            $this->view->previousPage = $currentPage-1;
+            $this->view->nextPage = $currentPage+1;
+            $this->view->endPage = $countPages; 
+        }
+        else if($currentPage == 1)
+        {
+            $this->view->nextPage = $currentPage+1;
+            $this->view->previousPage = 1; 
+        }
+        else if($currentPage == 0)
+        {
+            $this->view->firstPage = $currentPage;
+        }
+        else {
+            $this->view->nextPage = $currentPage+1;
+            $this->view->previousPage = $currentPage-1;
+        }
+        $this->view->hasNext = $currentPage < $countPages ? true : false;
+        $this->view->hasPrev = $currentPage > 1 ? true : false;
+        $this->view->hasFirst = $currentPage > 1 ? true : false;
+        $this->view->hasEnd = $currentPage < $countPages ? true : false;
+        $this->view->aryListVideo = $paginator;
+    }
+    
+    public function likevideoAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $params = $this->_request->getParams();
+        $aryLike = [];
+        $conditionLike = [
+            'like_user_code' => $_SESSION['user']['user_code'],
+            'like_video_code' => $params['idVideo'],
+        ];
+        $isHasData = $this->dbLike->getLikeByConditionAnd($aryLike, $conditionLike);
+        //add
+        if ($isHasData == false) {
+            $aryLike = [
+                'like_user_code' => $_SESSION['user']['user_code'],
+                'like_video_code' => $params['idVideo'],
+                'like_is_like' => $params['isLike'],
+                'like_is_deleted' => 0,
+                'created' => date('Y/m/d'),
+                'like_is_choose' => 1,
+            ];
+            $this->dbLike->insertLike($aryLike, $newIdLike, $err);
+        } else { // update like
+            //Like
+            $aryLikeIsset = [];
+            $conditionLikeIsset = [
+                'like_user_code' => $_SESSION['user']['user_code'],
+                'like_video_code' => $params['idVideo'],
+            ];
+            $isHasDataIsset = $this->dbLike->getLikeByConditionAnd($aryLikeIsset, $conditionLikeIsset);
+            if ($params['isLike'] == 1) {
+                //click laij btn like
+                if ($aryLikeIsset[0]['like_is_choose'] == 1 && $aryLikeIsset[0]['like_is_like'] != 0) {
+                    $aryUpdateLike = [
+                        'like_is_like' => $params['isLike'],
+                        'like_is_choose' => 0,
+                    ];
+                } else {
+                    $aryUpdateLike = [
+                        'like_is_like' => $params['isLike'],
+                        'like_is_choose' => 1,
+                    ];
+                }
+                
+                $conditionLike = [
+                    'like_user_code' => $_SESSION['user']['user_code'],
+                    'like_video_code' => $params['idVideo'],
+                    'like_is_choose' => 1,
+                ];
+                $this->dbLike->updateLike($aryUpdateLike, $conditionLike = [], $aryLikeIsset[0]['id'], $err);
+            }
+            //dislike
+            if ($params['isLike'] == 0) {
+                //click laij btn dislike
+                if ($aryLikeIsset[0]['like_is_choose'] == 1 && $aryLikeIsset[0]['like_is_like'] != 1) {
+                    $aryUpdateLike = [
+                        'like_is_like' => $params['isLike'],
+                        'like_is_choose' => 0,
+                    ];
+                } else {
+                    $aryUpdateLike = [
+                        'like_is_like' => $params['isLike'],
+                        'like_is_choose' => 1,
+                    ];
+                }
+                
+                $conditionLike = [
+                    'like_user_code' => $_SESSION['user']['user_code'],
+                    'like_video_code' => $params['idVideo'],
+                    'like_is_choose' => 1,
+                ];
+                $this->dbLike->updateLike($aryUpdateLike, $conditionLike = [], $aryLikeIsset[0]['id'], $err);
+            }
+        }
+        
+        //get total like
+        $conditionTotalLike = [
+            'like_video_code'=> $params['idVideo'],
+            'like_is_like' => 1,
+            'like_is_choose' => 1
+        ];
+        $this->dbLike->getLikeByConditionAnd($aryTotalLike, $conditionTotalLike);
+        
+        //get total dislike
+        $conditionTotalDisLike = [
+            'like_video_code'=> $params['idVideo'],
+            'like_is_like' => 0,
+            'like_is_choose' => 1
+        ];
+        $this->dbLike->getLikeByConditionAnd($aryTotalDisLike, $conditionTotalDisLike);
+        
+        $respon = [
+            "totalLike" => count($aryTotalLike),
+            "totalDisLike"  => count($aryTotalDisLike),
+        ];
+        echo json_encode($respon);
+    }
+
 }
 

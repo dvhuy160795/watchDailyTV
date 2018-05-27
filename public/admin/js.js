@@ -111,107 +111,10 @@ var Default = {
         }
     },
 }
-var User = {
-    fileType :"",
-    fileSize : 0,
-    fileName : "",
-    showPopupLogin : function () {
-        var url = ROOT_URL + "/User/login";
-        var data = {};
-        $.ajax({
-            url:url,
-            data:data,
-            success: function(data){
-                $('#box-popup').html(data);
-                $('#box-popup').css('display','block');
-            },
-            errror: function() {
-                alert('error')
-            }
-        });
-    },
-    showPopupRegister : function () {
-        var url = ROOT_URL + "/User/register";
-        var data = {};
-        $.ajax({
-            url:url,
-            data:data,
-            success: function(data){
-                $('#box_content_page_admin').html("");
-                $('#box_content_page_admin').html(data);
-                $('#box_content_page_admin').css('display','block');
-            },
-            errror: function() {
-                alert('error')
-            }
-        });
-    },
-    showPopupCheckCodeSendedByEmail : function () {
-        var url = ROOT_URL + "/User/showpopupcheckcode";
-        var data = {};
-        $.ajax({
-            url:url,
-            data:data,
-            success: function(data){
-                $('#box-popup').html("");
-                $('#box-popup').html(data);
-                $('#box-popup').css('display','block');
-            },
-            errror: function() {
-                alert('error')
-            }
-        });
-    },
-    showForgotPassword : function () {
-        var url = ROOT_URL + "/User/showpopupforgotpassword";
-        var data = {};
-        $.ajax({
-            url:url,
-            data:data,
-            success: function(data){
-                $('#box-popup').html("");
-                $('#box-popup').html(data);
-                $('#box-popup').css('display','block');
-            },
-            errror: function() {
-                alert('error')
-            }
-        });
-    },
-    loadImg : function (input, autoImg, itemSetvalue = ""){
-        var $avatarUser = $('#'+autoImg);
-        var reader = new FileReader();
-
-        User.fileSize = input.files[0].size;
-        User.fileType = input.files[0].type;
-
-        reader.onload = function (e) {
-            $avatarUser.attr('src', e.target.result);
-            $("#" + itemSetvalue).val(e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-    },
-    autoLoadEl : function (el, elDisplay, isLoading, elLoading, itemValue = ""){
-        var $avatarUser = $('#'+elDisplay);
-        var reader = new FileReader();
-
-        User.fileSize = el.files[0].size;
-        User.fileType = el.files[0].type;
-        if (isLoading == 1) {
-            $("#" + elLoading).show();
-        }      
-        reader.onload = function (e) {
-            $avatarUser.attr('src', e.target.result);
-            if (isLoading == 1) {
-                $("#" + elLoading).hide();
-                $("#" + itemValue).val(e.target.result);
-            }
-        };
-        reader.readAsDataURL(el.files[0]);
-    },
-    checkLoginAction :function () {
-        var $form = $('#formLogin');
-        var url = ROOT_URL + "/User/loginexistuser";
+var Admin = {
+    login : function () {
+        var $form = $('#loginAdmin');
+        var url = ROOT_URL + "/Index/checklogin";
         var strUrl = {            
                 url: url,            
                 type: 'post',
@@ -219,214 +122,64 @@ var User = {
                 data: {},            
                 success: function(data) {
                     //reset
-                    if (data.intIsOk == -2) {
+                    if (data.intIsOk == 0) {
                         alert(data.message);
                     } else {
-                        Default.closePopup();
-                        location.reload();
-                    }  
+                        $(location).attr('href', 'index');
+                    }  addadmin
                 },            
                 error: function() {                
                     alert('error');
                 }
-            }
-        $form.ajaxForm(strUrl); 
-    },
-    checkRegisterAction : function () {
-        var $form = $('#formRegister');
-        var url = ROOT_URL + "/User/checkexistuser";
-        var strUrl = {            
-                url: url,            
-                type: 'post',
-                dataType: "json",            
-                data: {},            
-                success: function(data) {
-                    //reset
-                    $("#imgLoading").css("display","inline-block");
-                    $("#formRegister input").removeClass('bor-red');
-                    $("#list_message_error").html("");
-                    if (data.intIsOk == -2) {
-                        $("#imgLoading").css("display","none");
-                        $("#list_message_error").html(data.message);
-                        $.each(data.arrItemError, function(key,value){
-                            $("#" + value).addClass('bor-red');
-                        });
-                    } else {
-                        User.showPopupCheckCodeSendedByEmail();
-                    }  
-                },            
-                error: function() {                
-                    alert('error');
-                }
-            }
-        $form.ajaxForm(strUrl); 
-    },
-
-    checkRegisterCodeSendedByMail : function() {
-        var $form = $('#formCheckCode');
-        var url = ROOT_URL + "/User/checkregistercodesendedbymail";
-        var strUrl = {            
-                url: url,            
-                type: 'post',
-                dataType: "json",            
-                data: {},            
-                success: function(data) {
-                    if (data.intIsOk == false) {
-                        alert(data.message);
-                        User.showPopupRegister();
-                    } else{
-                        User.showPopupLogin();
-                    }
-                },            
-                error: function() {                
-                    alert('error');
-                }
-            }
-        $form.ajaxForm(strUrl); 
-    },
-
-    loginUserExistAction :function () {
-        var url = ROOT_URL + "/User/loginexistuser";
-        var strUrl = {            
-                url: url,            
-                type: 'post',
-                dataType: "json",            
-                data: {},            
-                success: function(data) {
-                    if (data.intIsOk == false) {
-                        alert(data.message);
-
-                    } else{
-                        alert("login");
-                    }
-                },            
-                error: function() {                
-                    alert('error');
-                }
-            }
-        $form.ajaxForm(strUrl); 
-    },
-
-    sendMailForgotPassword : function () {
-        var $form = $('#formForgotPassword');
-        var url = ROOT_URL + "/User/sendmailforgotpassword";
-        var strUrl = {            
-            url: url,            
-            type: 'post',
-            dataType: "json",            
-            data: {},            
-            success: function(data) {
-                if (data.intIsOk == false) {
-                    alert(data.message);
-                    User.showPopupRegister();
-                } else{
-                    User.showPopupLogin();
-                }
-            },            
-            error: function() {                
-                alert('error');
-            }
-        }
-        $form.ajaxForm(strUrl); 
-    },
-
-    saveUser : function () {
-        var $form = $('#formEdituser');
-        var url = ROOT_URL + "/User/saveedituser";
-        var strUrl = {            
-            url: url,            
-            type: 'post',
-            dataType: "json",            
-            data: {},            
-            success: function(data) {
-                if (data.intIsOk == 1) {
-                    alert("Edit success!!");
-                    location.reload();
-                } 
-            },            
-            error: function() {                
-                alert('error');
-            }
-        }
-        $form.ajaxForm(strUrl); 
-    },
-    
-    logoutUser : function () {
-        var url = ROOT_URL + "/User/logout";
-        var strUrl = {            
-            url: url,            
-            type: 'post',
-            dataType: "json",            
-            data: {},            
-            success: function(data) {
-                window.location.href = "http://localhost:8000/watchDailyTV/public/index.php";
-            },            
-            error: function() {                
-                alert('error');
-            }
-        }
-        $.ajax(strUrl);
-    }, 
-    
-    loadPagination : function(controller, action, page, blockLoadlist, typeCode = "") {
-        var url = ROOT_URL + "/" + controller + "/" + action;
-        var strUrl = {            
-            url: url,                        
-            data: {p:page, typeCode: typeCode},            
-            success: function(data) {
-                $("#" + blockLoadlist).html(data);
-            },            
-            error: function() {                
-                alert('error');
-            }
-        }
-        $.ajax(strUrl);
-    },
-};
-
-var Video = {
-    showOvlAddVideo : function (id){
-        var $form = $('#formEdituser');
-        var url = ROOT_URL + "/User/saveedituser";
-        var strUrl = {            
-            url: url,            
-            type: 'post',
-            dataType: "json",            
-            data: {},            
-            success: function(data) {
-                if (data.intIsOk == 1) {
-                    alert("Edit success!!");
-                    location.reload();
-                } 
-            },            
-            error: function() {                
-                alert('error');
-            }
-        }
+            };
         $form.ajaxForm(strUrl);
     },
-    saveVideo : function (id) {
-        var $form = $('#formVideo');
-        var url = ROOT_URL + "/Video/savevideo";
+    logout : function () {
+        var url = ROOT_URL + "/Index/logoutadmin";
         var strUrl = {            
-            url: url,            
-            type: 'post',
-            dataType: "json",            
-            data: {id:id},            
-            success: function(data) {
-                if(data.intIsOk == 1){
-                    alert(data.message);
+                url: url,            
+                type: 'post',
+                dataType: "json",            
+                data: {},            
+                success: function(data) {
                     location.reload();
-                } else {
-                    alert(data.message);
+                },            
+                error: function() {                
+                    alert('error');
                 }
-            },            
-            error: function() {                
-                alert('error');
-            }
-        }
-        $form.ajaxForm(strUrl);
-    }
+            };
+        $.ajax(strUrl);
+    },
+    showFormAddAdmin : function () {
+        var url = ROOT_URL + "/Index/addadmin";
+        var strUrl = {            
+                url: url,                  
+                data: {},            
+                success: function(data) {
+                    console.log(data);
+                    $('#box_content_page_admin').html(data);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
+    },
+    showFormAddGroupPermission : function () {
+        var url = ROOT_URL + "/Index/formaddgrouppermission";
+        var strUrl = {            
+                url: url,                  
+                data: {},            
+                success: function(data) {
+                    console.log(data);
+                    $('#box_content_page_admin').html(data);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
+    },
 };
 //auto load js
 

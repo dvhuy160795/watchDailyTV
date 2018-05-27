@@ -24,6 +24,7 @@
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Video"/>
+        <formFile formName="Admin"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -47,7 +48,11 @@
           <layoutsDirectory enabled="false">
             <layoutScriptsDirectory enabled="false"/>
           </layoutsDirectory>
-          <modelsDirectory/>
+          <modelsDirectory>
+            <dbTableDirectory>
+              <dbTableFile dbTableName="Admin"/>
+            </dbTableDirectory>
+          </modelsDirectory>
           <viewsDirectory>
             <viewScriptsDirectory/>
             <viewHelpersDirectory/>

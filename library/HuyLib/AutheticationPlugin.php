@@ -16,9 +16,9 @@ class HuyLib_AutheticationPlugin extends Zend_Controller_Plugin_Abstract
 
         $this->_params = $this->getRequest()->getParams();
         $_SESSION['paramUrl'] = $this->getRequest()->getParams();
-        if ($this->_params['module'] == "Admin" && $this->_AuthAdmin == []) {
-            echo "vui logn dang nhap";
-        }
+//        if ($this->_params['module'] == "Admin" && $this->_AuthAdmin == []) {
+//            echo "vui logn dang nhap";
+//        }
     }
  
     public function dispatchLoopStartup(

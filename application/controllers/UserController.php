@@ -15,6 +15,7 @@ class UserController extends Zend_Controller_Action
     protected $dbStreet;
     protected $dbVideo ;
     protected $dbVideoType;
+    protected $dbVideoList;
 
     public function init()
     {
@@ -29,6 +30,7 @@ class UserController extends Zend_Controller_Action
         $this->dbStreet = new Application_Model_DbTable_Street();
         $this->dbVideo = new Application_Model_DbTable_Video();
         $this->dbVideoType = new Application_Model_DbTable_VideoType();
+        $this->dbVideoList = new Application_Model_DbTable_ListVideo();
     }
 
     public function indexAction()
@@ -39,6 +41,11 @@ class UserController extends Zend_Controller_Action
             return;
         }
         $params = $this->_request->getParams();
+        $conditionListVideo = [
+            'video_group_id' => $_SESSION['user']['user_code']
+        ];
+        $this->dbVideoList->getGroupVideoByConditionAnd($aryListVideos, $conditionListVideo);
+        $this->view->aryListVideos = $aryListVideos;
         $aryListVideo = [];
         $aryConditionGetVideo = [
             'video_type_account' => $_SESSION['user']['user_code'],
@@ -53,6 +60,7 @@ class UserController extends Zend_Controller_Action
         if (!$isHasVideo) {
            $aryListVideo = []; 
         }
+        
         $paginator  = Zend_Paginator::factory($aryListVideo);
         $perPage = 3;
         $paginator->setDefaultItemCountPerPage($perPage);

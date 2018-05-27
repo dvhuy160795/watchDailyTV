@@ -1,0 +1,10 @@
+<?php if ($this->aryListVideos) { ?> 
+    <?php foreach ($this->aryListVideos as $listVideo) { ?> 
+        <div class="mar-top-2p itemListVideo w100p" style="width: 100%; padding-left: 8px;">
+            <a href="#" class="" style=" font-size: 20px"><?php echo $listVideo['video_group_group_code'] ?>
+                <i class="fa fa-arrow-right w3-margin-right w3-large w3-text-red float-right" onclick="VideoList.loadVideosByList(<?php echo $listVideo['id'] ?>);"></i>
+                <i class="fa fa-edit w3-margin-right w3-large w3-text-red" onclick="VideoList.addListVideo(<?php echo $listVideo['id'] ?>)"></i>
+            </a>
+        </div>    
+    <?php }?>
+<?php } ?>

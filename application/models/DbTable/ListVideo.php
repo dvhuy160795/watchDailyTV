@@ -17,6 +17,23 @@ class Application_Model_DbTable_ListVideo extends Zend_Db_Table_Abstract
     	}
     }
     
+    public function updateListVideoByCode ($aryUpdate = [],$condition = [], $code,&$err) {
+        try {
+            $where = "id = "."'".$code."'";
+            if ($condition != []) {
+                foreach ($condition as $key => $value) {
+                    $where .= " AND ".$key." = ".$value;
+                }
+            }
+            $intIsOk = $this->_db->update($this->_name,$aryUpdate,$where);
+            return $intIsOk;
+        }
+        catch (Zend_Db_Exception $e) {
+            $err = $e->getMessage();
+            return $intIsOk = -2;
+        }
+    }
+    
     public function getGroupVideoByConditionAnd (&$aryResult = null , $condition = null) {
     	$where = $this->_db->quoteInto('video_is_deleted = ?','0');
         foreach ($condition as $key => $value) {

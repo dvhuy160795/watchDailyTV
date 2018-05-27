@@ -399,6 +399,7 @@ var User = {
 };
 
 var Video = {
+
     showOvlAddVideo : function (id){
         var $form = $('#formEdituser');
         var url = ROOT_URL + "/User/saveedituser";
@@ -426,7 +427,7 @@ var Video = {
             url: url,            
             type: 'post',
             dataType: "json",            
-            data: {id:id},            
+            data: {},            
             success: function(data) {
                 if(data.intIsOk == 1){
                     alert(data.message);
@@ -440,14 +441,52 @@ var Video = {
             }
         }
         $form.ajaxForm(strUrl);
-    }
+    },
+    likeVideo :function (idVideo, isLike,el) {
+        if (el.id == 'iconTotalLike') {
+            if (((el.className).split(' '))[2] == "w3-text-white") {
+                $("#" + el.id).removeClass('w3-text-white');
+                $("#" + el.id).addClass('w3-text-blue');
+                $("#iconTotalDisLike").addClass('w3-text-white');
+                $("#iconTotalDisLike").removeClass('w3-text-blue');
+            } else {
+                $("#" + el.id).removeClass('w3-text-blue');
+                $("#iconTotalLike").addClass('w3-text-white');
+            }
+        } else {
+            if (((el.className).split(' '))[2] == "w3-text-white") {
+                $("#" + el.id).removeClass('w3-text-white');
+                $("#" + el.id).addClass('w3-text-blue');
+                $("#iconTotalLike").addClass('w3-text-white');
+                $("#iconTotalLike").removeClass('w3-text-blue');
+            } else {
+                $("#" + el.id).removeClass('w3-text-blue');
+                $("#" + el.id).addClass('w3-text-white');
+            }
+        }
+        var url = ROOT_URL + "/Video/likevideo";
+        var strUrl = {            
+            url: url,  
+            data: {idVideo:idVideo,isLike:isLike},  
+            dataType: "json",
+            success: function(data) {
+                $('#totalDisLike').html(data.totalDisLike);
+                $('#totalLike').html(data.totalLike);
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+        $.ajax(strUrl);
+    },
 };
 var VideoList = {
-    addListVideo :function () {
+    listVideoAdd : [],
+    addListVideo :function (idList) {
         var url = ROOT_URL + "/Videolist/add";
         var strUrl = {            
             url: url,  
-            data: {},            
+            data: {idList:idList},            
             success: function(data) {
                 $("#box-popup").html(data);
                 $('#box-popup').css('display','block');
@@ -458,9 +497,67 @@ var VideoList = {
         }
         $.ajax(strUrl); 
     },
-    
+    saveListVideo : function (idList) {
+        var $form = $('#formAddList');
+        var url = ROOT_URL + "/Videolist/save";
+        var strUrl = {            
+            url: url,            
+            type: 'post',
+            dataType: "json",            
+            data: {idList:idList, listVideoAdd:VideoList.listVideoAdd},            
+            success: function(data) {
+                console.log(data);
+                if(data.intIsOk == 1){
+                    VideoList.loadListVideoByUser();
+                    alert(data.message);
+                    Default.closePopup();
+                } else {
+                    alert(data.message);
+                }
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+        $form.ajaxForm(strUrl);
+    },
+    addVideoTolist :function (id,boxRemove) {
+        var listVideoAdd = VideoList.listVideoAdd;
+        var listVideoAddOld = $('#video_in_list').val();
+        var allVideoId;
+        $('#' + boxRemove).remove();
+        if ($.inArray(id, listVideoAdd) >= 0) {
+            return;
+        }
+        listVideoAdd.push(id);
+        VideoList.listVideoAdd = listVideoAdd;
+        if(listVideoAddOld !== "") {
+            allVideoId = listVideoAddOld + VideoList.listVideoAdd;
+        }
+        allVideoId = VideoList.listVideoAdd;
+        $('#video_in_list').val(allVideoId);
+    },
+    removeVideoTolist :function (id,boxRemove) {
+        var listVideoAdd = VideoList.listVideoAdd;
+        listVideoAdd.splice($.inArray(id, listVideoAdd),1);
+
+    },
+    loadVideosByList :function (idList) {
+        var url = ROOT_URL + "/Video/loadvideobylist";
+        var strUrl = {            
+            url: url,                        
+            data: {video_list_code:idList},            
+            success: function(data) {
+                $("#list_video").html(data);
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+        $.ajax(strUrl);
+    },
     loadListVideoByUser : function(){
-        var url = ROOT_URL + "/VideoList/loadlistvideobyuser";
+        var url = ROOT_URL + "/Videolist/loadlistvideobyuser";
         var strUrl = {            
             url: url,                        
             data: {},            
@@ -474,6 +571,7 @@ var VideoList = {
         $.ajax(strUrl);
     }
 };
+
 //auto load js
 
 
