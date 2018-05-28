@@ -141,10 +141,10 @@ function toggleFullScreen(){
   </div>
 </div>
 <div class="w24p fleft" id="box_video_like" style="margin-top:72px; height: 566px; overflow-y: auto; border: thin solid">
-    <table>
+    <table class=" w100p">
         <colgroup>
-            <col style="width:100px"/>
-            <col />
+            <col style="width:30%"/>
+            <col style="width:70%"/>
         </colgroup>
         <?php if (isset($this->aryListVideoLike) && $this->aryListVideoLike != null) {
             foreach ($this->aryListVideoLike as $key => $video) { ?>
@@ -155,7 +155,7 @@ function toggleFullScreen(){
                     </td>
                     <td>
                         <div style="margin-top:0px"  class="w100p">
-                            <h4><?php echo (strlen($video['video_title']) > 50)? substr($video['video_title'],0,50)."..." : $video['video_title'];?></h4>
+                            <h4 style="word-wrap:  break-word;width: 300px"><?php echo (strlen($video['video_title']) > 50)? substr($video['video_title'],0,50)."..." : $video['video_title'];?></h4>
                             <h5 style=" color: #666"><?php 
                               foreach ($this->aryUser as $user) {
                                   echo ($user['user_code'] == $video['video_type_account']) ? $user['user_full_name'] : "";
@@ -176,7 +176,7 @@ function toggleFullScreen(){
         <span></span>
     </div>
 </div>
-<div class="" style="width: 90%; box-sizing: border-box; margin: 670px 5% 5px 5%; background: #CCC; border: thin solid">
+<div class="" style="width: 90%; box-sizing: border-box; margin: 700px 5% 5px 5%; background: #CCC; border: thin solid">
     <div>
         <h2 style=" margin-left: 20px"><?php echo $this->aryVideo['video_title'] ?></h2>
         <div style=" margin-left: 40px">
@@ -195,7 +195,7 @@ function toggleFullScreen(){
         </div>
     </div>
     <hr>
-    <div style=" border-top: thin solid black">
+    <div style=" border-top: thin solid black; overflow-y: auto; max-height: 400px">
         <h3 style="color: #002752">Desscription Video : </h3>
         <h4 style=" margin-left: 30px"><?php echo $this->aryVideo['video_description'] ?></h4>
     </div>

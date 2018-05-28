@@ -5,7 +5,7 @@ class Application_Model_DbTable_Grouppermission extends Zend_Db_Table_Abstract
 
     protected $_name = 'wtv_group_permission';
 
-    public function insertNewAdmin ($aryGrouppermission, &$newIdGrouppermission, &$err) {
+    public function insertNewGrouppermission ($aryGrouppermission, &$newIdGrouppermission, &$err) {
     	try {
     		$intIsOk = $this->_db->insert($this->_name,$aryGrouppermission);
     		$newIdUser = $this->_db->lastInsertId();
@@ -35,8 +35,8 @@ class Application_Model_DbTable_Grouppermission extends Zend_Db_Table_Abstract
         }
     }
 
-    public function getOneGrouppermission (&$aryAdmin = null , $condition = null,$adminCode = "") {
-    	$where = $this->_db->quoteInto('admin_is_deleted = ?',0);
+    public function getOneGrouppermission (&$aryAdmin = null , $condition = null) {
+    	$where = $this->_db->quoteInto('group_permission_is_deleted = ?',0);
         if ($condition != null) {
             foreach ($condition as $key => $value) {
                $where .= $this->_db->quoteInto(' and '.$key.' = ?',$value);
@@ -48,7 +48,7 @@ class Application_Model_DbTable_Grouppermission extends Zend_Db_Table_Abstract
     }
     
     public function getOneGrouppermissionByIsDelete (&$aryUser = null , $condition = null) {
-    	$where = $this->_db->quoteInto('admin_is_deleted = ?',0);
+    	$where = $this->_db->quoteInto('group_permission_is_deleted = ?',0);
         if ($condition != null) {
             foreach ($condition as $key => $value) {
                $where .= $this->_db->quoteInto(' and '.$key.' = ?',$value);
@@ -63,8 +63,8 @@ class Application_Model_DbTable_Grouppermission extends Zend_Db_Table_Abstract
 			return true;
 		}
     }
-    public function getGrouppermissionAndMoreByOR (&$aryUser = null , $condition = null, $email) {
-    	$where = $this->_db->quoteInto('admin_is_deleted = ?',0);
+    public function getGrouppermissionAndMoreByOR (&$aryUser = null , $condition = null) {
+    	$where = $this->_db->quoteInto('group_permission_is_deleted = ?',0);
     	foreach ($condition as $key => $value) {
     		$where .= $this->_db->quoteInto(" or ".$key." = ?",$value);
     	}
@@ -77,15 +77,15 @@ class Application_Model_DbTable_Grouppermission extends Zend_Db_Table_Abstract
 		}
     }
 
-    public function getGrouppermissionAndMoreByAND (&$aryUser = null , $condition = null, $email) {
-        $where = $this->_db->quoteInto('admin_is_deleted = ?',0);
+    public function getGrouppermissionAndMoreByAND (&$aryGroups = null , $condition = null) {
+        $where = $this->_db->quoteInto('group_permission_is_deleted = ?',0);
         foreach ($condition as $key => $value) {
             $where .= $this->_db->quoteInto(" AND ".$key." = ?",$value);
         }
         
         $sql = $this->_db->select()->from($this->_name)->where($where);
-        $aryUser = $this->_db->fetchAll($sql);
-        if (empty($aryUser)) {
+        $aryGroups = $this->_db->fetchAll($sql);
+        if (empty($aryGroups)) {
             return false;
         } else {
             return true;
@@ -93,7 +93,7 @@ class Application_Model_DbTable_Grouppermission extends Zend_Db_Table_Abstract
     }
 
     public function getMultiGrouppermission (&$aryUser = null , $condition = null) {
-        $where = $this->_db->quoteInto('user_is_deleted = ?',0);
+        $where = $this->_db->quoteInto('group_permission_is_deleted = ?',0);
         if ($condition != null) {
             foreach ($condition as $key => $value) {
                $where .= $this->_db->quoteInto(' and '.$key.' = ?',$value);
@@ -104,7 +104,7 @@ class Application_Model_DbTable_Grouppermission extends Zend_Db_Table_Abstract
     	$aryUser = $this->_db->fetchAll($sql);
     }
     public function getMultiGrouppermissionConditionLike(&$aryUser = null , $condition = null) {
-        $where = $this->_db->quoteInto('user_is_deleted = ?',0);
+        $where = $this->_db->quoteInto('group_permission_is_deleted = ?',0);
         if ($condition != null) {
             foreach ($condition as $key => $value) {
                $where .= $this->_db->quoteInto(' AND '.$key.' LIKE ?',"%".$value."%");

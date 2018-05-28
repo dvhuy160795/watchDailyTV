@@ -57,7 +57,6 @@ class VideoController extends Zend_Controller_Action
         $params = $this->_request->getParams();
         $videoForm = new Application_Form_Video($params['video']);
         $libDataBase =  new HuyLib_DataBase();
-        
         $message = "";
         if (!$videoForm->isValid($params['video'])){
             $aryMessageValid = $videoForm->getMessages();
@@ -177,7 +176,7 @@ class VideoController extends Zend_Controller_Action
         $this->view->aryListVideoLike  = $aryListVideoLike;
         $this->view->aryUser = $aryUser;
         $this->view->isLogin  = $isLogin;
-        $this->view->aryLike = $aryLike[0];
+        $this->view->aryLike = isset($aryLike[0]) ? $aryLike[0] : [];
     }
     
     public function loadlistvideoAction() {

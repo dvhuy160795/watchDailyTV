@@ -71,8 +71,8 @@
                             <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$video['id']); ?>">
                                 <img class="itemAliasVideo" src="<?php echo $this->baseUrl($video['video_url_image_alias']); ?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
                                 <div class="fh5co-card-body">
-                                    <h3 style="color: #004085"><?php echo $video['video_title']; ?></h3>
-                                    <p><?php echo (strlen($video['video_description']) > 100)? substr($video['video_description'],0,100)."..." : $video['video_description'];?></p>
+                                    <h3 style="color: #004085; word-wrap:  break-word;"><?php echo $video['video_title']; ?></h3>
+                                    <p style="word-wrap:  break-word;"><?php echo (strlen($video['video_description']) > 100)? substr($video['video_description'],0,100)."..." : $video['video_description'];?></p>
                                 </div>
                             </a>
                         </div>

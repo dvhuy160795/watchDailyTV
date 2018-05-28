@@ -8,7 +8,7 @@ class Application_Model_DbTable_Admin extends Zend_Db_Table_Abstract
     public function insertNewAdmin ($aryAdmin, &$newIdAdmin, &$err) {
     	try {
     		$intIsOk = $this->_db->insert($this->_name,$aryAdmin);
-    		$newIdUser = $this->_db->lastInsertId();
+    		$newIdAdmin = $this->_db->lastInsertId();
     		return $intIsOk;
     	}
     	catch (Zend_Db_Exception $e) {
@@ -77,7 +77,7 @@ class Application_Model_DbTable_Admin extends Zend_Db_Table_Abstract
 		}
     }
 
-    public function getAdminAndMoreByAND (&$aryUser = null , $condition = null, $email) {
+    public function getAdminAndMoreByAND (&$aryUser = null , $condition = null) {
         $where = $this->_db->quoteInto('admin_is_deleted = ?',0);
         foreach ($condition as $key => $value) {
             $where .= $this->_db->quoteInto(" AND ".$key." = ?",$value);
@@ -93,7 +93,7 @@ class Application_Model_DbTable_Admin extends Zend_Db_Table_Abstract
     }
 
     public function getMultiAdmin (&$aryUser = null , $condition = null) {
-        $where = $this->_db->quoteInto('user_is_deleted = ?',0);
+        $where = $this->_db->quoteInto('admin_is_deleted = ?',0);
         if ($condition != null) {
             foreach ($condition as $key => $value) {
                $where .= $this->_db->quoteInto(' and '.$key.' = ?',$value);
@@ -104,7 +104,7 @@ class Application_Model_DbTable_Admin extends Zend_Db_Table_Abstract
     	$aryUser = $this->_db->fetchAll($sql);
     }
     public function getMultiAdminConditionLike(&$aryUser = null , $condition = null) {
-        $where = $this->_db->quoteInto('user_is_deleted = ?',0);
+        $where = $this->_db->quoteInto('admin_is_deleted = ?',0);
         if ($condition != null) {
             foreach ($condition as $key => $value) {
                $where .= $this->_db->quoteInto(' AND '.$key.' LIKE ?',"%".$value."%");

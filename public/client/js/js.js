@@ -427,7 +427,7 @@ var Video = {
             url: url,            
             type: 'post',
             dataType: "json",            
-            data: {},            
+            data: {id:id},            
             success: function(data) {
                 if(data.intIsOk == 1){
                     alert(data.message);
@@ -506,7 +506,6 @@ var VideoList = {
             dataType: "json",            
             data: {idList:idList, listVideoAdd:VideoList.listVideoAdd},            
             success: function(data) {
-                console.log(data);
                 if(data.intIsOk == 1){
                     VideoList.loadListVideoByUser();
                     alert(data.message);

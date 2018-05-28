@@ -1,0 +1,23 @@
+<div class="row" style="margin-top: 30px">
+    <div class="col-lg-4 card-header" style="overflow-y: auto">
+        <h3>Manager</h3>
+    </div>  
+    <div class="col-lg-8 card-header" style="overflow-y: auto">
+        <h3>Manager detail</h3>
+    </div>  
+    <div class="col-lg-4 card" style="overflow-y: auto; height: 620px">
+        <div class="list-group list-group-flush small" style="margin-top: 10px;" id="listMembers">
+            <?php foreach ($this->aryAdmins as $admin) { if ($admin['id'] == 1) continue;  ?>
+            <a class="list-group-item list-group-item-action"  href="#" onclick="Admin.loadAdminDetail(<?php echo $admin['id']; ?>)">
+                    <div class="media">
+                        <div class="media-body" style="width: 400px; white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                          <strong style="font-size: 21px;"><?php echo $admin['admin_name']; ?></strong>
+                      </div>
+                    </div>
+                </a>
+            <?php } ?>
+        </div>
+    </div>
+    <div class="col-lg-8 card" id="box_admin_detail" style="overflow-y: auto; height: 620px"></div>  
+</div>
+

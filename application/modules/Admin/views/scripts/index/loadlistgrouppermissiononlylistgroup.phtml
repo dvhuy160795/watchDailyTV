@@ -1,0 +1,16 @@
+<?php foreach ($this->aryGroups as $group) { ?>
+<a class="list-group-item list-group-item-action" href="#" onclick="Admin.loadGroupDetail(<?php echo $group['id']; ?>)">
+        <div class="media">
+            <div class="media-body" style="width: 400px; white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+              <strong style="font-size: 21px;"><?php echo $group['group_permission_name']; ?></strong>
+              <div class="text-muted" style="font-size: 15px">Created by : <font style="color: red"><?php 
+                foreach ($this->aryAdmins as $admin) {
+                    if ($admin['id'] == $group['group_permission_creater']) {
+                        echo $admin['admin_name'];
+                    }
+                }
+                ?></font></div>
+          </div>
+        </div>
+    </a>
+<?php } ?>

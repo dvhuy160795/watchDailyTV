@@ -1,0 +1,41 @@
+<form id="formAddAdmin" style="margin-top: 50px; background-color:#f1f1f1;">
+  <div class="container-model-50p fleft">
+      <label ondblclick="Default.removeDisableDetailAdmin('admin_name');" title="Double click for edit!" style="width: 100%"><b>Manager Name :</b><font style="color: red"> *</font>
+            <input type="text" class="input100p" disabled 
+                   name="admin[admin_name]" id="admin_name"
+                value="<?php echo isset($this->aryAdmins['admin_name']) ? $this->aryAdmins['admin_name'] : ""; ?>" 
+                required
+            >
+        </label>
+    
+    <label ondblclick="Default.removeDisableDetailAdmin('admin_login_name');" title="Double click for edit!" style="width: 100%"><b>Login Name</b><font style="color: red"> *</font>
+        <input type="text" class="input100p" disabled id="admin_login_name"
+	    name="admin[admin_login_name]" value="<?php echo isset($this->aryAdmins['admin_login_name']) ? $this->aryAdmins['admin_login_name'] : ""; ?>"
+	    required
+	>
+    </label>
+    
+  </div>
+  <div class="container-model-50p fleft">
+    <label ondblclick="Default.removeDisableDetailAdmin('admin_pass');" title="Double click for edit!" style="width: 100%"><b>Password :</b><font style="color: red"> *</font>
+        <input type="password"  class="input100p" disabled
+	    name="admin[admin_pass]"  id="admin_pass"
+	    id="user_email" value="<?php echo isset($this->aryAdmins['admin_pass']) ? $this->aryAdmins['admin_pass'] : ""; ?>"
+	    required
+        >
+    </label>
+    
+    <label ondblclick="Default.removeDisableDetailAdmin('admin_group_permisstion');" title="Double click for edit!" style="width: 100%"><b>Chosse group :</b><font style="color: red"> *</font>
+        <select name="admin[admin_group_permisstion]" class="input100p" disabled id="admin_group_permisstion">
+            <option value=""></option>
+            <?php foreach ($this->aryGroup as $group) { ?>
+                <option value="<?php echo $group['id'] ?>" <?php echo ($this->aryAdmins['admin_group_permisstion'] == $group['id']) ? "selected" : ""; ?>><?php echo $group['group_permission_name'] ?></option>
+            <?php } ?>
+        </select>
+    </label>
+  </div>
+    <div class="container-model-100p display-none" id="box_btn_save" style=" text-align: center">
+        <button class="input100p" type="submit" onclick="Admin.saveAdmin(<?php echo $this->aryAdmins['id']; ?>)">Save</button>
+    </div>
+</form>
+

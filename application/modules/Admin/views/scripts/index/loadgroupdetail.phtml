@@ -1,10 +1,10 @@
-<form id="formAddGroupPermission" class="animate">
-    <div class="container-model-50p" style="background-color:#f1f1f1; text-align: center;margin: 100px 20% 0px 20%;">
+<form id="formAddGroupPermission" class="">
+    <div class="container-model-100p" style="background-color:#f1f1f1; text-align: center;margin-top: 20px">
         <div class="container-model-50p fleft">
             <label><b>First Name</b><font style="color: red"> *</font></label><div id="user_first_name_is_true"></div>
             <input type="text" class="input100p"
                     name="group[group_permission_name]" 
-                    id="user_first_name" value="" 
+                    id="user_first_name" value="<?php echo $this->aryGrouppermission['group_permission_name']; ?>" 
                     required
                 >
         </div>
@@ -13,11 +13,11 @@
                 <?php foreach ($this->aryPermissions as $permission) { ?>
                     <div class="mar-top-2p itemListVideo w50p fleft" style="padding-left: 8px; font-size: 20px" >
                         <label>
-                            <input type="checkbox" name="group[group_permission_list_permission_code][<?php echo $permission['id']; ?>]" style="width:1em;height:1em;"s value="<?php echo $permission['id']; ?>">&nbsp;&nbsp;<?php echo $permission['permission_name']; ?>
+                            <input type="checkbox" <?php echo (in_array($permission['id'], explode("|",$this->aryGrouppermission['group_permission_list_permission_code']))) ? "checked":""; ?>  name="group[group_permission_list_permission_code][<?php echo $permission['id']; ?>]" style="width:1em;height:1em;"s value="<?php echo $permission['id']; ?>">&nbsp;&nbsp;<?php echo $permission['permission_name']; ?>
                         </label>
                     </div> 
                 <?php } ?>
         </div>    
-        <button type="submit" onclick="Admin.saveGroupPermission('')">Register</button>
+        <button type="submit" onclick="Admin.saveGroupPermission(<?php echo $this->aryGrouppermission['id']; ?>)">Register</button>
     </div>
 </form>

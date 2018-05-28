@@ -110,6 +110,25 @@ var Default = {
             });
         }
     },
+    
+    setSelectedItemMenuLeft : function (el) {
+        $.each($('ul#exampleAccordion li'),function(index,item){
+            $(item).removeClass("selected");
+        });
+        $(el).addClass('selected');
+    } ,
+    
+    setSelectedItemList : function (el, idBox) {
+        $.each($('#'+idBox+' a'),function(index,item){
+            $(item).removeClass("selected-list");
+        });
+        $(el).addClass('selected-list');
+    } ,
+    
+    removeDisableDetailAdmin : function (idInput){
+        $('#' + idInput).removeAttr("disabled");
+        $('#box_btn_save').removeClass('display-none');
+    }
 }
 var Admin = {
     login : function () {
@@ -156,7 +175,6 @@ var Admin = {
                 url: url,                  
                 data: {},            
                 success: function(data) {
-                    console.log(data);
                     $('#box_content_page_admin').html(data);
                 },            
                 error: function() {                
@@ -171,8 +189,131 @@ var Admin = {
                 url: url,                  
                 data: {},            
                 success: function(data) {
-                    console.log(data);
                     $('#box_content_page_admin').html(data);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
+    },
+    
+    saveGroupPermission : function (idGroup) {
+        var $form = $('#formAddGroupPermission');
+        var url = ROOT_URL + "/Index/savegrouppermission";
+        var strUrl = {            
+                url: url,            
+                type: 'post',
+                dataType: "json",            
+                data: {idGroup:idGroup},            
+                success: function(data) {
+                    //reset
+                    if (data.intIsOk == 0) {
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                        Admin.loadListGroupPermission();
+                    }
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $form.ajaxForm(strUrl);
+    },
+    
+    loadListGroupPermission :function () {
+        var url = ROOT_URL + "/Index/loadlistgrouppermission";
+        var strUrl = {            
+                url: url,                  
+                data: {},            
+                success: function(data) {
+                    $('#box_content_page_admin').html(data);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
+    },
+    
+    loadListGroupPermissionOnlyListGroup :function () {
+        var url = ROOT_URL + "/Index/loadlistgrouppermissiononlylistgroup";
+        var strUrl = {            
+                url: url,                  
+                data: {},            
+                success: function(data) {
+                    $('#listPermissionGroup').html(data);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
+    },
+    
+    loadGroupDetail :function (idGroup) {
+        var url = ROOT_URL + "/Index/loadgroupdetail";
+        var strUrl = {            
+                url: url,    
+                type: 'post',
+                dataType: "json",  
+                data: {idGroup:idGroup},            
+                success: function(data) {
+                    $('#box_group_detail').html(data.groupDetail);
+                    $('#box_group_detail_list_member').html(data.listMember);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
+    },
+    saveAdmin : function (idAdmin) {
+        var $form = $('#formAddAdmin');
+        var url = ROOT_URL + "/Index/saveadmin";
+        var strUrl = {            
+            url: url,            
+            type: 'post',
+            dataType: "json",            
+            data: {idAdmin:idAdmin},            
+            success: function(data) {
+                if(data.intIsOk == 1){
+                    alert(data.message);
+                    Admin.loadListMember();
+                    Admin.loadAdminDetail(data.idAdmin);
+                } else {
+                    alert(data.message);
+                }
+            },            
+            error: function() {                
+                alert('error');
+            }
+        }
+        $form.ajaxForm(strUrl);
+    },
+    loadListMember :function () {
+        var url = ROOT_URL + "/Index/loadlistmember";
+        var strUrl = {            
+                url: url,                  
+                data: {},            
+                success: function(data) {
+                    $('#box_content_page_admin').html(data);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
+    },
+    
+    loadAdminDetail :function (idAdmin) {
+        var url = ROOT_URL + "/Index/loadadmindetail";
+        var strUrl = {            
+                url: url,     
+                data: {idAdmin:idAdmin},            
+                success: function(data) {
+                    $('#box_admin_detail').html(data);
                 },            
                 error: function() {                
                     alert('error');

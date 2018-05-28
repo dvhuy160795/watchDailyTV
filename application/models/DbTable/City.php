@@ -19,7 +19,17 @@ class Application_Model_DbTable_City extends Zend_Db_Table_Abstract
             return true;
         }
     }
-
+    public function getOneCity (&$aryCity = null , $condition = null,$cityCode = "") {
+    	$where = $this->_db->quoteInto('city_is_deleted = ?',0);
+        if ($condition != null) {
+            foreach ($condition as $key => $value) {
+               $where .= $this->_db->quoteInto(' and '.$key.' = ?',$value);
+            }
+        }
+    	
+    	$sql = $this->_db->select()->from($this->_name)->where($where);
+    	$aryCity = $this->_db->fetchRow($sql);
+    }
     public function getCityByConditionOR (&$aryResult = null , $condition = null) {
     	$where = $this->_db->quoteInto('city_is_deleted = ?','0');
         foreach ($condition as $key => $value) {

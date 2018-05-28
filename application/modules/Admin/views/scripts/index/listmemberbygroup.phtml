@@ -1,0 +1,12 @@
+<div class="list-group list-group-flush small" style="margin-top: 20px">
+    <?php foreach ($this->aryAdmins as $admin) { ?>
+    <a class="list-group-item list-group-item-action" href="#">
+            <div class="media">
+                <div class="media-body" style="width: 400px; white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                  <strong style="font-size: 20px;"><?php echo $admin['admin_name']; ?></strong>
+              </div>
+            </div>
+        </a>
+    <?php } ?>
+</div>
+

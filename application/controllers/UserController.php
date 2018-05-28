@@ -102,9 +102,9 @@ class UserController extends Zend_Controller_Action
         $this->view->hasEnd = $currentPage < $countPages ? true : false;
         
         $this->view->aryUser = $arrUser;
-        $this->view->arrCity = $arrCity[0];
-        $this->view->arrDistrict = $arrDistrict[0];
-        $this->view->arrStreet = $arrStreet[0];
+        $this->view->arrCity = isset($arrCity[0]) ? $arrCity[0] : [];
+        $this->view->arrDistrict = isset($arrDistrict[0]) ? $arrDistrict[0] : [];
+        $this->view->arrStreet = isset($arrStreet[0]) ? $arrStreet[0] : [];
         $this->view->aryListVideo = $paginator;
     }
     

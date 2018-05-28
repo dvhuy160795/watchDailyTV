@@ -263,3 +263,15 @@ span.psw {
     resize: none;
     height: 70px;
 }
+.selected {
+    background-color: #f3f3f3;
+}
+.selected a span {
+    color: black;
+}
+.selected-list {
+    background-color: #eccaca;
+}
+.display-none {
+    
+}
