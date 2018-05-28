@@ -159,6 +159,11 @@ class VideoController extends Zend_Controller_Action
         ];
         $this->dbLike->getLikeByConditionAnd($aryTotalDisLike, $conditionTotalDisLike);
         $this->view->totalDisLike = count($aryTotalDisLike);
+        //get video in list
+        $conditionGetListVideoInList = [
+            'video_list_code' => $aryVideo['video_list_code'],
+        ];
+        $this->dbVideo->getVideoByMailAndMoreByAND($aryListVideoInList, $conditionGetListVideoInList);
         //get listVideo
         $conditionGetListVideo = [
             'video_video_type_code' => $aryVideo['video_video_type_code'],
@@ -174,6 +179,7 @@ class VideoController extends Zend_Controller_Action
         $this->view->aryVideo = $aryVideo;
         $this->view->aryListComment = $aryListComment;
         $this->view->aryListVideoLike  = $aryListVideoLike;
+        $this->view->aryListVideoInList = $aryListVideoInList;
         $this->view->aryUser = $aryUser;
         $this->view->isLogin  = $isLogin;
         $this->view->aryLike = isset($aryLike[0]) ? $aryLike[0] : [];
@@ -248,7 +254,8 @@ class VideoController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
 //        $this->_helper->viewRenderer->setNoRender(true);
         $params = $this->_request->getParams();
-
+        $aryUser = [];
+        $this->_dbUser->getMultiUser($aryUser, $condition = []);
         $aryListVideo = [];
         $aryConditionGetVideo = [
             'video_video_type_code' => $params['typeCode'],
@@ -298,6 +305,7 @@ class VideoController extends Zend_Controller_Action
         $this->view->hasPrev = $currentPage > 1 ? true : false;
         $this->view->hasFirst = $currentPage > 1 ? true : false;
         $this->view->hasEnd = $currentPage < $countPages ? true : false;
+        $this->view->aryUser = $aryUser;
         $this->view->aryListVideo = $paginator;
     }
     
@@ -331,36 +339,19 @@ class VideoController extends Zend_Controller_Action
     
     public function loadlistcommentAction() {
         $this->_helper->layout->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
         $params = $this->_request->getParams();
         $aryListComment = [];
+        
+        $aryUser = [];
+        $this->_dbUser->getUserByConditionByAnd([], $aryUser);
+
         $conditionComment = [
             'comment_video_code' => $params['videoCode']
         ];
-        
-        $intIsOk = $this->dbComment->getCommentByConditionAnd($aryListComment, $conditionComment);
-        $html = "";
-        foreach ($aryListComment as $comment) { 
-            $condition = [
-                'user_code' => $comment['comment_user_code']
-            ];
-            $aryUser = [];
-            $this->_dbUser->getOneUserByIsDelete($aryUser, $condition,"");
-//            $styleFloat = ($comment['comment_user_code'] == $_SESSION['user']['user_code']) ? 'float: right': '';
-            $styleFloat = "";
-            $html .= '<div>
-                        <div style="margin-left:3px '.$styleFloat.'">
-                            <span style="width:80%; font-size: 18px; font-weight: 800">'.$comment['comment_content'].'</span>  
-                            <br><span style="width:20%">'.$comment['created'].'</span>
-                            <br><font>'.$aryUser['user_full_name'].'</font>
-                        </div>
-                    </div>';
-        }
-        $respon = [
-            "intIsOk" =>$intIsOk,
-            "html"  => $html,
-        ];
-        echo json_encode($respon);
+        $this->dbComment->getCommentByConditionAnd($aryListComment, $conditionComment);
+
+        $this->view->aryListComment = $aryListComment;
+        $this->view->aryUser = $aryUser;
     }
     
     public function searchvideoAction() {
@@ -452,6 +443,14 @@ class VideoController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender(true);
         $params = $this->_request->getParams();
         $aryLike = [];
+        if (!isset($_SESSION['user'])) {
+            $respon = [
+                "intIsOk" => 2,
+                "message"  => "please login!",
+            ];
+            echo json_encode($respon);
+            return;
+        }
         $conditionLike = [
             'like_user_code' => $_SESSION['user']['user_code'],
             'like_video_code' => $params['idVideo'],
@@ -544,5 +543,74 @@ class VideoController extends Zend_Controller_Action
         echo json_encode($respon);
     }
 
+    public function removevideotolistAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $params = $this->_request->getParams();
+        $isOk = 1;
+        if (isset($params['id'])) {
+            $aryVideoUpdate = [
+                'video_list_code' => ""
+            ];
+            $isOk = $this->dbVideo->updateVideoByCode($aryVideoUpdate, $condition = [],$params['id'],$err);
+        }
+        $respon = [
+            "isOk" => $isOk
+        ];
+        echo json_encode($respon);
+    }
+    
+    public function addvideotolistAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $params = $this->_request->getParams();
+        $isOk = 1;
+        if (isset($params['id'])) {
+            $aryVideoUpdate = [
+                'video_list_code' => $params['idList']
+            ];
+            $isOk = $this->dbVideo->updateVideoByCode($aryVideoUpdate, $condition = [],$params['id'],$err);
+        }
+        $respon = [
+            "isOk" => $isOk
+        ];
+        echo json_encode($respon);
+    }
+    
+    public function loadvideosnotinlistAction() {
+        $this->_helper->layout->disableLayout();
+        $params = $this->_request->getParams();
+        $aryListVideoNotInList = [];
+        $conditionVideoNotInList =  [];
+        $conditionVideoNotInList['video_list_code'] = (isset($params['idList']) && $params['idList'] !== "") ? $params['idList'] : "";
+        $conditionVideoNotInList['video_type_account'] = $_SESSION['user']['user_code'];
+        if (isset($params['idList']) && $params['idList'] !== "") {
+            $this->dbVideo->getVideoNotInListByConditionAndOrderLimitInAddLIstVideo($aryListVideoNotInList, $conditionVideoNotInList);
+        }
+        $this->view->aryListVideoNotInList = $aryListVideoNotInList;
+    }
+    
+    public function loadvideosinlistAction() {
+        $this->_helper->layout->disableLayout();
+        $aryVideosInlist = [];
+        $params = $this->_request->getParams();
+        if (isset($params['idList']) && $params['idList'] !== "") {
+            $conditionVideosInlist = [
+                'video_list_code' => $params['idList']
+            ];
+            $this->dbVideo->getVideoByMailAndMoreByAND($aryVideosInlist, $conditionVideosInlist);
+        }
+        $this->view->aryVideosInlist = $aryVideosInlist;
+    }
+    
+    public function deletevideoAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $params = $this->_request->getParams();
+        $aryVideoUpdate = [
+            'video_is_deleted' => 1,
+        ];
+        $isOk = $this->dbVideo->updateVideoByCode($aryVideoUpdate, $condition = [],$params['idVideo'],$err = []);
+    }
 }
 

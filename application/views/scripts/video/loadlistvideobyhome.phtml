@@ -41,11 +41,18 @@
     </ul>
 </nav>
 <?php foreach ($this->aryListVideo as $aryVideo) { ?>
-    <div class="col-lg-3 col-md-6 col-sm-6">
+<div class="col-lg-3 col-md-6 col-sm-6" style="height: 300px">
         <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$aryVideo['id']); ?>">
             <img class="itemAliasVideo" src="<?php echo $this->baseUrl($aryVideo['video_url_image_alias']);?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
             <div class="fh5co-card-body">
-                <h3 style="color: #004085; word-wrap:  break-word;"><?php echo $aryVideo['video_title'];?></h3>
+                <h3 style="color: #004085; word-wrap:  break-word;"><?php echo (strlen($aryVideo['video_title']) > 80)? substr($aryVideo['video_title'],0,80)."..." : $aryVideo['video_title'];?></h3>
+                <h4 >Created by: <font style="color:red"><?php
+                                      foreach ($this->aryUser as $user) {
+                                         if ($aryVideo['video_type_account'] == $user['user_code']) {
+                                             echo $user['user_full_name'];
+                                         }
+                                       }  
+                                       ?></font></h4>
                 <p style="word-wrap:  break-word;"><?php echo (strlen($aryVideo['video_description']) > 100)? substr($aryVideo['video_description'],0,100)."..." : $aryVideo['video_description'];?></p>
             </div>
         </a>

@@ -42,10 +42,11 @@
 </nav>               
 <?php foreach ($this->aryListVideo as $aryVideo) { ?>
     <div class="col-lg-4 col-md-6 col-sm-6">
+        <h3><a href="#" class="mar-left-94p" onclick="Video.deleteVideo('<?php echo $aryVideo['id'];?>')"><i class="fa fa-remove w3-margin-right w3-large w3-text-red"></i></a></h3>
         <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$aryVideo['id']); ?>">
             <img class="itemAliasVideo" src="<?php echo $this->baseUrl($aryVideo['video_url_image_alias']);?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
             <div class="fh5co-card-body">
-                <h3 style="color: #004085; word-wrap:  break-word;"><?php echo $aryVideo['video_title'];?></h3>
+                <h3 style="color: #004085; word-wrap:  break-word;"><?php echo (strlen($aryVideo['video_title']) > 80)? substr($aryVideo['video_title'],0,80)."..." : $aryVideo['video_title'];?></h3>
                 <p style="word-wrap:  break-word;"><?php echo (strlen($aryVideo['video_description']) > 100)? substr($aryVideo['video_description'],0,100)."..." : $aryVideo['video_description'];?></p>
             </div>
         </a>

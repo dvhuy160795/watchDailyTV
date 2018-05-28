@@ -7,7 +7,6 @@
 <div style="text-align: center; overflow-x: auto; margin: 20px 5% 20px 5%; box-sizing: border-box;height:70px;">
     <div class="w100p">
         <!-- START #fh5co-logo -->
-        <h1 class="pull-right mar-right-2p" style="font-size: 20px;font-weight: bold;"><a class="hover opacity05" href="#" onclick="Default.filterListVideo('video_view')">MOST VIEW</a></h1>
         <h1 class="pull-right mar-right-2p" style="font-size: 20px;font-weight: bold;"><a class="hover opacity05" href="#" onclick="Default.filterListVideo('created')">NEWEST</a></h1>
         <h1 class="pull-right mar-right-2p" style="font-size: 20px;font-weight: bold;"><a class="hover opacity05" href="#" onclick="Default.filterListVideo('video_view')">LIST MOST VIEW</a></h1>
     </div>
@@ -72,6 +71,13 @@
                                 <img class="itemAliasVideo" src="<?php echo $this->baseUrl($video['video_url_image_alias']); ?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
                                 <div class="fh5co-card-body">
                                     <h3 style="color: #004085; word-wrap:  break-word;"><?php echo $video['video_title']; ?></h3>
+                                    <h4 >Created by: <font style="color:red"><?php
+                                      foreach ($this->aryUser as $user) {
+                                         if ($video['video_type_account'] == $user['user_code']) {
+                                             echo $user['user_full_name'];
+                                         }
+                                       }  
+                                       ?></font></h4>
                                     <p style="word-wrap:  break-word;"><?php echo (strlen($video['video_description']) > 100)? substr($video['video_description'],0,100)."..." : $video['video_description'];?></p>
                                 </div>
                             </a>

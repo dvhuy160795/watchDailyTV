@@ -145,7 +145,7 @@ var Admin = {
                         alert(data.message);
                     } else {
                         $(location).attr('href', 'index');
-                    }  addadmin
+                    }
                 },            
                 error: function() {                
                     alert('error');
@@ -212,6 +212,9 @@ var Admin = {
                         alert(data.message);
                     } else {
                         alert(data.message);
+                        if (data.isLogout == true) {
+                            Admin.logout();return;
+                        }
                         Admin.loadListGroupPermission();
                     }
                 },            
@@ -321,6 +324,36 @@ var Admin = {
             };
         $.ajax(strUrl);
     },
+    
+    showUsersInListVideo :function () {
+        var url = ROOT_URL + "/Index/showusersinlistvideo";
+        var strUrl = {            
+                url: url,                  
+                data: {},            
+                success: function(data) {
+                    $('#box_content_page_admin').html(data);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
+    },
+    
+    loadListVideoByUser: function (idUser) {
+        var url = ROOT_URL + "/Index/loadlistvideobyuser";
+        var strUrl = {            
+                url: url,                  
+                data: {idUser:idUser},            
+                success: function(data) {
+                    $('#box_list_by_user').html(data);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
+    }
 };
 //auto load js
 

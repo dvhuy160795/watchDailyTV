@@ -1,0 +1,27 @@
+<?php 
+        if ($this->aryVideosInlist !== []) { ?>
+            <div style="width: <?php echo ((250*count($this->aryVideosInlist)) > 1255) ? 250*count($this->aryVideosInlist) : "1250"?>px; height: 320px; background-color: white;">
+        <?php     
+            foreach ($this->aryVideosInlist as $key => $video) :
+        ?>
+                <div class="fadeInUp animated w3-white w3-text-grey w3-card-4" id="video_in_list_<?php echo $video['id'] ?>" style="width: 235px; float: left;margin-right: 10px;">
+                <div style="width: 90%;"><a href="#" class="" onclick="VideoList.removeVideoTolist(<?php echo $video['id'] ?>,'video_in_list_<?php echo $video['id'] ?>')" style=" font-size: 24px"><i class="fa fa-remove w3-margin-right w3-large w3-text-red"></i></a></div>
+                <div style="height: 285px">
+                    <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$video['id']); ?>">
+                        <img class="itemAliasVideo" src="<?php echo $this->baseUrl($video['video_url_image_alias']); ?>" alt="Free HTML5 Bootstrap template">
+                        <div class="fh5co-card-body">
+                            <h3 style="color: #004085; word-wrap:  break-word;"><?php echo (strlen($video['video_title']) > 100)? substr($video['video_title'],0,100)."..." : $video['video_title']; ?></h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        <?php 
+        endforeach;?>
+            </div>    
+        <?php 
+        } else { ?>
+            <div style="width:1250px; height: 320px; background-color: white; display: none">
+            </div>
+        <?php     
+        }
+        ?>

@@ -20,11 +20,11 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
           </div>
         </div>
         <div class="w3-container">
-          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo $this->aryUser['user_jog_present'] ?></p>
-          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo $this->arrStreet['street_name']."-".$this->arrDistrict['district_name']."-".$this->arrCity['city_name'] ?></p>
-          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo $this->aryUser['user_email'] ?></p>
-          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo $this->aryUser['user_phone'] ?></p>
-          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo $this->aryUser['user_birthday'] ?></p>
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo (isset($this->aryUser['user_jog_present'])) ? $this->aryUser['user_jog_present'] : "" ?></p>
+          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo (isset($this->aryUser['street_name']) && isset($this->aryUser['district_name']) && isset($this->aryUser['city_name'])) ? $this->arrStreet['street_name']."-".$this->arrDistrict['district_name']."-".$this->arrCity['city_name'] : "" ?></p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo (isset($this->aryUser['user_email'])) ? $this->aryUser['user_email']:"" ?></p>
+          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo (isset($this->aryUser['user_phone'])) ?  $this->aryUser['user_phone'] : "" ?></p>
+          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo (isset($this->aryUser['user_birthday'])) ? $this->aryUser['user_birthday'] : "" ?></p>
           <div style="width: 100%"><a href="#" class="mar-left-94p" onclick="UserInfo.showPopupEditUserInfo(1)"><i class="fa fa-edit w3-margin-right w3-large w3-text-red"></i></a></div>
         </div>
       </div>
@@ -111,6 +111,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
                 </nav>
                 <?php foreach ($this->aryListVideo as $aryVideo) { ?>
                     <div class="col-lg-4 col-md-6 col-sm-6">
+                        <h3><a href="#" class="mar-left-94p" onclick="Video.deleteVideo('<?php echo $aryVideo['id'];?>')"><i class="fa fa-remove w3-margin-right w3-large w3-text-red"></i></a></h3>
                         <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$aryVideo['id']); ?>">
                             <img class="itemAliasVideo" src="<?php echo $this->baseUrl($aryVideo['video_url_image_alias']);?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
                             <div class="fh5co-card-body">

@@ -1,0 +1,31 @@
+<div class="list-group list-group-flush small" style="margin-top: 20px">
+    <a class="list-group-item list-group-item-action" href="#" style=" border: thin solid black">
+        <div class="media">
+            <div class="media-body" style=" white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                <h2 style="font-size: 20px;">List name:</h2>
+            </div>
+            <div class="media-body" style=" white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                <h2 style="font-size: 20px;">Date created:</h2>
+            </div><div class="media-body" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                <h2 style="font-size: 20px;">Total video:</h2>
+            </div>
+        </div>
+    </a>
+    <?php foreach ($this->aryLists as $list) { ?>
+    <a class="list-group-item list-group-item-action" href="#" style=" border: thin solid black">
+        <div class="media">
+                <div class="media-body" style=" white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                    <strong style="font-size: 20px;"><?php echo $list['video_group_group_code']; ?></strong>
+                </div>
+                <div class="media-body" style=" white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                    <strong style="font-size: 20px;"><?php echo $list['created']; ?></strong>
+                </div><div class="media-body" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                    <strong style="font-size: 20px;"><?php echo count($this->aryTotalVideoInList[$list['id']]); ?></strong>
+                </div>
+            
+            </div>
+        </a>
+    <div id="list_video_<?php echo $list['id']; ?>"></div>
+    <?php } ?>
+</div>
+

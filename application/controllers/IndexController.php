@@ -8,6 +8,7 @@ class IndexController extends Zend_Controller_Action
     protected $dbStreet;
     protected $dbVideo;
     protected $dbVideoType;
+    protected $dbUser;
 
     public function init()
     {
@@ -17,11 +18,14 @@ class IndexController extends Zend_Controller_Action
         $this->dbStreet = new Application_Model_DbTable_Street();
         $this->dbVideo = new Application_Model_DbTable_Video();
         $this->dbVideoType = new Application_Model_DbTable_VideoType();
+        $this->dbUser = new Application_Model_DbTable_User();
     }
 
     public function indexAction()
     {   
         $listAryVideoType = [];
+        $aryUser = [];
+        $this->dbUser->getMultiUser($aryUser, $condition = []);
         $aryConditionVideoType = [
             'video_type_is_view_list_home' => 1,
         ];
@@ -74,6 +78,7 @@ class IndexController extends Zend_Controller_Action
             $this->view->{'hasEnd'.$value['id']} = $currentPage < $countPages ? true : false;
             $this->view->{'listAryVideo'.$value['id']} = $paginator;
         }
+        $this->view->aryUser = $aryUser;
         $this->view->listAryVideoType =  $listAryVideoType;
     }
 

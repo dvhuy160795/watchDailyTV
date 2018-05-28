@@ -6,12 +6,20 @@ class Admin_IndexController extends Zend_Controller_Action
     protected $dbAdmin;
     protected $dbPermission;
     protected $dbGroupPermission;
-    
+    protected $logicDefault;
+    protected $dbUser;
+    protected $dbListvideo;
+    protected $dbVideo;
+
     public function init()
     {
         $this->dbAdmin = new Application_Model_DbTable_Admin();
         $this->dbPermission = new Application_Model_DbTable_Permission();
         $this->dbGroupPermission = new Application_Model_DbTable_Grouppermission();
+        $this->logicDefault = new Application_Model_Logic();
+        $this->dbUser = new Application_Model_DbTable_User();
+        $this->dbListvideo = new Application_Model_DbTable_ListVideo();
+        $this->dbVideo = new Application_Model_DbTable_Video();
     }
 
     public function indexAction()
@@ -21,6 +29,7 @@ class Admin_IndexController extends Zend_Controller_Action
         if (!$_SESSION['Admin']) {
             $this->redirect('Admin/Index/login');
         }
+        $this->view->configPermission =  $this->logicDefault->configPermissionAdmin();
     }
 
     public function loginAction()
@@ -40,7 +49,13 @@ class Admin_IndexController extends Zend_Controller_Action
             $intIsOk = 0;
             $message = "Login name or password is wrong!";
         } else {
+            $conditionGrouppermission = [
+                'id' => $aryAdmin['admin_group_permisstion']
+            ];
+            $aryGrouppermission = [];
+            $this->dbGroupPermission->getOneGrouppermission($aryGrouppermission, $conditionGrouppermission);
             $_SESSION['Admin'] = $aryAdmin;
+            $_SESSION['Admin']['permission'] = explode("|",$aryGrouppermission['group_permission_list_permission_code']);
             $intIsOk = 1;
         }
         $arrReponse = [
@@ -162,13 +177,17 @@ class Admin_IndexController extends Zend_Controller_Action
                 'updated' => date("Y/m/d"),
                 'group_permission_update' => $_SESSION['Admin']['id'],
             ];
+            if ($_SESSION['Admin']['admin_group_permisstion'] == $params['idGroup']) {
+                $isLogout = true;
+            }
             $this->dbGroupPermission->updateGrouppermissionByCode($aryGrouppermissionUpdate, $conditionUpdate = [],$params['idGroup'], $err);
             $message = " Edit group success !!";
         }
         
         $arrReponse = [
             "message" => $message,
-            "intIsOk" => 1
+            "intIsOk" => 1,
+            "isLogout" => isset($isLogout) ? $isLogout : false
         ];
         echo json_encode($arrReponse);
     }
@@ -233,6 +252,42 @@ class Admin_IndexController extends Zend_Controller_Action
         $conditionAdmin = ['id' => $params['idAdmin']];
         $this->dbAdmin->getOneAdmin($aryAdmins, $conditionAdmin, $params['idAdmin']);
         $this->view->aryAdmins =  $aryAdmins;
+    }
+    
+    public function showusersinlistvideoAction() {
+        $this->_helper->layout->disableLayout();
+        $params = $this->_request->getParams();
+        $aryUser = [];
+        $this->dbUser->getMultiUser($aryUser, $condition = []);
+        $this->view->aryUser = $aryUser;
+    }
+    
+    public function loadlistvideobyuserAction() {
+        $this->_helper->layout->disableLayout();
+        $params = $this->_request->getParams();
+//        $whereVideo = "video_is_deleted = 0 AND video_type_account = '".$params['idUser']."'";
+//        $aryVideos = $this->dbVideo->getVideoByWhereGroupBy($whereVideo, $aryField,"video_list_code");
+//        var_dump($aryVideos);die;
+        $aryResult = [];
+        $this->dbVideo->getVideoByMailAndMoreByAND($aryResult, $condition = []);
+        $conditionList = [
+            'video_group_id' => $params['idUser']
+        ];
+        
+        $this->dbListvideo->getGroupVideoByConditionAnd($aryLists, $conditionList);
+        $aryTotalVideoInList = [];
+//        var_dump($aryResult);die;
+        foreach ($aryLists as $list) {
+            $aryTotalVideoInList[$list['id']] = [];
+            foreach ($aryResult as $video) {
+                if ($video['video_list_code'] == $list['id']) {
+                    array_push($aryTotalVideoInList[$list['id']],$video['id']);
+//                    $aryTotalVideoInList[$list['id']][] = $video['id'];
+                }
+            }
+        }
+        $this->view->aryTotalVideoInList = $aryTotalVideoInList;
+        $this->view->aryLists = $aryLists;
     }
 }
 

@@ -47,21 +47,21 @@ class VideolistController extends Zend_Controller_Action
         if (isset($params['id_list_video']) && $params['id_list_video'] !== "") {
             $aryGroupVideo['video_group_status'] = isset($params['list_video']['video_group_status']) ? $params['list_video']['video_group_status'] : 0;
             $aryGroupVideo['video_group_group_code'] = $params['list_video']['video_group_group_code'];
-            $aryGroupVideo['video_group_video_code'] = $params['list_video']['video_group_video_code'];
+            $aryGroupVideo['video_group_video_code'] = rand(0, 100000);
             $aryGroupVideo['update'] = date('Y/m/d');
             $codeListVideo = $params['id_list_video'];
             $isOk = $this->dbListVideo->updateListVideoByCode($aryGroupVideo,$conditionListVideo = [], $codeListVideo,$err);
             if ($isOk != 1) {
                 var_dump($err);die;
             }
-            if (isset($params['listVideoAdd']) && $params['listVideoAdd'] !== "") {
-                foreach ($params['listVideoAdd'] as $key => $value) {
-                    $aryVideoUpdate = [
-                        'video_list_code' => $params['id_list_video']
-                    ];
-                    $this->dbVideo->updateVideoByCode($aryVideoUpdate, $condition = [],$value,$err);
-                }
-            }
+//            if (isset($params['listVideoAdd']) && $params['listVideoAdd'] !== "") {
+//                foreach ($params['listVideoAdd'] as $key => $value) {
+//                    $aryVideoUpdate = [
+//                        'video_list_code' => $params['id_list_video'],
+//                    ];
+//                    $this->dbVideo->updateVideoByCode($aryVideoUpdate, $condition = [],$value,$err);
+//                }
+//            }
             $message = "Update list success!";
         } else {
             $params['list_video']['video_group_status'] = isset($params['list_video']['video_group_status']) ? $params['list_video']['video_group_status'] : 0;
@@ -97,6 +97,16 @@ class VideolistController extends Zend_Controller_Action
         ];
         $this->dbListVideo->getGroupVideoByConditionAnd($aryListVideos, $conditionListVideo);
         $this->view->aryListVideos = $aryListVideos;
+    }
+    
+    public function deletelistvideoAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $params = $this->_request->getParams();
+        $aryListVideoUpdate = [
+            'video_is_deleted' => 1,
+        ];
+        $isOk = $this->dbListVideo->updateListVideoByCode($aryListVideoUpdate, $condition = [],$params['idList'],$err = []);
     }
 }
 

@@ -14,7 +14,7 @@ button#playpausebtn{
 	opacity:0.5;
 }
 button#playpausebtn:hover{ opacity:1; }
-input#seekslider{ width:63%; }
+input#seekslider{ width:67%; }
 input#volumeslider{ width: 80px;}
 input[type='range'] {
     -webkit-appearance: none !important;
@@ -109,13 +109,20 @@ function toggleFullScreen(){
 <div class="w25p fleft" id="box_comment" style="margin-top:72px; height: 569px; border: thin solid">
     <div id="list_comment" class="w100p" style="height:485px; overflow-y: auto; border-bottom: thin solid">
         <?php foreach ($this->aryListComment as $comment) { ?>
-            <div>
-                <div style=" margin-left: 3px">
-                    <span style="width:80%; font-size: 18px; font-weight: 800"><?php echo $comment['comment_content'] ?></span>  
-                    <br><span style="width:20%"><?php echo $comment['created']; ?></span>
-                    <br><font><?php foreach ($this->aryUser as $user) {
+            <div style="margin-top:10px;">
+                <div class="fleft fleft w3-text-grey w3-card-4" style=" width: 20%">
+                    <a href="<?php echo $this->baseUrl("User/index/userCode/".$comment['comment_user_code']); ?>">
+                        <img src="<?php foreach ($this->aryUser as $user) {
+                        echo ($comment['comment_user_code'] == $user['user_code'])? $this->baseUrl($user["user_url_image_alias"]) : $this->baseUrl('/client/image/user/avatarDefault.jpeg');
+                    }  ?>" class="w100p">
+                        </a>
+                </div>
+                <div class="fleft fleft w3-text-grey w3-card-4" style=" width: 80%; padding-left: 5px;">
+                    <h3 style="color:red"><?php foreach ($this->aryUser as $user) {
                         echo ($comment['comment_user_code'] == $user['user_code'])? $user["user_full_name"] : "";
-                    }  ?></font>
+                    }  ?></h3>
+                    <span style="max-width: 80%; font-size: 18px; font-weight: 800"><?php echo $comment['comment_content'] ?></span>  
+                    <br><span style="width:20%"><?php echo $comment['created']; ?></span>
                 </div>
             </div>
         <?php } ?>
@@ -132,12 +139,12 @@ function toggleFullScreen(){
   </video>
     <input type="hidden" id="video_code_hidden" value="<?php echo $this->aryVideo['video_code']; ?>" >
   <div id="video_controls_bar">
-      <button id="playpausebtn" style="display:inline-block"></button>
+      <button id="playpausebtn"  style="display:inline-block;border-radius: 5px;"></button>
     <input style="display:inline-block" id="seekslider" type="range" min="0" max="100" value="0" step="1">
     <span style="display:inline-block;" id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
-    <button style="display:inline-block; background: url('/watchDailyTV/public/template/images/mute.png') 0% 0% / 100% 100%;" id="mutebtn" ></button>
+    <button style="display:inline-block;border-radius: 5px; background: url('/watchDailyTV/public/template/images/mute.png') 0% 0% / 100% 100%;" id="mutebtn" ></button>
     <input style="display:inline-block" id="volumeslider" type="range" min="0" max="100" value="100" step="1">
-    <button style="display:inline-block; background: url('/watchDailyTV/public/template/images/fullscreen.jpeg') 0% 0% / 100% 100%;" id="fullscreenbtn"></button>
+    <button style="border-radius: 5px;display:inline-block; background: url('/watchDailyTV/public/template/images/fullscreen.jpeg') 0% 0% / 100% 100%;" id="fullscreenbtn"></button>
   </div>
 </div>
 <div class="w24p fleft" id="box_video_like" style="margin-top:72px; height: 566px; overflow-y: auto; border: thin solid">
@@ -146,8 +153,8 @@ function toggleFullScreen(){
             <col style="width:30%"/>
             <col style="width:70%"/>
         </colgroup>
-        <?php if (isset($this->aryListVideoLike) && $this->aryListVideoLike != null) {
-            foreach ($this->aryListVideoLike as $key => $video) { ?>
+        <?php if (isset($this->aryListVideoInList) && $this->aryListVideoInList != null) {
+            foreach ($this->aryListVideoInList as $key => $video) { ?>
         <tr style=" background-color: #CCC">
                     <td><a href="<?php echo $this->baseUrl("Video/view/id/".$video['id']); ?>">
                         <img src="<?php echo $this->baseUrl($video['video_url_image_alias']);?>" class="w100p">
@@ -155,12 +162,12 @@ function toggleFullScreen(){
                     </td>
                     <td>
                         <div style="margin-top:0px"  class="w100p">
-                            <h4 style="word-wrap:  break-word;width: 300px"><?php echo (strlen($video['video_title']) > 50)? substr($video['video_title'],0,50)."..." : $video['video_title'];?></h4>
-                            <h5 style=" color: #666"><?php 
+                            <h4 style="word-wrap:  break-word;width: 300px; font-weight: bold"><?php echo (strlen($video['video_title']) > 50)? substr($video['video_title'],0,50)."..." : $video['video_title'];?></h4>
+                            <h5 style=" color: #666">Created by : <font style="color:red"><?php 
                               foreach ($this->aryUser as $user) {
                                   echo ($user['user_code'] == $video['video_type_account']) ? $user['user_full_name'] : "";
                               }
-                            ?></h5>
+                              ?></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font><?php echo $video['video_view']; ?></font> views</h5>
                         </div>
                     </td>
                 </tr>
@@ -176,27 +183,68 @@ function toggleFullScreen(){
         <span></span>
     </div>
 </div>
-<div class="" style="width: 90%; box-sizing: border-box; margin: 700px 5% 5px 5%; background: #CCC; border: thin solid">
+<div class="fleft w3-text-grey w3-card-4" style="width: 70%; margin-top: 20px; box-sizing: border-box; margin-left: 2%; background: #CCC; border: thin solid">
     <div>
-        <h2 style=" margin-left: 20px"><?php echo $this->aryVideo['video_title'] ?></h2>
+        <h2 style=" margin-left: 20px; word-break: break-word; font-weight: bold; font-family: sans-serif; color: brown"><?php echo $this->aryVideo['video_title'] ?></h2>
         <div style=" margin-left: 40px">
             <font style=" font-size: 25px"><?php echo $this->aryVideo['video_view'] ?> views</font>
-            <a>
-                <i id="iconTotalDisLike" onclick="Video.likeVideo(<?php echo $this->aryVideo['id'] ?>, 0,this)" class="fa fa-thumbs-down <?php echo ($this->aryLike['like_is_like'] == 0 && $this->aryLike['like_is_choose'] == 1) ? 'w3-text-blue' : 'w3-text-white' ?>" style="font-size: 35px; float: right;">
-                    &nbsp;<font style=" color: black" id="totalDisLike"><?php echo $this->totalDisLike; ?></font>
-                </i>
-            </a>
-           
-            <a>
-                <i id="iconTotalLike" onclick="Video.likeVideo(<?php echo $this->aryVideo['id'] ?>, 1,this)" class="fa fa-thumbs-up <?php echo ($this->aryLike['like_is_like'] == 1 && $this->aryLike['like_is_choose'] == 1) ? 'w3-text-blue' : 'w3-text-white' ?>" style="font-size: 35px; float: right; margin-right: 90px">
-                    &nbsp;<font style=" color: black" id="totalLike"><?php echo $this->totalLike; ?></font>
-                </i>
-            </a>
+            <h4>
+                Created by : <font style="color:red"><?php 
+                foreach ($this->aryUser as $user) {
+                    echo ($user['user_code'] == $this->aryVideo['video_type_account']) ? $user['user_full_name'] : "";
+                }
+                ?></font>
+                <a>
+                    <i id="iconTotalDisLike" onclick="Video.likeVideo(<?php echo $this->aryVideo['id'] ?>, 0,this)" class="fa fa-thumbs-down <?php echo (isset($this->aryLike['like_is_like']) && isset($this->aryLike['like_is_choose']) && $this->aryLike['like_is_like'] == 0 && $this->aryLike['like_is_choose'] == 1) ? 'w3-text-blue' : 'w3-text-white' ?>" style="font-size: 35px; float: right;">
+                        &nbsp;<font style=" color: black" id="totalDisLike"><?php echo $this->totalDisLike; ?></font>
+                    </i>
+                </a>
+                <a>
+                    <i id="iconTotalLike" onclick="Video.likeVideo(<?php echo $this->aryVideo['id'] ?>, 1,this)" class="fa fa-thumbs-up <?php echo (isset($this->aryLike['like_is_like']) && isset($this->aryLike['like_is_choose']) && $this->aryLike['like_is_like'] == 1 && $this->aryLike['like_is_choose'] == 1) ? 'w3-text-blue' : 'w3-text-white' ?>" style="font-size: 35px; float: right; margin-right: 90px">
+                        &nbsp;<font style=" color: black" id="totalLike"><?php echo $this->totalLike; ?></font>
+                    </i>
+                </a>
+            </h4>
+        </div>
+        <div style=" border-top: thin solid black; overflow-y: auto; max-height: 400px; min-height: 200px">
+        <h3 style="color: #002752">Desscription Video : </h3>
+        <h4 style=" margin-left: 30px; word-break: break-word;"><?php echo $this->aryVideo['video_description'] ?></h4>
         </div>
     </div>
-    <hr>
-    <div style=" border-top: thin solid black; overflow-y: auto; max-height: 400px">
-        <h3 style="color: #002752">Desscription Video : </h3>
-        <h4 style=" margin-left: 30px"><?php echo $this->aryVideo['video_description'] ?></h4>
+</div>
+<div class="fleft w25p w3-white w3-text-grey w3-card-4" style="margin-top: 10px; margin-left: 15px; ">
+    <h2 style="text-align: center; font-weight: bold;border: thin solid black;">Videos of the same genre</h2>
+    <div style="overflow-y: auto; max-height: 500px">
+        <table class=" w100p" >
+            <colgroup>
+                <col style="width:30%"/>
+                <col style="width:70%"/>
+            </colgroup>
+            <?php if (isset($this->aryListVideoLike) && $this->aryListVideoLike != null) {
+                foreach ($this->aryListVideoLike as $key => $video) { ?>
+            <tr style=" background-color: #CCC">
+                        <td><a href="<?php echo $this->baseUrl("Video/view/id/".$video['id']); ?>">
+                            <img src="<?php echo $this->baseUrl($video['video_url_image_alias']);?>" class="w100p">
+                            </a>
+                        </td>
+                        <td>
+                            <div style="margin-top:0px"  class="w100p">
+                                <h4 style="word-wrap:  break-word;width: 300px; font-weight: bold"><?php echo (strlen($video['video_title']) > 50)? substr($video['video_title'],0,50)."..." : $video['video_title'];?></h4>
+                                <h5 style=" color: #666">Created by : <font style="color:red"><?php 
+                                  foreach ($this->aryUser as $user) {
+                                      echo ($user['user_code'] == $video['video_type_account']) ? $user['user_full_name'] : "";
+                                  }
+                                  ?></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font><?php echo $video['video_view']; ?></font> views</h5>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <br>
+                        </td>
+                    </tr>
+            <?php }}  ?>
+        </table>
     </div>
+
 </div>

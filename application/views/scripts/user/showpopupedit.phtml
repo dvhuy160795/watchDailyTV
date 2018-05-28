@@ -1,5 +1,5 @@
 <form id="formEdituser" class="modal-content-register animate" enctype="multipart/form-data">
-  <div class="container-model-50p fleft">
+    <div class="container-model-50p fleft" style="height: 400px">
     <label><b>First Name</b><font style="color: red"> *</font></label>
     <input type="text" class="input100p"
 	    name="user[user_first_name]" 
@@ -23,8 +23,12 @@
   <label><b>Birthday</b><font style="color: red"> *</font></label><br>
   <label><b>Year : </b></label> 
   <select class="select23p" name="user[birth-year]" id="date-year" onchange="Default.setDateTimeByYear(this)">
-    <?php for ($i = 1900; $i <= 2050; $i++) { ?>
-      <option value="<?php echo $i ?>" <?php if ($i == 1995) {echo "selected";} ?> >
+    <?php $date = $this->arrCurrentUser['user_birthday'];   
+    $day = date("d", strtotime($date));
+    $month = date("m", strtotime($date));
+    $year = date("Y", strtotime($date));
+    for ($i = 1900; $i <= 2050; $i++) { ?>
+      <option value="<?php echo $i ?>" <?php if ($i == $year) {echo "selected";} ?> >
         <?php echo $i ?>
       </option>
     <?php } ?>
@@ -32,7 +36,7 @@
   <label><b>Month : </b></label>
   <select class="select23p" name="user[birth-month]" id="date-month" onchange="Default.setDateTimeByMonth(this)">
     <?php for ($i = 1; $i <= 12; $i++) { ?>
-      <option value="<?php echo $i ?>">
+      <option value="<?php echo $i ?>" <?php if ($i == $month) {echo "selected";} ?>>
         <?php echo $i ?>
       </option>
     <?php } ?>
@@ -40,13 +44,13 @@
   <label><b>Date : </b></label> 
   <select class="select23p" name="user[birth-day]" id="date-day">
     <?php for ($i = 1; $i <= 31; $i++) { ?>
-      <option value="<?php echo $i ?>">
+      <option value="<?php echo $i ?>" <?php if ($i == $day) {echo "selected";} ?>>
         <?php echo $i ?>
       </option>
     <?php } ?>
   </select>
   </div>
-  <div class="container-model-50p fleft">
+  <div class="container-model-50p fleft" style="height: 400px">
     <label><b>Email</b><font style="color: red"> *</font></label>
     <input type="text"  class="input100p"
 	    name="user[user_email]" 
@@ -77,15 +81,14 @@
     </select>
   </div>
   <div class="container-model" style="background-color:#f1f1f1">
-    <button type="submit" onclick="User.saveUser()">Register</button>
-    <input type="checkbox" checked="checked"> Remember me
-    <img id="imgLoading" style="display: none; margin-left: 31%; width: 100px" src="<?php echo $this->baseUrl('/template/images/loading.gif') ?>">
+    
   </div>
   <div id="list_message_error">
     
   </div>
-  <div class="container-model" style="background-color:#f1f1f1">
-    <button type="button" onclick="Default.closePopup('formLogin')" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
+  <div class="container-model" style="background-color:#f1f1f1; text-align: center">
+    <button type="submit" onclick="User.saveUser()">Register</button>
+    <img id="imgLoading" style="display: none; margin-left: 31%; width: 100px" src="<?php echo $this->baseUrl('/template/images/loading.gif') ?>">
+    <button type="button" onclick="Default.closePopup('formLogin')" style="background-color: red; margin-left: 10px">Cancel</button>
   </div>
 </form>

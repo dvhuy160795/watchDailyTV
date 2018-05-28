@@ -142,6 +142,16 @@ class Application_Model_DbTable_Video extends Zend_Db_Table_Abstract
         $aryResult = $this->_db->fetchAll($sql);
         return $aryResult;
     }
+    
+    public function getVideoByWhereGroupBy($where, $aryField = "*", $itemGroup) {
+        if ($where === "") {
+            return [];
+        }
+        $sql = $this->_db->select()->from($this->_name)->where($where)->order("id DESC")->group($itemGroup);
+        $aryResult = $this->_db->fetchAll($sql);
+        return $aryResult;
+    }
+    
     public function buildSqlConditionSearchVideo($param = [],$textSearch) {
         $where = $this->_db->quoteInto('video_is_deleted = ?',0);
         $where .= " And ( ".$this->_db->quoteInto("video_title LIKE ?","%".$textSearch."%");

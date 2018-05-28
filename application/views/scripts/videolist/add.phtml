@@ -13,7 +13,7 @@
               id="user_last_name" 
           >
       <input type="hidden" value="<?php echo (isset($this->aryListVideo['video_group_video_code'])) ? $this->aryListVideo['video_group_video_code'] :"";?>" name="list_video[video_group_video_code]" id="video_in_list" >
-      <input type="hidden" value="<?php echo (isset($this->aryListVideo['id'])) ? $this->aryListVideo['id'] :"";?>" name="id_list_video" >
+      <input type="hidden" value="<?php echo (isset($this->aryListVideo['id'])) ? $this->aryListVideo['id'] :"";?>" name="id_list_video"  id="id_list_video">
     </div>
     <div class="container-model-100p fleft" id="box_video_in_list" style="overflow-x: auto; box-sizing: border-box;background-color:#f1f1f1;">
         <?php 
@@ -28,7 +28,7 @@
                     <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$video['id']); ?>">
                         <img class="itemAliasVideo" src="<?php echo $this->baseUrl($video['video_url_image_alias']); ?>" alt="Free HTML5 Bootstrap template">
                         <div class="fh5co-card-body">
-                            <h3 style="color: #004085"><?php echo (strlen($video['video_title']) > 100)? substr($video['video_title'],0,100)."..." : $video['video_title']; ?></h3>
+                            <h3 style="color: #004085; word-wrap:  break-word;"><?php echo (strlen($video['video_title']) > 100)? substr($video['video_title'],0,100)."..." : $video['video_title']; ?></h3>
                         </div>
                     </a>
                 </div>
@@ -73,13 +73,12 @@
         }
         ?>
     </div>
-    <div class="container-model-50p fleft" style="background-color:#f1f1f1; height: 120px; padding-left: 550px;">
-        <button type="submit" onclick="VideoList.saveListVideo(<?php echo (isset($this->aryListVideo['id'])) ? $this->aryListVideo['id'] : "";?>)">Register</button>
-        <img id="imgLoading" style="display: none; margin-left: 31%; width: 100px" src="<?php echo $this->baseUrl('/template/images/loading.gif') ?>">
-    </div>
-    <div class="container-model-50p fleft" style="background-color:#f1f1f1; height: 120px;">
-        <button type="button" onclick="Default.closePopup('formAddList')" style="background-color: red">Cancel</button><br>
-        <span class="psw">Forgot <a href="#">password?</a></span>
+    <div class="container-model-100p fleft" style="background-color:#f1f1f1; height: 120px;text-align: center">
+        <button type="submit" onclick="VideoList.saveListVideo(<?php echo (isset($this->aryListVideo['id'])) ? $this->aryListVideo['id'] : "";?>)">Save</button>
+        <?php if (isset($this->aryListVideo['id']) && $this->aryListVideo['id'] !== "") : ?>
+        <button type="button" onclick="VideoList.deleteList(<?php echo (isset($this->aryListVideo['id'])) ? $this->aryListVideo['id'] : "";?>)" style="background-color: red; margin-left: 5px;">Delete</button>
+        <?php endif; ?>
+        <button type="button" onclick="Default.closePopup('formAddList')" style="background-color: red; margin-left: 5px;">Cancel</button>
     </div>
   <div id="list_message_error">
     

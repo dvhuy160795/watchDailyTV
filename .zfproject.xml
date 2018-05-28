@@ -52,6 +52,7 @@
             <dbTableDirectory>
               <dbTableFile dbTableName="Admin"/>
             </dbTableDirectory>
+            <modelFile modelName="Logic"/>
           </modelsDirectory>
           <viewsDirectory>
             <viewScriptsDirectory/>
