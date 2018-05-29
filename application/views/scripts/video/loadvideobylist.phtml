@@ -2,7 +2,7 @@
         <ul class="pagination">
           <li class="page-item">
             <?php if($this->hasFirst) : ?>
-                <a class="page-link" href="#" aria-label="Previous1" onclick="User.loadPagination('Video','loadvideobylist','<?php echo $this->firstPage ?>','list_video','<?php echo $this->video_list_code ?>')">
+                <a class="page-link" href="" aria-label="Previous1" onclick="User.loadPagination('Video','loadvideobylist','<?php echo $this->firstPage ?>','list_video','<?php echo $this->video_list_code ?>')">
                     <span aria-hidden="true"> << </span>
                     <span class="sr-only">Previous1</span>
                 </a>
@@ -12,7 +12,7 @@
           <li class="page-item">
             <?php if ($this->hasPrev) : ?>
                 <!-- <a href="">First</a> -->
-                <a class="page-link" href="#" aria-label="Previous2" onclick="User.loadPagination('Video','loadvideobylist','<?php echo $this->previousPage ?>','list_video','<?php echo $this->video_list_code ?>')">
+                <a class="page-link" href="" aria-label="Previous2" onclick="User.loadPagination('Video','loadvideobylist','<?php echo $this->previousPage ?>','list_video','<?php echo $this->video_list_code ?>')">
                 <span aria-hidden="true"> < </span>
                 <span class="sr-only">Previous2</span>
             </a>
@@ -22,7 +22,7 @@
           <li class="page-item"><a class="page-link" href="#"><?php echo "".$this->currentPage."/".$this->countPages; ?></a></li>
       <li class="page-item">
           <?php if ($this->hasNext) : ?>
-            <a class="page-link" href="#" aria-label="Next1" href="#" onclick="User.loadPagination('Video','loadvideobylist','<?php echo $this->nextPage ?>','list_video','<?php echo $this->video_list_code ?>')"> 
+            <a class="page-link" href="" aria-label="Next1" href="#" onclick="User.loadPagination('Video','loadvideobylist','<?php echo $this->nextPage ?>','list_video','<?php echo $this->video_list_code ?>')"> 
                 <span aria-hidden="true"> > </span>
                 <span class="sr-only">Next1</span>
             </a>
@@ -31,7 +31,7 @@
       </li>
       <li class="page-item">
           <?php if($this->hasEnd) : ?>
-            <a class="page-link" href="#" aria-label="Next" onclick="User.loadPagination('Video','loadvideobylist','<?php echo $this->endPage ?>','list_video','<?php echo $this->video_list_code ?>')"> 
+            <a class="page-link" href="" aria-label="Next" onclick="User.loadPagination('Video','loadvideobylist','<?php echo $this->endPage ?>','list_video','<?php echo $this->video_list_code ?>')"> 
                 <span aria-hidden="true"> >> </span>
                 <span class="sr-only">Next</span>
             </a>
@@ -42,7 +42,7 @@
 </nav>               
 <?php foreach ($this->aryListVideo as $aryVideo) { ?>
     <div class="col-lg-4 col-md-6 col-sm-6">
-        <h3><a href="#" class="mar-left-94p" onclick="Video.deleteVideo('<?php echo $aryVideo['id'];?>')"><i class="fa fa-remove w3-margin-right w3-large w3-text-red"></i></a></h3>
+        <h3><a href="" class="mar-left-94p" onclick="Video.deleteVideo('<?php echo $aryVideo['id'];?>')"><i class="fa fa-remove w3-margin-right w3-large w3-text-red"></i></a></h3>
         <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$aryVideo['id']); ?>">
             <img class="itemAliasVideo" src="<?php echo $this->baseUrl($aryVideo['video_url_image_alias']);?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
             <div class="fh5co-card-body">

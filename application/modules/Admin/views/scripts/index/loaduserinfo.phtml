@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-lg-9 card-header" style=" text-align: center">
+        <table class="table table-bordered" style=" font-size: 14px">
+            <colgroup>
+                <col style="width:100px">
+                <col style="width:100px">
+                <col style="width:100px">
+                <col style="width:100px">
+                <col style="width:100px">
+                <col style="width:100px">
+            </colgroup>
+            <tr>
+                <td style=" font-weight: bold;background-color: lightcoral;">User name :</td>
+                <td colspan="2"><?php echo $this->aryUser['user_login_name']; ?></td>
+                <td style=" font-weight: bold;background-color: lightcoral;">Email :</td>
+                <td colspan="2"><?php echo $this->aryUser['user_email']; ?></td>
+            </tr>
+            <tr>
+                <td style=" font-weight: bold; background-color: lightcoral;">Full name :</td>
+                <td colspan="2"><?php echo $this->aryUser['user_full_name']; ?></td>
+                <td style=" font-weight: bold; background-color: lightcoral;">Birthday :</td>
+                <td colspan="2"><?php echo $this->aryUser['user_birthday']; ?></td>
+            </tr>
+            <tr>
+                <td style=" font-weight: bold; background-color: lightcoral;">Address :</td>
+                <td colspan="5"><?php echo $this->arrCity['city_name']." - ".
+                 $this->arrDistrict['district_name']." - ".$this->arrStreet['street_name']; ?></td>
+            </tr>
+            <tr>
+                <td style=" font-weight: bold; background-color: lightcoral;">Phone :</td>
+                <td colspan="2"><?php echo $this->aryUser['user_phone']; ?></td>
+                <td style=" font-weight: bold; background-color: lightcoral;">Total video :</td>
+                <td colspan="2"><?php echo $this->totalVideo ?></td>
+            </tr>
+        </table>
+        <div class="col-lg-12 card-header" style=" text-align: center; max-height: 480px; overflow-y: auto" id="allItemVideo">
+        </div> 
+    </div>  
+    <div class="col-lg-3 card-header" style="text-align: center; ">
+        <a class="list-group-item list-group-item-action" style="background-color: lightcoral;"  href="#" onclick="Admin.loadUserInfo('<?php echo $listVideo['id'];?>')">
+            <h4 style="font-weight: bold;">List Video</h4>
+        </a>
+        <div style="max-height: 300px; overflow-y: auto">
+            <?php if($this->aryListVideos != []) { 
+                        foreach ($this->aryListVideos as $listVideo) { ?>
+              <a class="list-group-item list-group-item-action"  href="#" onclick="Admin.loadVideoByList('<?php echo $listVideo['id'];?>')">
+                  <div class="media">
+                      <div class="media-body" style="width: 400px; white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                        <strong style="font-size: 13px;"><?php echo $listVideo['video_group_group_code']; ?></strong>
+                        <div class="text-muted" style="font-size: 10px">Created on : <font style="color: red"><?php
+                          echo $listVideo['created'];
+                        ?></font></div>
+                    </div>
+                  </div>
+              </a>
+        <?php } }?>
+        </div>
+    </div>   
+</div>

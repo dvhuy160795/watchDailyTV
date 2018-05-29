@@ -1,23 +1,53 @@
 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" onclick="Default.setSelectedItemMenuLeft(this)">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="<?php echo $this->baseUrl('Admin/Index/index'); ?>">
         <i class="fa fa-fw fa-dashboard"></i>
         <span class="nav-link-text">Home</span>
       </a>
     </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts" onclick="Default.setSelectedItemMenuLeft(this)">
-      <a class="nav-link" href="charts.html">
-        <i class="fa fa-fw fa-area-chart"></i>
-        <span class="nav-link-text">Charts</span>
-      </a>
-    </li>
-    <?php foreach ($_SESSION['Admin']['permission'] as $permission) { if ($permission == "")  continue; 
-        echo $this->configPermission[$permission];
-    } ?>
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link" onclick="Default.setSelectedItemMenuLeft(this)">
-      <a class="nav-link" href="#">
-        <i class="fa fa-fw fa-link"></i>
-        <span class="nav-link-text">Link</span>
-      </a>
-    </li>
+    <?php foreach ($_SESSION['Admin']['permission'] as $permission) { if ($permission == "")  continue; ?>
+        <?php if ($permission == 1) { ?>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages" onclick="Default.setSelectedItemMenuLeft(this)">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages1" data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-file"></i>
+                    <span class="nav-link-text">CLient</span>
+                </a>
+                    <ul class="sidenav-second-level collapse" id="collapseExamplePages1">
+                          <li>
+                              <a onclick="Admin.showUsersInListVideo();">Users</a>
+                          </li>
+                      </ul>
+            </li>
+        <?php } ?>
+        <?php if ($permission == 2) { ?>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages" onclick="Default.setSelectedItemMenuLeft(this)">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages2" data-parent="#exampleAccordion">
+                  <i class="fa fa-fw fa-file"></i>
+                  <span class="nav-link-text">Administrator</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseExamplePages2">
+                    <li>
+                        <a onclick="Admin.loadListMember()">List Manager</a>
+                    </li>
+                  </ul>
+            </li>
+            <?php } ?>
+        <?php if ($permission == 3) { ?>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages" onclick="Default.setSelectedItemMenuLeft(this)">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+                  <i class="fa fa-fw fa-file"></i>
+                  <span class="nav-link-text">Permission</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+                  <li>
+                      <a onclick="Admin.showFormAddGroupPermission()">Create group permission</a>
+                  </li>
+                  <li>
+                      <a onclick="Admin.loadListGroupPermission()">Show list permission</a>
+                  </li>
+                </ul>
+              </li>
+            <?php } ?>
+        
+    <?php } ?>
 </ul>

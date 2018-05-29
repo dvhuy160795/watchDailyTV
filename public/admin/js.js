@@ -353,6 +353,52 @@ var Admin = {
                 }
             };
         $.ajax(strUrl);
+    },
+    
+    searchUser: function () {
+        var url = ROOT_URL + "/Index/loadlistuserbyadmin";
+        var valueSearch = $('#valueSearchUser').val();
+        var strUrl = {            
+                url: url,                  
+                data: {valueSearch:valueSearch},            
+                success: function(data) {
+                    $('#listUserInAdmin').html(data);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
+    },
+    
+    loadUserInfo: function (idUser) {
+        var url = ROOT_URL + "/Index/loaduserinfo";
+        var strUrl = {            
+                url: url,                  
+                data: {idUser:idUser},            
+                success: function(data) {
+                    $('#box_info_by_user').html(data);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
+    },
+    
+    loadVideoByList : function (idList) {
+        var url = ROOT_URL + "/Index/loadvideobylist";
+        var strUrl = {            
+                url: url,                  
+                data: {idList:idList},            
+                success: function(data) {
+                    $('#allItemVideo').html(data);
+                },            
+                error: function() {                
+                    alert('error');
+                }
+            };
+        $.ajax(strUrl);
     }
 };
 //auto load js

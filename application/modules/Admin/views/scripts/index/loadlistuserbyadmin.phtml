@@ -1,0 +1,12 @@
+<?php foreach ($this->aryUser as $user) { ?>
+    <a class="list-group-item list-group-item-action"  href="" onclick="Admin.loadUserInfo('<?php echo $user['user_code'];?>')">
+            <div class="media">
+                <div class="media-body" style="width: 400px; white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                  <strong style="font-size: 21px;"><?php echo $user['user_full_name']; ?></strong>
+                  <div class="text-muted" style="font-size: 15px">Created on : <font style="color: red"><?php
+                    echo $user['created'];
+                  ?></font></div>
+              </div>
+            </div>
+        </a>
+    <?php } ?>

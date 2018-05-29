@@ -103,7 +103,7 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
     	$sql = $this->_db->select()->from($this->_name)->where($where);
     	$aryUser = $this->_db->fetchAll($sql);
     }
-    public function getMultiUserConditionLike(&$aryUser = null , $condition = null) {
+    public function getMultiUserConditionLike(&$aryUser = null , $condition = null, $aryField = ['user_code']) {
         $where = $this->_db->quoteInto('user_is_deleted = ?',0);
         if ($condition != null) {
             foreach ($condition as $key => $value) {
@@ -111,7 +111,7 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
             }
         }
     	
-    	$sql = $this->_db->select()->from($this->_name,['user_code'])->where($where);
+    	$sql = $this->_db->select()->from($this->_name,$aryField)->where($where);
     	$aryUser = $this->_db->fetchAll($sql);
     }
     public function getUserByConditionByAnd ($condition, &$aryUser) {

@@ -1,0 +1,10 @@
+<?php foreach ($this->aryVideos as $video) { ?>
+    <div class="col-md-3 card-header" style=" text-align: center; height: 240px">
+        <a class="fh5co-card" href="<?php echo $this->baseUrl("Video/view/id/".$video['id']); ?>">
+            <img class="itemAliasVideo" src="<?php echo $this->baseUrl($video['video_url_image_alias']);?>" alt="Free HTML5 Bootstrap template" class="img-responsive">
+            <div class="fh5co-card-body">
+                <h4 style="color: #004085; word-wrap:  break-word;"><?php echo (strlen($video['video_title']) > 50)? substr($video['video_title'],0,50)."..." : $video['video_title'];?></h4>
+            </div>
+        </a>
+    </div>  
+<?php } ?>

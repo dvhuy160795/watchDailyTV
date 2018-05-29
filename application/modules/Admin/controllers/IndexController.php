@@ -10,6 +10,9 @@ class Admin_IndexController extends Zend_Controller_Action
     protected $dbUser;
     protected $dbListvideo;
     protected $dbVideo;
+    protected $dbCity;
+    protected $dbDistrict;
+    protected $dbStreet;
 
     public function init()
     {
@@ -20,6 +23,9 @@ class Admin_IndexController extends Zend_Controller_Action
         $this->dbUser = new Application_Model_DbTable_User();
         $this->dbListvideo = new Application_Model_DbTable_ListVideo();
         $this->dbVideo = new Application_Model_DbTable_Video();
+        $this->dbDistrict = new Application_Model_DbTable_District();
+        $this->dbStreet = new Application_Model_DbTable_Street();
+        $this->dbCity = new Application_Model_DbTable_City();
     }
 
     public function indexAction()
@@ -29,7 +35,18 @@ class Admin_IndexController extends Zend_Controller_Action
         if (!$_SESSION['Admin']) {
             $this->redirect('Admin/Index/login');
         }
+        $totalViewVideo = 0;
+        $aryUser = [];
+        $aryVideos = [];
+        $this->dbUser->getMultiUser($aryUser, $condition = []);
+        $this->dbVideo->getVideoByMailAndMoreByAND($aryVideos, $condition = []);
         $this->view->configPermission =  $this->logicDefault->configPermissionAdmin();
+        foreach ($aryVideos as $video) {
+            $totalViewVideo += $video['video_view'];
+        }
+        $this->view->totalViewVideo = $totalViewVideo;
+        $this->view->totalVideo = count($aryVideos);
+        $this->view->totalUser = count($aryUser);
     }
 
     public function loginAction()
@@ -288,6 +305,61 @@ class Admin_IndexController extends Zend_Controller_Action
         }
         $this->view->aryTotalVideoInList = $aryTotalVideoInList;
         $this->view->aryLists = $aryLists;
+    }
+    
+    public function loadlistuserbyadminAction() {
+        $this->_helper->layout->disableLayout();
+        $params = $this->_request->getParams();
+        $condition = [
+            'user_full_name' => $params['valueSearch']
+        ];
+        $aryUser = [];
+        $this->dbUser->getMultiUserConditionLike($aryUser, $condition,['*']);
+        $this->view->aryUser = $aryUser;
+    }
+    
+    public function loaduserinfoAction() {
+        $this->_helper->layout->disableLayout();
+        $params = $this->_request->getParams();
+        $conditionListVideo = [
+            'video_group_id' => $params['idUser']
+        ];
+        $this->dbListvideo->getGroupVideoByConditionAnd($aryListVideos, $conditionListVideo);
+        $this->view->aryListVideos = $aryListVideos;
+        $aryListVideo = [];
+        $aryConditionGetVideo = [
+            'video_type_account' => $params['idUser'],
+        ];
+        $arrCondition = [];
+        $arrUser = [];
+        $this->dbUser->getOneUser($arrUser,$arrCondition,$params['idUser']);
+        $this->dbCity->getCityByConditionAnd($arrCity,['city_code' => $arrUser['user_city']]);
+        $this->dbDistrict->getDistrictByConditionAnd($arrDistrict,['district_code' =>$arrUser['user_district']]);
+        $this->dbStreet->getStreetByConditionAnd($arrStreet,['street_code' => $arrUser['user_address']]);
+        $this->dbVideo->getVideoByMailAndMoreByAND($aryVideos,$aryConditionGetVideo);
+        
+        $this->view->aryUser = $arrUser;
+        $this->view->arrCity = isset($arrCity[0]) ? $arrCity[0] : [];
+        $this->view->arrDistrict = isset($arrDistrict[0]) ? $arrDistrict[0] : [];
+        $this->view->arrStreet = isset($arrStreet[0]) ? $arrStreet[0] : [];
+        $this->view->totalVideo = count($aryVideos);
+        $this->view->aryVideos = $aryVideos;
+    }
+    
+    public function loadvideobylistAction() {
+        $this->_helper->layout->disableLayout();
+//        $this->_helper->viewRenderer->setNoRender(true);
+        $params = $this->_request->getParams();
+
+        $aryListVideo = [];
+        $aryConditionGetVideo = [
+            'video_list_code'   => $params['idList'],
+        ];
+        $isHasVideo = $this->dbVideo->getVideoByMailAndMoreByAND($aryListVideo,$aryConditionGetVideo);
+        if (!$isHasVideo) {
+           $aryListVideo = []; 
+        }
+        $this->view->aryVideos = $aryListVideo;
     }
 }
 

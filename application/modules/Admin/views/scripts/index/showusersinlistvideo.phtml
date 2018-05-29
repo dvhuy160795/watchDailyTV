@@ -1,17 +1,21 @@
 <div class="row" style="margin-top: 30px">
-    <div class="col-lg-4 card-header" style="overflow-y: auto">
+    <div class="col-lg-3 card-header" style=" text-align: center; background-color: lightblue">
         <h3>Users</h3>
     </div>  
-    <div class="col-lg-8 card-header" style="overflow-y: auto">
-        <h3>List Video</h3>
+    <div class="col-lg-9 card-header" style="text-align: center; background-color: lightblue">
+        <h3>Info</h3>
     </div>  
-    <div class="col-lg-4 card" style="overflow-y: auto; height: 620px">
+    <div class="col-lg-3 card" style="overflow-y: auto; height: 820px">
         <div class="list-group list-group-flush small" style="margin-top: 10px;" id="listMembers">
+            <div class=""  href="#">
+                <input type="search" onkeyup="Admin.searchUser()" style=" font-size: 16px" class="input-group-text input100p" placeholder="search user ..." value="" id="valueSearchUser">
+            </div>
+            <div style="max-height: 400px; overflow-y: auto" id="listUserInAdmin">
             <?php foreach ($this->aryUser as $user) { ?>
-            <a class="list-group-item list-group-item-action"  href="#" onclick="Admin.loadListVideoByUser('<?php echo $user['user_code'];?>')">
+            <a class="list-group-item list-group-item-action"  href="#" onclick="Admin.loadUserInfo('<?php echo $user['user_code'];?>')">
                     <div class="media">
                         <div class="media-body" style="width: 400px; white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
-                          <strong style="font-size: 21px;"><?php echo $user['user_full_name']; ?></strong>
+                          <strong style="font-size: 18px;"><?php echo $user['user_full_name']; ?></strong>
                           <div class="text-muted" style="font-size: 15px">Created on : <font style="color: red"><?php
                             echo $user['created'];
                           ?></font></div>
@@ -19,8 +23,11 @@
                     </div>
                 </a>
             <?php } ?>
+            </div>
         </div>
     </div>
-    <div class="col-lg-8 card" id="box_list_by_user" style="overflow-y: auto; height: 620px"></div>  
+    <div class="col-lg-9 card" id="box_info_by_user" style="overflow-y: auto; height: 820px">
+        
+    </div>  
 </div>
 
